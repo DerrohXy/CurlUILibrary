@@ -1,9 +1,9 @@
-import { CurlUIElementProps, CurlUIRenderElement } from "curlui/dist/types";
+import { CurlUIElementProps, CurlUIRenderElement, CurlUISvgTag } from "curlui/dist/types";
 type SVGAttr = {
     [key: string]: any;
 };
 type SVGProps = {
-    tag: string;
+    tag: CurlUISvgTag;
     attr: SVGAttr;
     child?: Array<SVGProps>;
 };

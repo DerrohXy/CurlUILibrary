@@ -986,7 +986,7 @@ export function MenuItem(properties, ...children) {
     return CustomElement_("div", Classes_.MENU_ITEM, {}, properties, ...children);
 }
 export function Canvas(properties) {
-    return CustomElement_("cavas", Classes_.CANVAS, {}, properties);
+    return CustomElement_("canvas", Classes_.CANVAS, {}, properties);
 }
 export function UnorderedList(properties, ...listItems) {
     return CustomElement_("ul", Classes_.UNORDERED_LIST, {}, properties, ...listItems);
