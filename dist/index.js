@@ -1,5 +1,5 @@
 import { BiCaretDown, BiCaretUp, BiInfoSquare, BiMenu, BiXCircle, } from "./icons/bi";
-import { WrapComponent, CreateElement, Render } from "curlui";
+import { CreateComponent, CreateElement, Render } from "curlui";
 import "./styles.css";
 function GetWindowDimensions_() {
     return {
@@ -310,7 +310,7 @@ const Colors_ = {
     YELLOW5: "#E5A50A",
     YELLOW_GREEN: "#9ACD32",
 };
-const SelectionView_ = WrapComponent({
+const SelectionView_ = CreateComponent({
     getInitialState() {
         return {
             selection: null,
@@ -395,7 +395,7 @@ const SelectionView_ = WrapComponent({
             })));
     },
 });
-const Switch_ = WrapComponent({
+const Switch_ = CreateComponent({
     getInitialState() {
         return {
             active: this.getProps().active === true ? true : false,
@@ -428,7 +428,7 @@ const Switch_ = WrapComponent({
         }));
     },
 });
-const CheckButton_ = WrapComponent({
+const CheckButton_ = CreateComponent({
     getInitialState() {
         return {
             checked: this.getProps().checked === true ? true : false,
@@ -460,7 +460,7 @@ const CheckButton_ = WrapComponent({
         }), props.text);
     },
 });
-const RadioGroup_ = WrapComponent({
+const RadioGroup_ = CreateComponent({
     getInitialState() {
         return {
             checked: {
@@ -507,7 +507,7 @@ const RadioGroup_ = WrapComponent({
         }));
     },
 });
-const Menu_ = WrapComponent({
+const Menu_ = CreateComponent({
     getInitialState() {
         return {
             open: this.getProps().open === true ? true : false,
@@ -591,7 +591,7 @@ const Menu_ = WrapComponent({
             }, ...menuItems));
     },
 });
-const CollapseView_ = WrapComponent({
+const CollapseView_ = CreateComponent({
     getInitialState() {
         return {
             open: this.getProps().open === true ? true : false,
@@ -657,7 +657,7 @@ const CollapseView_ = WrapComponent({
             }, ...content));
     },
 });
-const TabbedWindow_ = WrapComponent({
+const TabbedWindow_ = CreateComponent({
     getInitialState() {
         return {
             currentTabIndex: this.getProps().currentTabIndex || 0,
@@ -714,7 +714,7 @@ const TabbedWindow_ = WrapComponent({
         }, currentTab ? currentTab.content : null));
     },
 });
-const NavigationBar_ = WrapComponent({
+const NavigationBar_ = CreateComponent({
     getInitialState() {
         return {
             drawerOpen: false,
@@ -1063,28 +1063,28 @@ export function Activity(properties) {
     }, properties, ...LoadContent_(properties.content), properties.footerBar, properties.navigationBar);
 }
 export function SelectionView(properties) {
-    return CreateElement(SelectionView_, properties);
+    return SelectionView_(properties);
 }
 export function Switch(properties) {
-    return CreateElement(Switch_, properties);
+    return Switch_(properties);
 }
 export function CheckButton(properties) {
-    return CreateElement(CheckButton_, properties);
+    return CheckButton_(properties);
 }
 export function RadioGroup(properties) {
-    return CreateElement(RadioGroup_, properties);
+    return RadioGroup_(properties);
 }
 export function Menu(properties) {
-    return CreateElement(Menu_, properties);
+    return Menu_(properties);
 }
 export function CollapseView(properties) {
-    return CreateElement(CollapseView_, properties);
+    return CollapseView_(properties);
 }
 export function TabbedWindow(properties) {
-    return CreateElement(TabbedWindow_, properties);
+    return TabbedWindow_(properties);
 }
 export function NavigationBar(properties) {
-    return CreateElement(NavigationBar_, properties);
+    return NavigationBar_(properties);
 }
 export function Application(properties) {
     let application = {
