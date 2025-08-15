@@ -5,14 +5,14 @@ import {
     BiMenu,
     BiXCircle,
 } from "./icons/bi";
-import { WrapComponent, CreateElement, Render } from "curlui";
+import { CreateComponent, CreateElement, Render } from "curlui";
 import "./styles.css";
 import {
     CurlUITag,
     CurlUIElementProps,
     CurlUIChildComponent,
     CurlUIRenderElement,
-    CurlUIWrappedComponent,
+    CurlUIComponent,
     CurlUIElementState,
     CurlUIElementStyleProps,
 } from "curlui/dist/types";
@@ -582,7 +582,7 @@ type SelectionViewState = CurlUIElementState & {
     open: boolean;
 };
 
-const SelectionView_: CurlUIWrappedComponent = WrapComponent({
+const SelectionView_ = CreateComponent({
     getInitialState() {
         return {
             selection: null,
@@ -699,7 +699,7 @@ type SwitchProps = CurlUIElementProps & {
     onActiveChange?: Function;
 };
 
-const Switch_ = WrapComponent({
+const Switch_ = CreateComponent({
     getInitialState() {
         return {
             active: this.getProps().active === true ? true : false,
@@ -754,7 +754,7 @@ type CheckButtonState = CurlUIElementState & {
     checked: boolean;
 };
 
-const CheckButton_ = WrapComponent({
+const CheckButton_ = CreateComponent({
     getInitialState() {
         return {
             checked: this.getProps().checked === true ? true : false,
@@ -817,7 +817,7 @@ type RadioGroupState = CurlUIElementState & {
     checked?: RadioGroupItem;
 };
 
-const RadioGroup_ = WrapComponent({
+const RadioGroup_ = CreateComponent({
     getInitialState() {
         return {
             checked: {
@@ -892,7 +892,7 @@ type MenuState = CurlUIElementState & {
     open: boolean;
 };
 
-const Menu_ = WrapComponent({
+const Menu_ = CreateComponent({
     getInitialState() {
         return {
             open: this.getProps().open === true ? true : false,
@@ -1019,7 +1019,7 @@ type CollabpseViewState = CurlUIElementState & {
     open: boolean;
 };
 
-const CollapseView_ = WrapComponent({
+const CollapseView_ = CreateComponent({
     getInitialState() {
         return {
             open: this.getProps().open === true ? true : false,
@@ -1126,7 +1126,7 @@ type TabbedWindowTab = {
     content: CurlUIChildComponent;
 };
 
-const TabbedWindow_ = WrapComponent({
+const TabbedWindow_ = CreateComponent({
     getInitialState() {
         return {
             currentTabIndex: this.getProps().currentTabIndex || 0,
@@ -1231,7 +1231,7 @@ type NavigationBarProps = CurlUIElementProps & {
     menuWindowStyle?: CurlUIElementStyleProps;
 };
 
-const NavigationBar_ = WrapComponent({
+const NavigationBar_ = CreateComponent({
     getInitialState() {
         return {
             drawerOpen: false,
@@ -2073,35 +2073,35 @@ export function Activity(properties: CurlUIElementProps) {
 }
 
 export function SelectionView(properties: SelectionViewProps) {
-    return CreateElement(SelectionView_, properties);
+    return SelectionView_(properties);
 }
 
 export function Switch(properties: SwitchProps) {
-    return CreateElement(Switch_, properties);
+    return Switch_(properties);
 }
 
 export function CheckButton(properties: CheckButtonProps) {
-    return CreateElement(CheckButton_, properties);
+    return CheckButton_(properties);
 }
 
 export function RadioGroup(properties: RadioGroupProps) {
-    return CreateElement(RadioGroup_, properties);
+    return RadioGroup_(properties);
 }
 
 export function Menu(properties: MenuProps) {
-    return CreateElement(Menu_, properties);
+    return Menu_(properties);
 }
 
 export function CollapseView(properties: CollapseViewProps) {
-    return CreateElement(CollapseView_, properties);
+    return CollapseView_(properties);
 }
 
 export function TabbedWindow(properties: TabbedWindowProps) {
-    return CreateElement(TabbedWindow_, properties);
+    return TabbedWindow_(properties);
 }
 
 export function NavigationBar(properties: NavigationBarProps) {
-    return CreateElement(NavigationBar_, properties);
+    return NavigationBar_(properties);
 }
 
 type ApplicationRouter = (title: string) => CurlUIRenderElement | null;

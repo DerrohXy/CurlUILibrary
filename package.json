@@ -14,8 +14,10 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
+    "dependencies": {
+        "curlui": "^0.0.2"
+    },
     "devDependencies": {
-        "curlui": "^0.0.1",
         "typescript": "^5.9.2"
     }
 }
