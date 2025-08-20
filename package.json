@@ -43,11 +43,11 @@
         "dist"
     ],
     "scripts": {
-        "build": "tsc && cp src/styles.css dist"
+        "build": "./build.sh"
     },
     "keywords": [],
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "dependencies": {
         "curlui": "^0.0.2"
     },

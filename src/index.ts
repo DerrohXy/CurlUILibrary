@@ -12,7 +12,6 @@ import {
     CurlUIElementProps,
     CurlUIChildComponent,
     CurlUIRenderElement,
-    CurlUIComponent,
     CurlUIElementState,
     CurlUIElementStyleProps,
 } from "curlui/dist/types";
