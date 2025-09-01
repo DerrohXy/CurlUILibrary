@@ -661,55 +661,20 @@ const SelectionView_ = CreateComponent({
             ),
             component = this;
 
-        // return CreateElement(
-        //     "div",
-        //     {
-        //         className:
-        //             (props.className || "") +
-        //             " " +
-        //             (state.open === true
-        //                 ? Classes_.SELECTION_VIEW_ACTIVE
-        //                 : Classes_.SELECTION_VIEW),
-        //         onclick: (event: Event) => {
-        //             event.stopPropagation();
-        //             component.toggle();
-        //         },
-        //         ...RemoveFields_(props, ["className"]),
-        //     },
-        //     selection?.text || "Select",
-        //     state.open !== true
-        //         ? ""
-        //         : CreateElement(
-        //               "div",
-        //               {
-        //                   className: Classes_.SELECTION_VIEW_DROPDOWN,
-        //                   style: props.dropdownStyle,
-        //               },
-        //               ...optionItems.map((item) => {
-        //                   return CreateElement(
-        //                       "div",
-        //                       {
-        //                           className: Classes_.OPTION_ITEM,
-        //                           style: props.optionItemStyle,
-        //                           onclick: (event: Event) => {
-        //                               event.stopPropagation();
-        //                               component.setOption(item);
-        //                           },
-        //                       },
-        //                       item.content || item.text || "Option"
-        //                   );
-        //               })
-        //           )
-        // );
-
         return (
             <div
-                className={""}
+                className={
+                    (props.className || props.class || "") +
+                    " " +
+                    (state.open
+                        ? Classes_.SELECTION_VIEW_ACTIVE
+                        : Classes_.SELECTION_VIEW)
+                }
                 onclick={(event: Event) => {
                     event.stopPropagation();
                     component.toggle();
                 }}
-                {...RemoveFields_(props, ["className"])}
+                {...RemoveFields_(props, ["className", "class"])}
             >
                 {selection?.text || "Select"}
                 {state.open !== true ? null : (
@@ -774,26 +739,6 @@ const Switch_ = CreateComponent({
             active: boolean = state.active,
             component = this;
 
-        // return CreateElement(
-        //     "div",
-        //     {
-        //         className:
-        //             (props.className || "") +
-        //             " " +
-        //             (active ? Classes_.SWITCH_ACTIVE : Classes_.SWITCH),
-        //         onclick: (event: Event) => {
-        //             event.stopPropagation();
-        //             component.toggle();
-        //         },
-        //         ...RemoveFields_(props, ["className"]),
-        //     },
-        //     CreateElement("div", {
-        //         className: active
-        //             ? Classes_.SWITCH_TOGGLE_ACTIVE
-        //             : Classes_.SWITCH_TOGGLE,
-        //     })
-        // );
-
         return (
             <div
                 className={
@@ -805,7 +750,7 @@ const Switch_ = CreateComponent({
                     event?.stopPropagation();
                     component.toggle();
                 }}
-                {...RemoveFields_(props, ["className"])}
+                {...RemoveFields_(props, ["className", "class"])}
             >
                 <div
                     className={
@@ -857,25 +802,6 @@ const CheckButton_ = CreateComponent({
             checked: boolean = state.checked,
             component = this;
 
-        // return CreateElement(
-        //     "div",
-        //     {
-        //         className:
-        //             (props.className || "") + " " + Classes_.CHECK_BUTTON,
-        //         onclick: (event: Event) => {
-        //             event.stopPropagation();
-        //             component.toggle();
-        //         },
-        //         ...RemoveFields_(props, ["className"]),
-        //     },
-        //     CreateElement("div", {
-        //         className: checked
-        //             ? Classes_.CHECK_BUTTON_CHECK_BOX_CHECKED
-        //             : Classes_.CHECK_BUTTON_CHECK_BOX,
-        //     }),
-        //     props.text
-        // );
-
         return (
             <div
                 className={
@@ -887,7 +813,7 @@ const CheckButton_ = CreateComponent({
                     event.stopPropagation();
                     component.toggle();
                 }}
-                {...RemoveFields_(props, ["className"])}
+                {...RemoveFields_(props, ["className", "class"])}
             >
                 <div
                     className={
@@ -951,39 +877,6 @@ const RadioGroup_ = CreateComponent({
             radioItems: Array<RadioGroupItem> = LoadContent_(props.radioItems),
             component = this;
 
-        // return CreateElement(
-        //     "div",
-        //     {
-        //         className:
-        //             (props.className || "") +
-        //             " " +
-        //             (props.vertical === true
-        //                 ? Classes_.VERTICAL_RADIO_GROUP
-        //                 : Classes_.RADIO_GROUP),
-        //         ...RemoveFields_(props, ["className"]),
-        //     },
-        //     ...radioItems.map((item) => {
-        //         return CreateElement(
-        //             "div",
-        //             {
-        //                 className: Classes_.RADIO_BUTTON,
-        //                 onclick: (event: Event) => {
-        //                     event.stopPropagation();
-        //                     component.setChecked(item);
-        //                 },
-        //                 style: props.radioButtonStyle,
-        //             },
-        //             CreateElement("div", {
-        //                 className:
-        //                     item.value === checked?.value
-        //                         ? Classes_.RADIO_BUTTON_CHECK_BOX_CHECKED
-        //                         : Classes_.RADIO_BUTTON_CHECK_BOX,
-        //             }),
-        //             item.text
-        //         );
-        //     })
-        // );
-
         return (
             <div
                 className={
@@ -993,7 +886,7 @@ const RadioGroup_ = CreateComponent({
                         ? Classes_.VERTICAL_RADIO_GROUP
                         : Classes_.RADIO_GROUP)
                 }
-                {...RemoveFields_(props, ["className"])}
+                {...RemoveFields_(props, ["className", "class"])}
             >
                 {...radioItems.map((item) => {
                     return (
@@ -1127,32 +1020,6 @@ const Menu_ = CreateComponent({
             ),
             component = this;
 
-        // return CreateElement(
-        //     "div",
-        //     {
-        //         className:
-        //             (props.className || "") +
-        //             " " +
-        //             (state.open ? Classes_.MENU_ACTIVE : Classes_.MENU),
-        //         onclick: (event: Event) => {
-        //             event.stopPropagation();
-        //             component.toggle();
-        //         },
-        //         ...RemoveFields_(props, ["className"]),
-        //     },
-        //     props.title,
-        //     !state.open
-        //         ? null
-        //         : CreateElement(
-        //               "div",
-        //               {
-        //                   className: Classes_.MENU_DROPDOWN,
-        //                   style: props.dropdownStyle,
-        //               },
-        //               ...menuItems
-        //           )
-        // );
-
         return (
             <div
                 className={
@@ -1164,7 +1031,7 @@ const Menu_ = CreateComponent({
                     event.stopPropagation();
                     component.toggle();
                 }}
-                {...RemoveFields_(props, ["className"])}
+                {...RemoveFields_(props, ["className", "class"])}
             >
                 {props.title}
                 {!state.open ? null : (
@@ -1242,48 +1109,6 @@ const CollapseView_ = CreateComponent({
             ),
             component = this;
 
-        // return CreateElement(
-        //     "div",
-        //     {
-        //         className:
-        //             (props.className || "") + " " + Classes_.COLLAPSE_VIEW,
-        //         ...RemoveFields_(props, ["className"]),
-        //     },
-        //     CreateElement(
-        //         "div",
-        //         {
-        //             className: state.open
-        //                 ? Classes_.COLLAPSE_VIEW_TITLE_BAR_ACTIVE
-        //                 : Classes_.COLLAPSE_VIEW_TITLE_BAR,
-        //             onclick: (event: Event) => {
-        //                 event.stopPropagation();
-        //                 component.toggle();
-        //             },
-        //             style: props.titleBarStyle,
-        //         },
-        //         props.title,
-        //         state.open
-        //             ? props.closeIcon ||
-        //                   BiCaretUp({
-        //                       style: { fontSize: "20px", margin: "3px" },
-        //                   })
-        //             : props.openIcon ||
-        //                   BiCaretDown({
-        //                       style: { fontSize: "20px", margin: "3px" },
-        //                   })
-        //     ),
-        //     !state.open
-        //         ? null
-        //         : CreateElement(
-        //               "div",
-        //               {
-        //                   className: Classes_.COLLAPSE_VIEW_CONTENT,
-        //                   style: props.contentStyle,
-        //               },
-        //               ...content
-        //           )
-        // );
-
         let iconStyle = { fontSize: "20px", margin: "3px" };
 
         return (
@@ -1293,7 +1118,7 @@ const CollapseView_ = CreateComponent({
                     " " +
                     Classes_.COLLAPSE_VIEW
                 }
-                {...RemoveFields_(props, ["className"])}
+                {...RemoveFields_(props, ["className", "class"])}
             >
                 <div
                     className={
@@ -1393,53 +1218,6 @@ const TabbedWindow_ = CreateComponent({
                 right: Classes_.TABBED_WINDOW_TITLE_BAR_RIGHT,
             }[tabsLocation] || Classes_.TABBED_WINDOW_TITLE_BAR;
 
-        // return CreateElement(
-        //     "div",
-        //     {
-        //         className:
-        //             (props.className || "") +
-        //             " " +
-        //             (props.vertical
-        //                 ? Classes_.VERTICAL_TABBED_WINDOW
-        //                 : Classes_.TABBED_WINDOW),
-        //         ...RemoveFields_(props, ["className"]),
-        //     },
-        //     CreateElement(
-        //         "div",
-        //         {
-        //             className: props.vertical
-        //                 ? Classes_.VERTICAL_TABBED_WINDOW_TITLE_BAR
-        //                 : titleBarClass,
-        //             style: props.titleBarStyle,
-        //         },
-        //         ...tabs.map((tab, index) => {
-        //             return CreateElement(
-        //                 "div",
-        //                 {
-        //                     className:
-        //                         index === currentTabIndex
-        //                             ? Classes_.TABBED_WINDOW_TITLE_ACTIVE
-        //                             : Classes_.TABBED_WINDOW_TITLE,
-        //                     onclick: (event: Event) => {
-        //                         event.stopPropagation();
-        //                         component.setCurrentTabIndex(index);
-        //                     },
-        //                     style: props.titleStyle,
-        //                 },
-        //                 tab.title
-        //             );
-        //         })
-        //     ),
-        //     CreateElement(
-        //         "div",
-        //         {
-        //             className: Classes_.TABBED_WINDOW_CONTENT,
-        //             style: props.contentStyle,
-        //         },
-        //         currentTab ? currentTab.content : null
-        //     )
-        // );
-
         return (
             <div
                 className={
@@ -1449,7 +1227,7 @@ const TabbedWindow_ = CreateComponent({
                         ? Classes_.VERTICAL_TABBED_WINDOW
                         : Classes_.TABBED_WINDOW)
                 }
-                {...RemoveFields_(props, ["className"])}
+                {...RemoveFields_(props, ["className", "class"])}
             >
                 <div
                     className={
@@ -1591,90 +1369,6 @@ const NavigationBar_ = CreateComponent({
             ),
             component = this;
 
-        // return CreateElement(
-        //     "div",
-        //     {
-        //         className:
-        //             (props.className || "") + " " + Classes_.NAVIGATION_BAR,
-        //         ...RemoveFields_(props, ["className"]),
-        //     },
-        //     drawerContent.length < 1
-        //         ? null
-        //         : CreateElement(
-        //               "div",
-        //               {
-        //                   onclick: (event: Event) => {
-        //                       event.stopPropagation();
-        //                       component.toggleDrawer();
-        //                   },
-        //               },
-        //               !drawerButton
-        //                   ? BiMenu({
-        //                         style: { fontSize: "35px", margin: "5px" },
-        //                     })
-        //                   : drawerButton
-        //           ),
-        //     ...content,
-        //     menuContent.length < 1
-        //         ? null
-        //         : CreateElement(
-        //               "div",
-        //               {
-        //                   onclick: (event: Event) => {
-        //                       event.stopPropagation();
-        //                       component.toggleMenu();
-        //                   },
-        //               },
-        //               !menuButton
-        //                   ? BiMenu({
-        //                         style: { fontSize: "35px", margin: "5px" },
-        //                     })
-        //                   : menuButton
-        //           ),
-        //     (drawerContent.length < 1 && menuContent.length < 1) ||
-        //         (!drawerOpen && !menuOpen)
-        //         ? null
-        //         : CreateElement(
-        //               "div",
-        //               {
-        //                   className: Classes_.NAVIGATION_BAR_NAVIGATION_WINDOW,
-        //                   onclick: (event: Event) => {
-        //                       event.stopPropagation();
-        //                       component.closeNavigation();
-        //                   },
-        //                   style: props.navigationWindowStyle,
-        //               },
-        //               !drawerOpen
-        //                   ? ""
-        //                   : CreateElement(
-        //                         "div",
-        //                         {
-        //                             className:
-        //                                 Classes_.NAVIGATION_BAR_DRAWER_WINDOW,
-        //                             onclick: (event: Event) => {
-        //                                 event.stopPropagation();
-        //                             },
-        //                             style: props.drawerWindowStyle,
-        //                         },
-        //                         ...drawerContent
-        //                     ),
-        //               !menuOpen
-        //                   ? null
-        //                   : CreateElement(
-        //                         "div",
-        //                         {
-        //                             className:
-        //                                 Classes_.NAVIGATION_BAR_MENU_WINDOW,
-        //                             onclick: (event: Event) => {
-        //                                 event.stopPropagation();
-        //                             },
-        //                             style: props.menuWindowStyle,
-        //                         },
-        //                         ...menuContent
-        //                     )
-        //           )
-        // );
-
         let iconStyle = { fontSize: "35px", margin: "5px" };
 
         return (
@@ -1684,7 +1378,7 @@ const NavigationBar_ = CreateComponent({
                     " " +
                     Classes_.NAVIGATION_BAR
                 }
-                {...RemoveFields_(props, ["className"])}
+                {...RemoveFields_(props, ["className", "class"])}
             >
                 {drawerContent.length < 1 ? null : (
                     <div
@@ -2590,46 +2284,6 @@ export function showDialog(properties: ShowDialogProps) {
     let iconStyle = { fontSize: "25px", margin: "5px" };
     let baseElement = document.createElement("div");
 
-    // let element = CreateElement(
-    //     "div",
-    //     {
-    //         className: Classes_.DIALOG,
-    //         onclick: (event: Event) => {
-    //             event.stopPropagation();
-    //         },
-    //         style: properties.style || {},
-    //     },
-    //     properties.splash === true
-    //         ? ""
-    //         : CreateElement(
-    //               "div",
-    //               {
-    //                   className: Classes_.DIALOG_TITLE_BAR,
-    //                   style: properties.titleBarStyle || {},
-    //               },
-    //               properties.icon ||
-    //                   BiInfoSquare({
-    //                       style: { fontSize: "25px", margin: "5px" },
-    //                   }),
-    //               CreateElement(
-    //                   "span",
-    //                   {
-    //                       className: Classes_.DIALOG_TITLE,
-    //                   },
-    //                   properties.title || "..."
-    //               ),
-    //               properties.closeButton ||
-    //                   BiXCircle({
-    //                       style: { fontSize: "25px", margin: "5px" },
-    //                       onclick: (event: Event) => {
-    //                           event.stopPropagation();
-    //                           closeDialog(dialogId);
-    //                       },
-    //                   })
-    //           ),
-    //     ...content
-    // );
-
     let element = (
         <div
             className={Classes_.DIALOG}
@@ -2703,18 +2357,6 @@ export function showNotification(properties: ShowNotificationProps) {
         notificationId = GetUniqueId_();
 
     let baseElement = document.createElement("div");
-
-    // let element = CreateElement(
-    //     "div",
-    //     {
-    //         className: Classes_.NOTIFICATION,
-    //         onclick: (event: Event) => {
-    //             event.stopPropagation();
-    //         },
-    //         ...properties,
-    //     },
-    //     ...content
-    // );
 
     let element = (
         <div
