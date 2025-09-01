@@ -801,7 +801,7 @@ const Switch_ = CreateComponent({
                     " " +
                     (active ? Classes_.SWITCH_ACTIVE : Classes_.SWITCH)
                 }
-                onclick={(vent: Event) => {
+                onclick={(event: Event) => {
                     event?.stopPropagation();
                     component.toggle();
                 }}
@@ -1022,7 +1022,7 @@ const RadioGroup_ = CreateComponent({
 });
 
 type MenuProps = CurlUIElementProps & {
-    menuItems: Array<CurlUIRenderElement>;
+    menuItems?: Array<CurlUIRenderElement>;
     title: CurlUIChildComponent;
     dropdownStyle?: CurlUIElementStyleProps;
 };
@@ -1123,7 +1123,7 @@ const Menu_ = CreateComponent({
         let state: MenuState = this.getState(),
             props: MenuProps = this.getProps(),
             menuItems: Array<CurlUIRenderElement> = LoadContent_(
-                props.menuItems
+                props.menuItems || props.children || []
             ),
             component = this;
 
@@ -1181,7 +1181,7 @@ const Menu_ = CreateComponent({
 });
 
 type CollapseViewProps = CurlUIElementProps & {
-    content: Array<CurlUIChildComponent> | CurlUIChildComponent;
+    content?: Array<CurlUIChildComponent> | CurlUIChildComponent;
     title: CurlUIChildComponent;
     titleBarStyle?: CurlUIElementStyleProps;
     contentStyle?: CurlUIElementStyleProps;
@@ -1237,7 +1237,9 @@ const CollapseView_ = CreateComponent({
     render() {
         let state: CollabpseViewState = this.getState(),
             props: CollapseViewProps = this.getProps(),
-            content: Array<CurlUIChildComponent> = LoadContent_(props.content),
+            content: Array<CurlUIChildComponent> = LoadContent_(
+                props.content || props.children || []
+            ),
             component = this;
 
         // return CreateElement(
@@ -1495,7 +1497,7 @@ type NavigationBarState = CurlUIElementState & {
 type NavigationBarProps = CurlUIElementProps & {
     drawerContent?: CurlUIRenderElement;
     menuContent?: CurlUIRenderElement;
-    content: Array<CurlUIRenderElement> | CurlUIRenderElement;
+    content?: Array<CurlUIRenderElement> | CurlUIRenderElement;
     drawerButton?: CurlUIRenderElement;
     menuButton?: CurlUIRenderElement;
     navigationWindowStyle?: CurlUIElementStyleProps;
@@ -1584,7 +1586,9 @@ const NavigationBar_ = CreateComponent({
             ),
             drawerButton: CurlUIRenderElement | undefined = props.drawerButton,
             menuButton: CurlUIRenderElement | undefined = props.menuButton,
-            content: Array<CurlUIRenderElement> = LoadContent_(props.content),
+            content: Array<CurlUIRenderElement> = LoadContent_(
+                props.content || props.children || []
+            ),
             component = this;
 
         // return CreateElement(
@@ -2413,8 +2417,8 @@ export function FooterBar(
 
 type ActivityProps = CurlUIElementProps & {
     content?: CurlUIChildComponent | Array<CurlUIChildComponent>;
-    footerBar?: CurlUIChildComponent;
-    navigationBar?: CurlUIChildComponent;
+    footerBar?: CurlUIRenderElement;
+    navigationBar?: CurlUIRenderElement;
 };
 
 export function Activity(properties: ActivityProps) {
