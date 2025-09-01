@@ -5,8 +5,9 @@ import {
     BiMenu,
     BiXCircle,
 } from "./icons/bi";
+
 import { CreateComponent, CreateElement, Render } from "curlui";
-import "./styles.css";
+
 import {
     CurlUITag,
     CurlUIElementProps,
@@ -15,6 +16,8 @@ import {
     CurlUIElementState,
     CurlUIElementStyleProps,
 } from "curlui/types";
+
+import "./styles.css";
 
 function GetWindowDimensions_() {
     return {
@@ -46,9 +49,11 @@ function NotNull_(item: any): boolean {
 
 function GetUniqueId_(): string {
     let x = 0;
+
     for (let q = 0; q < 10; ++q) {
         x += Date.now() * Math.random();
     }
+
     return x.toString().replace(".", "");
 }
 
@@ -58,6 +63,7 @@ function LoadContent_(content: Array<any> | any): Array<any> {
 
 function RemoveFields_(object: { [key: string]: any }, fields: Array<string>) {
     let newObject: { [key: string]: any } = {};
+
     Object.keys(object)
         .filter((field) => {
             return fields.includes(field) !== true;
@@ -65,6 +71,7 @@ function RemoveFields_(object: { [key: string]: any }, fields: Array<string>) {
         .map((field) => {
             newObject[field] = object[field];
         });
+
     return newObject;
 }
 
@@ -329,9 +336,11 @@ const AnimationClasses_: AnimationClasses = {
 function InitializeClasses_() {
     Object.keys(Classes_).map((_class_) => {
         let value = "" + _class_;
+
         while (value.includes("_")) {
             value = value.replace("_", "-");
         }
+
         Classes_[_class_] = value.toLowerCase();
     });
 }
@@ -617,16 +626,19 @@ const SelectionView_ = CreateComponent({
     },
     setOption(item: SelectionViewOptionItem) {
         let props: SelectionViewProps = this.getProps();
+
         this.setState({
             selection: item,
             open: false,
         });
+
         props.onInput?.(item);
     },
     mounted() {
         window.addEventListener(CustomEvents_.WINDOW_CLICK, () => {
             this.close();
         });
+
         window.addEventListener(CustomEvents_.WINDOW_SCROLL, () => {
             this.close();
         });
@@ -635,6 +647,7 @@ const SelectionView_ = CreateComponent({
         window.removeEventListener(CustomEvents_.WINDOW_CLICK, () => {
             this.close();
         });
+
         window.removeEventListener(CustomEvents_.WINDOW_SCROLL, () => {
             this.close();
         });
@@ -647,6 +660,7 @@ const SelectionView_ = CreateComponent({
                 props.optionItems
             ),
             component = this;
+
         // return CreateElement(
         //     "div",
         //     {
@@ -687,6 +701,7 @@ const SelectionView_ = CreateComponent({
         //               })
         //           )
         // );
+
         return (
             <div
                 className={""}
@@ -694,6 +709,7 @@ const SelectionView_ = CreateComponent({
                     event.stopPropagation();
                     component.toggle();
                 }}
+                {...RemoveFields_(props, ["className"])}
             >
                 {selection?.text || "Select"}
                 {state.open !== true ? null : (
@@ -701,15 +717,19 @@ const SelectionView_ = CreateComponent({
                         className={Classes_.SELECTION_VIEW_DROPDOWN}
                         style={props.dropdownStyle}
                     >
-                        {optionItems.map((item) => {
-                            <div
-                                className={Classes_.OPTION_ITEM}
-                                style={props.optionItemStyle}
-                                style={(event: Event) => {
-                                    event.stopPropagation();
-                                    component.setOption(item);
-                                }}
-                            ></div>;
+                        {...optionItems.map((item) => {
+                            return (
+                                <div
+                                    className={Classes_.OPTION_ITEM}
+                                    style={props.optionItemStyle}
+                                    onclick={(event: Event) => {
+                                        event.stopPropagation();
+                                        component.setOption(item);
+                                    }}
+                                >
+                                    {item.content || item.text || "Option"}
+                                </div>
+                            );
                         })}
                     </div>
                 )}
@@ -741,9 +761,11 @@ const Switch_ = CreateComponent({
         let state: SwitchState = this.getState(),
             props: SwitchProps = this.getProps(),
             active = state.active;
+
         this.setState({
             active: !active,
         });
+
         props.onActiveChange?.(!active);
     },
     render() {
@@ -751,30 +773,55 @@ const Switch_ = CreateComponent({
             props: SwitchProps = this.getProps(),
             active: boolean = state.active,
             component = this;
-        return CreateElement(
-            "div",
-            {
-                className:
-                    (props.className || "") +
+
+        // return CreateElement(
+        //     "div",
+        //     {
+        //         className:
+        //             (props.className || "") +
+        //             " " +
+        //             (active ? Classes_.SWITCH_ACTIVE : Classes_.SWITCH),
+        //         onclick: (event: Event) => {
+        //             event.stopPropagation();
+        //             component.toggle();
+        //         },
+        //         ...RemoveFields_(props, ["className"]),
+        //     },
+        //     CreateElement("div", {
+        //         className: active
+        //             ? Classes_.SWITCH_TOGGLE_ACTIVE
+        //             : Classes_.SWITCH_TOGGLE,
+        //     })
+        // );
+
+        return (
+            <div
+                className={
+                    (props.className || props.class || "") +
                     " " +
-                    (active ? Classes_.SWITCH_ACTIVE : Classes_.SWITCH),
-                onclick: (event: Event) => {
-                    event.stopPropagation();
+                    (active ? Classes_.SWITCH_ACTIVE : Classes_.SWITCH)
+                }
+                onclick={(vent: Event) => {
+                    event?.stopPropagation();
                     component.toggle();
-                },
-                ...RemoveFields_(props, ["className"]),
-            },
-            CreateElement("div", {
-                className: active
-                    ? Classes_.SWITCH_TOGGLE_ACTIVE
-                    : Classes_.SWITCH_TOGGLE,
-            })
+                }}
+                {...RemoveFields_(props, ["className"])}
+            >
+                <div
+                    className={
+                        active
+                            ? Classes_.SWITCH_TOGGLE_ACTIVE
+                            : Classes_.SWITCH_TOGGLE
+                    }
+                ></div>
+            </div>
         );
     },
 });
 
 type CheckButtonProps = CurlUIElementProps & {
     onCheckedChange?: Function;
+    text: string;
 };
 
 type CheckButtonState = CurlUIElementState & {
@@ -797,9 +844,11 @@ const CheckButton_ = CreateComponent({
         let state: CheckButtonState = this.getState(),
             props: CheckButtonProps = this.getProps(),
             checked: boolean = state.checked;
+
         this.setState({
             checked: !checked,
         });
+
         props.onCheckedChange?.(!checked);
     },
     render() {
@@ -807,23 +856,48 @@ const CheckButton_ = CreateComponent({
             props: CheckButtonProps = this.getProps(),
             checked: boolean = state.checked,
             component = this;
-        return CreateElement(
-            "div",
-            {
-                className:
-                    (props.className || "") + " " + Classes_.CHECK_BUTTON,
-                onclick: (event: Event) => {
+
+        // return CreateElement(
+        //     "div",
+        //     {
+        //         className:
+        //             (props.className || "") + " " + Classes_.CHECK_BUTTON,
+        //         onclick: (event: Event) => {
+        //             event.stopPropagation();
+        //             component.toggle();
+        //         },
+        //         ...RemoveFields_(props, ["className"]),
+        //     },
+        //     CreateElement("div", {
+        //         className: checked
+        //             ? Classes_.CHECK_BUTTON_CHECK_BOX_CHECKED
+        //             : Classes_.CHECK_BUTTON_CHECK_BOX,
+        //     }),
+        //     props.text
+        // );
+
+        return (
+            <div
+                className={
+                    (props.className || props.class || "") +
+                    " " +
+                    Classes_.CHECK_BUTTON
+                }
+                onclick={(event: Event) => {
                     event.stopPropagation();
                     component.toggle();
-                },
-                ...RemoveFields_(props, ["className"]),
-            },
-            CreateElement("div", {
-                className: checked
-                    ? Classes_.CHECK_BUTTON_CHECK_BOX_CHECKED
-                    : Classes_.CHECK_BUTTON_CHECK_BOX,
-            }),
-            props.text
+                }}
+                {...RemoveFields_(props, ["className"])}
+            >
+                <div
+                    className={
+                        checked
+                            ? Classes_.CHECK_BUTTON_CHECK_BOX_CHECKED
+                            : Classes_.CHECK_BUTTON_CHECK_BOX
+                    }
+                ></div>
+                {props.text}
+            </div>
         );
     },
 });
@@ -863,9 +937,11 @@ const RadioGroup_ = CreateComponent({
     },
     setChecked(item: RadioGroupItem) {
         let props: RadioGroupProps = this.getProps();
+
         this.setState({
             checked: item,
         });
+
         props.onCheckedChange?.(item.value);
     },
     render() {
@@ -874,37 +950,73 @@ const RadioGroup_ = CreateComponent({
             checked: RadioGroupItem | undefined = state.checked,
             radioItems: Array<RadioGroupItem> = LoadContent_(props.radioItems),
             component = this;
-        return CreateElement(
-            "div",
-            {
-                className:
-                    (props.className || "") +
+
+        // return CreateElement(
+        //     "div",
+        //     {
+        //         className:
+        //             (props.className || "") +
+        //             " " +
+        //             (props.vertical === true
+        //                 ? Classes_.VERTICAL_RADIO_GROUP
+        //                 : Classes_.RADIO_GROUP),
+        //         ...RemoveFields_(props, ["className"]),
+        //     },
+        //     ...radioItems.map((item) => {
+        //         return CreateElement(
+        //             "div",
+        //             {
+        //                 className: Classes_.RADIO_BUTTON,
+        //                 onclick: (event: Event) => {
+        //                     event.stopPropagation();
+        //                     component.setChecked(item);
+        //                 },
+        //                 style: props.radioButtonStyle,
+        //             },
+        //             CreateElement("div", {
+        //                 className:
+        //                     item.value === checked?.value
+        //                         ? Classes_.RADIO_BUTTON_CHECK_BOX_CHECKED
+        //                         : Classes_.RADIO_BUTTON_CHECK_BOX,
+        //             }),
+        //             item.text
+        //         );
+        //     })
+        // );
+
+        return (
+            <div
+                className={
+                    (props.className || props.class || "") +
                     " " +
-                    (props.vertical === true
+                    (props.vertical
                         ? Classes_.VERTICAL_RADIO_GROUP
-                        : Classes_.RADIO_GROUP),
-                ...RemoveFields_(props, ["className"]),
-            },
-            ...radioItems.map((item) => {
-                return CreateElement(
-                    "div",
-                    {
-                        className: Classes_.RADIO_BUTTON,
-                        onclick: (event: Event) => {
-                            event.stopPropagation();
-                            component.setChecked(item);
-                        },
-                        style: props.radioButtonStyle,
-                    },
-                    CreateElement("div", {
-                        className:
-                            item.value === checked?.value
-                                ? Classes_.RADIO_BUTTON_CHECK_BOX_CHECKED
-                                : Classes_.RADIO_BUTTON_CHECK_BOX,
-                    }),
-                    item.text
-                );
-            })
+                        : Classes_.RADIO_GROUP)
+                }
+                {...RemoveFields_(props, ["className"])}
+            >
+                {...radioItems.map((item) => {
+                    return (
+                        <div
+                            className={Classes_.RADIO_BUTTON}
+                            onclick={(event: Event) => {
+                                event.stopPropagation();
+                                component.setChecked(item);
+                            }}
+                            style={props.radioButtonStyle}
+                        >
+                            <div
+                                className={
+                                    checked
+                                        ? Classes_.RADIO_BUTTON_CHECK_BOX_CHECKED
+                                        : Classes_.RADIO_BUTTON_CHECK_BOX
+                                }
+                            ></div>
+                            {item.text}
+                        </div>
+                    );
+                })}
+            </div>
         );
     },
 });
@@ -934,6 +1046,7 @@ const Menu_ = CreateComponent({
     },
     toggle() {
         let state: MenuState = this.getState();
+
         if (!state.open) {
             window.dispatchEvent(
                 new CustomEvent(CustomEvents_.CLOSE_MENU_REQUEST, {
@@ -941,12 +1054,14 @@ const Menu_ = CreateComponent({
                 })
             );
         }
+
         this.setState({
             open: !state.open,
         });
     },
     close() {
         let state: MenuState = this.getState();
+
         if (state.open) {
             this.setState({
                 open: false,
@@ -955,12 +1070,14 @@ const Menu_ = CreateComponent({
     },
     open() {
         let state: MenuState = this.getState();
+
         if (!state.open) {
             window.dispatchEvent(
                 new CustomEvent(CustomEvents_.CLOSE_MENU_REQUEST, {
                     detail: this.elementId,
                 })
             );
+
             this.setState({
                 open: true,
             });
@@ -970,9 +1087,11 @@ const Menu_ = CreateComponent({
         window.addEventListener(CustomEvents_.WINDOW_CLICK, () => {
             this.close();
         });
+
         window.addEventListener(CustomEvents_.WINDOW_SCROLL, () => {
             this.close();
         });
+
         window.addEventListener(
             CustomEvents_.CLOSE_MENU_REQUEST,
             (event: CustomEventInit) => {
@@ -986,9 +1105,11 @@ const Menu_ = CreateComponent({
         window.removeEventListener(CustomEvents_.WINDOW_CLICK, () => {
             this.close();
         });
+
         window.removeEventListener(CustomEvents_.WINDOW_SCROLL, () => {
             this.close();
         });
+
         window.removeEventListener(
             CustomEvents_.CLOSE_MENU_REQUEST,
             (event: CustomEventInit) => {
@@ -1005,30 +1126,56 @@ const Menu_ = CreateComponent({
                 props.menuItems
             ),
             component = this;
-        return CreateElement(
-            "div",
-            {
-                className:
-                    (props.className || "") +
+
+        // return CreateElement(
+        //     "div",
+        //     {
+        //         className:
+        //             (props.className || "") +
+        //             " " +
+        //             (state.open ? Classes_.MENU_ACTIVE : Classes_.MENU),
+        //         onclick: (event: Event) => {
+        //             event.stopPropagation();
+        //             component.toggle();
+        //         },
+        //         ...RemoveFields_(props, ["className"]),
+        //     },
+        //     props.title,
+        //     !state.open
+        //         ? null
+        //         : CreateElement(
+        //               "div",
+        //               {
+        //                   className: Classes_.MENU_DROPDOWN,
+        //                   style: props.dropdownStyle,
+        //               },
+        //               ...menuItems
+        //           )
+        // );
+
+        return (
+            <div
+                className={
+                    (props.className || props.class || "") +
                     " " +
-                    (state.open ? Classes_.MENU_ACTIVE : Classes_.MENU),
-                onclick: (event: Event) => {
+                    (state.open ? Classes_.MENU_ACTIVE : Classes_.MENU)
+                }
+                onclick={(event: Event) => {
                     event.stopPropagation();
                     component.toggle();
-                },
-                ...RemoveFields_(props, ["className"]),
-            },
-            props.title,
-            !state.open
-                ? null
-                : CreateElement(
-                      "div",
-                      {
-                          className: Classes_.MENU_DROPDOWN,
-                          style: props.dropdownStyle,
-                      },
-                      ...menuItems
-                  )
+                }}
+                {...RemoveFields_(props, ["className"])}
+            >
+                {props.title}
+                {!state.open ? null : (
+                    <div
+                        className={Classes_.MENU_DROPDOWN}
+                        style={props.dropdownStyle}
+                    >
+                        {...menuItems}
+                    </div>
+                )}
+            </div>
         );
     },
 });
@@ -1064,7 +1211,9 @@ const CollapseView_ = CreateComponent({
     toggle() {
         let props: CollapseViewProps = this.getProps(),
             state: CollabpseViewState = this.getState();
+
         props.onCollapse?.(!state.open);
+
         this.setState({
             open: !state.open,
         });
@@ -1072,6 +1221,7 @@ const CollapseView_ = CreateComponent({
     close() {
         let props: CollapseViewProps = this.getProps();
         props.onCollapse?.(false);
+
         this.setState({
             open: false,
         });
@@ -1079,6 +1229,7 @@ const CollapseView_ = CreateComponent({
     open() {
         let props: CollapseViewProps = this.getProps();
         props.onCollapse?.(true);
+
         this.setState({
             open: true,
         });
@@ -1088,46 +1239,90 @@ const CollapseView_ = CreateComponent({
             props: CollapseViewProps = this.getProps(),
             content: Array<CurlUIChildComponent> = LoadContent_(props.content),
             component = this;
-        return CreateElement(
-            "div",
-            {
-                className:
-                    (props.className || "") + " " + Classes_.COLLAPSE_VIEW,
-                ...RemoveFields_(props, ["className"]),
-            },
-            CreateElement(
-                "div",
-                {
-                    className: state.open
-                        ? Classes_.COLLAPSE_VIEW_TITLE_BAR_ACTIVE
-                        : Classes_.COLLAPSE_VIEW_TITLE_BAR,
-                    onclick: (event: Event) => {
+
+        // return CreateElement(
+        //     "div",
+        //     {
+        //         className:
+        //             (props.className || "") + " " + Classes_.COLLAPSE_VIEW,
+        //         ...RemoveFields_(props, ["className"]),
+        //     },
+        //     CreateElement(
+        //         "div",
+        //         {
+        //             className: state.open
+        //                 ? Classes_.COLLAPSE_VIEW_TITLE_BAR_ACTIVE
+        //                 : Classes_.COLLAPSE_VIEW_TITLE_BAR,
+        //             onclick: (event: Event) => {
+        //                 event.stopPropagation();
+        //                 component.toggle();
+        //             },
+        //             style: props.titleBarStyle,
+        //         },
+        //         props.title,
+        //         state.open
+        //             ? props.closeIcon ||
+        //                   BiCaretUp({
+        //                       style: { fontSize: "20px", margin: "3px" },
+        //                   })
+        //             : props.openIcon ||
+        //                   BiCaretDown({
+        //                       style: { fontSize: "20px", margin: "3px" },
+        //                   })
+        //     ),
+        //     !state.open
+        //         ? null
+        //         : CreateElement(
+        //               "div",
+        //               {
+        //                   className: Classes_.COLLAPSE_VIEW_CONTENT,
+        //                   style: props.contentStyle,
+        //               },
+        //               ...content
+        //           )
+        // );
+
+        let iconStyle = { fontSize: "20px", margin: "3px" };
+
+        return (
+            <div
+                className={
+                    (props.className || props.class || "") +
+                    " " +
+                    Classes_.COLLAPSE_VIEW
+                }
+                {...RemoveFields_(props, ["className"])}
+            >
+                <div
+                    className={
+                        state.open
+                            ? Classes_.COLLAPSE_VIEW_TITLE_BAR_ACTIVE
+                            : Classes_.COLLAPSE_VIEW_TITLE_BAR
+                    }
+                    onclick={(event: Event) => {
                         event.stopPropagation();
                         component.toggle();
-                    },
-                    style: props.titleBarStyle,
-                },
-                props.title,
-                state.open
-                    ? props.closeIcon ||
-                          BiCaretUp({
-                              style: { fontSize: "20px", margin: "3px" },
-                          })
-                    : props.openIcon ||
-                          BiCaretDown({
-                              style: { fontSize: "20px", margin: "3px" },
-                          })
-            ),
-            !state.open
-                ? null
-                : CreateElement(
-                      "div",
-                      {
-                          className: Classes_.COLLAPSE_VIEW_CONTENT,
-                          style: props.contentStyle,
-                      },
-                      ...content
-                  )
+                    }}
+                    style={props.titleBarStyle}
+                >
+                    {props.title}
+                    {state.open
+                        ? props.closeIcon || (
+                              <BiCaretUp style={iconStyle}></BiCaretUp>
+                          )
+                        : props.openIcon || (
+                              <BiCaretDown style={iconStyle}></BiCaretDown>
+                          )}
+                </div>
+                {!state.open ? null : (
+                    <div
+                        className={Classes_.COLLAPSE_VIEW_CONTENT}
+                        style={props.contentStyle}
+                    >
+                        {...content}
+                    </div>
+                )}
+            </div>
         );
     },
 });
@@ -1138,6 +1333,7 @@ type TabbedWindowProps = CurlUIElementProps & {
     tabs: Array<TabbedWindowTab>;
     vertical?: boolean;
     titleBarStyle?: CurlUIElementStyleProps;
+    titleStyle?: CurlUIElementStyleProps;
     contentStyle?: CurlUIElementStyleProps;
     tabsLocation?: TabLocation;
     onTabSelection?: Function;
@@ -1171,9 +1367,11 @@ const TabbedWindow_ = CreateComponent({
     },
     setCurrentTabIndex(index: number) {
         let props: TabbedWindowProps = this.getProps();
+
         this.setState({
             currentTabIndex: index,
         });
+
         props.onTabSelection?.(index);
     },
     render() {
@@ -1193,51 +1391,98 @@ const TabbedWindow_ = CreateComponent({
                 right: Classes_.TABBED_WINDOW_TITLE_BAR_RIGHT,
             }[tabsLocation] || Classes_.TABBED_WINDOW_TITLE_BAR;
 
-        return CreateElement(
-            "div",
-            {
-                className:
-                    (props.className || "") +
+        // return CreateElement(
+        //     "div",
+        //     {
+        //         className:
+        //             (props.className || "") +
+        //             " " +
+        //             (props.vertical
+        //                 ? Classes_.VERTICAL_TABBED_WINDOW
+        //                 : Classes_.TABBED_WINDOW),
+        //         ...RemoveFields_(props, ["className"]),
+        //     },
+        //     CreateElement(
+        //         "div",
+        //         {
+        //             className: props.vertical
+        //                 ? Classes_.VERTICAL_TABBED_WINDOW_TITLE_BAR
+        //                 : titleBarClass,
+        //             style: props.titleBarStyle,
+        //         },
+        //         ...tabs.map((tab, index) => {
+        //             return CreateElement(
+        //                 "div",
+        //                 {
+        //                     className:
+        //                         index === currentTabIndex
+        //                             ? Classes_.TABBED_WINDOW_TITLE_ACTIVE
+        //                             : Classes_.TABBED_WINDOW_TITLE,
+        //                     onclick: (event: Event) => {
+        //                         event.stopPropagation();
+        //                         component.setCurrentTabIndex(index);
+        //                     },
+        //                     style: props.titleStyle,
+        //                 },
+        //                 tab.title
+        //             );
+        //         })
+        //     ),
+        //     CreateElement(
+        //         "div",
+        //         {
+        //             className: Classes_.TABBED_WINDOW_CONTENT,
+        //             style: props.contentStyle,
+        //         },
+        //         currentTab ? currentTab.content : null
+        //     )
+        // );
+
+        return (
+            <div
+                className={
+                    (props.className || props.class || "") +
                     " " +
                     (props.vertical
                         ? Classes_.VERTICAL_TABBED_WINDOW
-                        : Classes_.TABBED_WINDOW),
-                ...RemoveFields_(props, ["className"]),
-            },
-            CreateElement(
-                "div",
-                {
-                    className: props.vertical
-                        ? Classes_.VERTICAL_TABBED_WINDOW_TITLE_BAR
-                        : titleBarClass,
-                    style: props.titleBarStyle,
-                },
-                ...tabs.map((tab, index) => {
-                    return CreateElement(
-                        "div",
-                        {
-                            className:
-                                index === currentTabIndex
-                                    ? Classes_.TABBED_WINDOW_TITLE_ACTIVE
-                                    : Classes_.TABBED_WINDOW_TITLE,
-                            onclick: (event: Event) => {
-                                event.stopPropagation();
-                                component.setCurrentTabIndex(index);
-                            },
-                            style: props.titleStyle,
-                        },
-                        tab.title
-                    );
-                })
-            ),
-            CreateElement(
-                "div",
-                {
-                    className: Classes_.TABBED_WINDOW_CONTENT,
-                    style: props.contentStyle,
-                },
-                currentTab ? currentTab.content : null
-            )
+                        : Classes_.TABBED_WINDOW)
+                }
+                {...RemoveFields_(props, ["className"])}
+            >
+                <div
+                    className={
+                        props.vertical
+                            ? Classes_.VERTICAL_TABBED_WINDOW_TITLE_BAR
+                            : titleBarClass
+                    }
+                    style={props.titleBarStyle}
+                >
+                    {...tabs.map((tab, index) => {
+                        return (
+                            <div
+                                className={
+                                    index === currentTabIndex
+                                        ? Classes_.TABBED_WINDOW_TITLE_ACTIVE
+                                        : Classes_.TABBED_WINDOW_TITLE
+                                }
+                                onclick={(event: Event) => {
+                                    event.stopPropagation();
+                                    component.setCurrentTabIndex(index);
+                                }}
+                                style={props.titleStyle}
+                            >
+                                {tab.title}
+                            </div>
+                        );
+                    })}
+                </div>
+                <div
+                    className={Classes_.TABBED_WINDOW_CONTENT}
+                    style={props.contentStyle}
+                >
+                    {currentTab ? currentTab.content : null}
+                </div>
+            </div>
         );
     },
 });
@@ -1317,6 +1562,7 @@ const NavigationBar_ = CreateComponent({
     },
     mounted() {
         let component = this;
+
         window.addEventListener(CustomEvents_.CLOSE_DRAWERS_REQUEST, () => {
             component.setState({
                 drawerOpen: false,
@@ -1328,8 +1574,9 @@ const NavigationBar_ = CreateComponent({
         let state: NavigationBarState = this.getState(),
             props: NavigationBarProps = this.getProps(),
             drawerOpen: boolean = state.drawerOpen,
-            menuOpen: boolean = state.menuOpen,
-            drawerContent: Array<CurlUIRenderElement> = LoadContent_(
+            menuOpen: boolean = state.menuOpen;
+
+        let drawerContent: Array<CurlUIRenderElement> = LoadContent_(
                 props.drawerContent
             ),
             menuContent: Array<CurlUIRenderElement> = LoadContent_(
@@ -1340,88 +1587,167 @@ const NavigationBar_ = CreateComponent({
             content: Array<CurlUIRenderElement> = LoadContent_(props.content),
             component = this;
 
-        return CreateElement(
-            "div",
-            {
-                className:
-                    (props.className || "") + " " + Classes_.NAVIGATION_BAR,
-                ...RemoveFields_(props, ["className"]),
-            },
-            drawerContent.length < 1
-                ? null
-                : CreateElement(
-                      "div",
-                      {
-                          onclick: (event: Event) => {
-                              event.stopPropagation();
-                              component.toggleDrawer();
-                          },
-                      },
-                      !drawerButton
-                          ? BiMenu({
-                                style: { fontSize: "35px", margin: "5px" },
-                            })
-                          : drawerButton
-                  ),
-            ...content,
-            menuContent.length < 1
-                ? null
-                : CreateElement(
-                      "div",
-                      {
-                          onclick: (event: Event) => {
-                              event.stopPropagation();
-                              component.toggleMenu();
-                          },
-                      },
-                      !menuButton
-                          ? BiMenu({
-                                style: { fontSize: "35px", margin: "5px" },
-                            })
-                          : menuButton
-                  ),
-            (drawerContent.length < 1 && menuContent.length < 1) ||
-                (!drawerOpen && !menuOpen)
-                ? null
-                : CreateElement(
-                      "div",
-                      {
-                          className: Classes_.NAVIGATION_BAR_NAVIGATION_WINDOW,
-                          onclick: (event: Event) => {
-                              event.stopPropagation();
-                              component.closeNavigation();
-                          },
-                          style: props.navigationWindowStyle,
-                      },
-                      !drawerOpen
-                          ? ""
-                          : CreateElement(
-                                "div",
-                                {
-                                    className:
-                                        Classes_.NAVIGATION_BAR_DRAWER_WINDOW,
-                                    onclick: (event: Event) => {
-                                        event.stopPropagation();
-                                    },
-                                    style: props.drawerWindowStyle,
-                                },
-                                ...drawerContent
-                            ),
-                      !menuOpen
-                          ? null
-                          : CreateElement(
-                                "div",
-                                {
-                                    className:
-                                        Classes_.NAVIGATION_BAR_MENU_WINDOW,
-                                    onclick: (event: Event) => {
-                                        event.stopPropagation();
-                                    },
-                                    style: props.menuWindowStyle,
-                                },
-                                ...menuContent
-                            )
-                  )
+        // return CreateElement(
+        //     "div",
+        //     {
+        //         className:
+        //             (props.className || "") + " " + Classes_.NAVIGATION_BAR,
+        //         ...RemoveFields_(props, ["className"]),
+        //     },
+        //     drawerContent.length < 1
+        //         ? null
+        //         : CreateElement(
+        //               "div",
+        //               {
+        //                   onclick: (event: Event) => {
+        //                       event.stopPropagation();
+        //                       component.toggleDrawer();
+        //                   },
+        //               },
+        //               !drawerButton
+        //                   ? BiMenu({
+        //                         style: { fontSize: "35px", margin: "5px" },
+        //                     })
+        //                   : drawerButton
+        //           ),
+        //     ...content,
+        //     menuContent.length < 1
+        //         ? null
+        //         : CreateElement(
+        //               "div",
+        //               {
+        //                   onclick: (event: Event) => {
+        //                       event.stopPropagation();
+        //                       component.toggleMenu();
+        //                   },
+        //               },
+        //               !menuButton
+        //                   ? BiMenu({
+        //                         style: { fontSize: "35px", margin: "5px" },
+        //                     })
+        //                   : menuButton
+        //           ),
+        //     (drawerContent.length < 1 && menuContent.length < 1) ||
+        //         (!drawerOpen && !menuOpen)
+        //         ? null
+        //         : CreateElement(
+        //               "div",
+        //               {
+        //                   className: Classes_.NAVIGATION_BAR_NAVIGATION_WINDOW,
+        //                   onclick: (event: Event) => {
+        //                       event.stopPropagation();
+        //                       component.closeNavigation();
+        //                   },
+        //                   style: props.navigationWindowStyle,
+        //               },
+        //               !drawerOpen
+        //                   ? ""
+        //                   : CreateElement(
+        //                         "div",
+        //                         {
+        //                             className:
+        //                                 Classes_.NAVIGATION_BAR_DRAWER_WINDOW,
+        //                             onclick: (event: Event) => {
+        //                                 event.stopPropagation();
+        //                             },
+        //                             style: props.drawerWindowStyle,
+        //                         },
+        //                         ...drawerContent
+        //                     ),
+        //               !menuOpen
+        //                   ? null
+        //                   : CreateElement(
+        //                         "div",
+        //                         {
+        //                             className:
+        //                                 Classes_.NAVIGATION_BAR_MENU_WINDOW,
+        //                             onclick: (event: Event) => {
+        //                                 event.stopPropagation();
+        //                             },
+        //                             style: props.menuWindowStyle,
+        //                         },
+        //                         ...menuContent
+        //                     )
+        //           )
+        // );
+
+        let iconStyle = { fontSize: "35px", margin: "5px" };
+
+        return (
+            <div
+                className={
+                    (props.className || props.class || "") +
+                    " " +
+                    Classes_.NAVIGATION_BAR
+                }
+                {...RemoveFields_(props, ["className"])}
+            >
+                {drawerContent.length < 1 ? null : (
+                    <div
+                        onclick={(event: Event) => {
+                            event.stopPropagation();
+                            component.toggleDrawer();
+                        }}
+                    >
+                        {!drawerButton ? (
+                            <BiMenu style={iconStyle}></BiMenu>
+                        ) : (
+                            drawerButton
+                        )}
+                    </div>
+                )}
+                {...content}
+                {menuContent.length < 1 ? null : (
+                    <div
+                        onclick={(event: Event) => {
+                            event.stopPropagation();
+                            component.toggleMenu();
+                        }}
+                    >
+                        {!menuButton ? (
+                            <BiMenu style={iconStyle}></BiMenu>
+                        ) : (
+                            menuButton
+                        )}
+                    </div>
+                )}
+                {(drawerContent.length < 1 && menuContent.length < 1) ||
+                (!drawerOpen && !menuOpen) ? null : (
+                    <div
+                        className={Classes_.NAVIGATION_BAR_NAVIGATION_WINDOW}
+                        onclick={(event: Event) => {
+                            event.stopPropagation();
+                            component.closeNavigation();
+                        }}
+                        style={props.navigationWindowStyle}
+                    >
+                        {!drawerOpen ? null : (
+                            <div
+                                className={
+                                    Classes_.NAVIGATION_BAR_DRAWER_WINDOW
+                                }
+                                onclick={(event: Event) => {
+                                    event.stopPropagation();
+                                }}
+                                style={props.drawerWindowStyle}
+                            >
+                                {...drawerContent}
+                            </div>
+                        )}
+                        {!menuOpen ? null : (
+                            <div
+                                className={Classes_.NAVIGATION_BAR_MENU_WINDOW}
+                                onclick={(event: Event) => {
+                                    event.stopPropagation();
+                                }}
+                                style={props.menuWindowStyle}
+                            >
+                                {...menuContent}
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
         );
     },
 });
@@ -1432,7 +1758,7 @@ function CustomElement_(
     customProperties: CurlUIElementProps,
     properties: CurlUIElementProps,
     ...children: Array<CurlUIChildComponent>
-) {
+): CurlUIRenderElement {
     let className = NotNull_(properties.className)
             ? [customClass, properties.className].join(" ")
             : customClass,
@@ -1440,6 +1766,7 @@ function CustomElement_(
             ...(customProperties.style || {}),
             ...(properties.style || {}),
         };
+
     return CreateElement(
         tag,
         {
@@ -1461,9 +1788,11 @@ const CustomEvents_: { [key: string]: string } = {
 
 function Initialize_(): void {
     InitializeClasses_();
+
     window.addEventListener("click", () => {
         window.dispatchEvent(new CustomEvent(CustomEvents_.WINDOW_CLICK, {}));
     });
+
     window.addEventListener("scroll", () => {
         window.dispatchEvent(new CustomEvent(CustomEvents_.WINDOW_SCROLL, {}));
     });
@@ -2082,7 +2411,13 @@ export function FooterBar(
     );
 }
 
-export function Activity(properties: CurlUIElementProps) {
+type ActivityProps = CurlUIElementProps & {
+    content?: CurlUIChildComponent | Array<CurlUIChildComponent>;
+    footerBar?: CurlUIChildComponent;
+    navigationBar?: CurlUIChildComponent;
+};
+
+export function Activity(properties: ActivityProps) {
     return CustomElement_(
         "div",
         Classes_.ACTIVITY,
@@ -2093,9 +2428,9 @@ export function Activity(properties: CurlUIElementProps) {
             },
         },
         properties,
-        ...LoadContent_(properties.content),
-        properties.footerBar,
-        properties.navigationBar
+        ...LoadContent_(properties.content || properties.children || []),
+        properties.footerBar || null,
+        properties.navigationBar || null
     );
 }
 
@@ -2169,16 +2504,20 @@ export function Application(properties: ApplicationProps): Application {
             window.location.hash = title;
         },
     };
+
     window.addEventListener("hashchange", () => {
         if (application.hashUpdateActive !== true) {
             return;
         }
+
         let title = window.location.hash.slice(1),
             activity = application.router(title);
+
         if (activity) {
             application.showActivity(activity, null);
         }
     });
+
     return application;
 }
 
@@ -2201,23 +2540,28 @@ export function ApplicationV2(properties: ApplicationProps): ApplicationV2 {
             },
         showActivity(activity: CurlUIRenderElement, path: string | null) {
             Render(activity, this.baseElement);
+
             if (path) {
                 history.pushState({}, "", path);
             }
         },
         openActivity(path: string) {
             let activity = this.router(path);
+
             if (activity) {
                 this.showActivity(activity, path);
             }
         },
     };
+
     window.addEventListener("popstate", () => {
         application.openActivity(document.location.pathname);
     });
+
     window.addEventListener("DOMContentLoaded", () => {
         application.openActivity(document.location.pathname);
     });
+
     return application;
 }
 
@@ -2235,57 +2579,97 @@ type ShowDialogProps = {
 
 export function showDialog(properties: ShowDialogProps) {
     closeDialogs();
+
     let content = LoadContent_(properties.content),
         dialogId = GetUniqueId_();
-    let baseElement = document.createElement("div"),
-        element = CreateElement(
-            "div",
-            {
-                className: Classes_.DIALOG,
-                onclick: (event: Event) => {
-                    event.stopPropagation();
-                },
-                style: properties.style || {},
-            },
-            properties.splash === true
-                ? ""
-                : CreateElement(
-                      "div",
-                      {
-                          className: Classes_.DIALOG_TITLE_BAR,
-                          style: properties.titleBarStyle || {},
-                      },
-                      properties.icon ||
-                          BiInfoSquare({
-                              style: { fontSize: "25px", margin: "5px" },
-                          }),
-                      CreateElement(
-                          "span",
-                          {
-                              className: Classes_.DIALOG_TITLE,
-                          },
-                          properties.title || "..."
-                      ),
-                      properties.closeButton ||
-                          BiXCircle({
-                              style: { fontSize: "25px", margin: "5px" },
-                              onclick: (event: Event) => {
-                                  event.stopPropagation();
-                                  closeDialog(dialogId);
-                              },
-                          })
-                  ),
-            ...content
-        );
+
+    let iconStyle = { fontSize: "25px", margin: "5px" };
+    let baseElement = document.createElement("div");
+
+    // let element = CreateElement(
+    //     "div",
+    //     {
+    //         className: Classes_.DIALOG,
+    //         onclick: (event: Event) => {
+    //             event.stopPropagation();
+    //         },
+    //         style: properties.style || {},
+    //     },
+    //     properties.splash === true
+    //         ? ""
+    //         : CreateElement(
+    //               "div",
+    //               {
+    //                   className: Classes_.DIALOG_TITLE_BAR,
+    //                   style: properties.titleBarStyle || {},
+    //               },
+    //               properties.icon ||
+    //                   BiInfoSquare({
+    //                       style: { fontSize: "25px", margin: "5px" },
+    //                   }),
+    //               CreateElement(
+    //                   "span",
+    //                   {
+    //                       className: Classes_.DIALOG_TITLE,
+    //                   },
+    //                   properties.title || "..."
+    //               ),
+    //               properties.closeButton ||
+    //                   BiXCircle({
+    //                       style: { fontSize: "25px", margin: "5px" },
+    //                       onclick: (event: Event) => {
+    //                           event.stopPropagation();
+    //                           closeDialog(dialogId);
+    //                       },
+    //                   })
+    //           ),
+    //     ...content
+    // );
+
+    let element = (
+        <div
+            className={Classes_.DIALOG}
+            onclick={(event: Event) => {
+                event.stopPropagation();
+            }}
+            style={properties.style || {}}
+        >
+            {properties.splash ? null : (
+                <div>
+                    {properties.icon || (
+                        <BiInfoSquare style={iconStyle}></BiInfoSquare>
+                    )}
+                    <span className={Classes_.DIALOG_TITLE}>
+                        {properties.title || "..."}
+                    </span>
+                    {properties.closeButton || (
+                        <BiXCircle
+                            style={iconStyle}
+                            onclick={(event: Event) => {
+                                event.stopPropagation();
+                                closeDialog(dialogId);
+                            }}
+                        ></BiXCircle>
+                    )}
+                </div>
+            )}
+            {...content}
+        </div>
+    );
+
     baseElement.classList.add(Classes_.DIALOG_WINDOW);
     baseElement.setAttribute("dialog-id", dialogId);
+
     if (properties.closeOnClickOutside === true) {
         baseElement.addEventListener("click", () => {
             closeDialog(dialogId);
         });
     }
+
     document.body.appendChild(baseElement);
+
     Render(element, baseElement);
+
     if (
         NotNull_(properties.duration) &&
         typeof properties.duration === "number"
@@ -2294,6 +2678,7 @@ export function showDialog(properties: ShowDialogProps) {
             closeDialog(dialogId);
         }, properties.duration);
     }
+
     return dialogId;
 }
 
@@ -2309,26 +2694,44 @@ type ShowNotificationProps = {
 
 export function showNotification(properties: ShowNotificationProps) {
     closeNotifications();
+
     let content = LoadContent_(properties.content),
         notificationId = GetUniqueId_();
-    let baseElement = document.createElement("div"),
-        element = CreateElement(
-            "div",
-            {
-                className: Classes_.NOTIFICATION,
-                onclick: (event: Event) => {
-                    event.stopPropagation();
-                },
-                ...properties,
-            },
-            ...content
-        );
+
+    let baseElement = document.createElement("div");
+
+    // let element = CreateElement(
+    //     "div",
+    //     {
+    //         className: Classes_.NOTIFICATION,
+    //         onclick: (event: Event) => {
+    //             event.stopPropagation();
+    //         },
+    //         ...properties,
+    //     },
+    //     ...content
+    // );
+
+    let element = (
+        <div
+            className={Classes_.NOTIFICATION}
+            onclick={(event: Event) => {
+                event.stopPropagation();
+            }}
+        >
+            {...content}
+        </div>
+    );
+
     baseElement.setAttribute("notification-id", notificationId);
     document.body.appendChild(baseElement);
+
     Render(element, baseElement);
+
     setTimeout(() => {
         closeNotification(notificationId);
     }, properties.duration || 3000);
+
     return notificationId;
 }
 
@@ -2336,6 +2739,7 @@ export function closeNotification(notificationId: string) {
     let element = document.querySelector(
         `[notification-id="${notificationId}"]`
     );
+
     element?.parentNode?.removeChild(element);
 }
 
@@ -2347,19 +2751,24 @@ type ShowToastProps = {
 
 export function showToast(properties: ShowToastProps) {
     closeToasts();
+
     if (IsNull_(properties.text)) {
         return;
     }
+
     let toastId = GetUniqueId_(),
         baseElement = document.createElement("div");
+
     baseElement.classList.add(Classes_.TOAST);
     baseElement.setAttribute("toast-id", toastId);
     baseElement.textContent = properties.text;
+
     Object.assign(baseElement.style, properties.style || {});
     document.body.appendChild(baseElement);
     setTimeout(() => {
         closeToast(toastId);
     }, properties.duration || 3000);
+
     return toastId;
 }
 
