@@ -647,45 +647,73 @@ const SelectionView_ = CreateComponent({
                 props.optionItems
             ),
             component = this;
-        return CreateElement(
-            "div",
-            {
-                className:
-                    (props.className || "") +
-                    " " +
-                    (state.open === true
-                        ? Classes_.SELECTION_VIEW_ACTIVE
-                        : Classes_.SELECTION_VIEW),
-                onclick: (event: Event) => {
+        // return CreateElement(
+        //     "div",
+        //     {
+        //         className:
+        //             (props.className || "") +
+        //             " " +
+        //             (state.open === true
+        //                 ? Classes_.SELECTION_VIEW_ACTIVE
+        //                 : Classes_.SELECTION_VIEW),
+        //         onclick: (event: Event) => {
+        //             event.stopPropagation();
+        //             component.toggle();
+        //         },
+        //         ...RemoveFields_(props, ["className"]),
+        //     },
+        //     selection?.text || "Select",
+        //     state.open !== true
+        //         ? ""
+        //         : CreateElement(
+        //               "div",
+        //               {
+        //                   className: Classes_.SELECTION_VIEW_DROPDOWN,
+        //                   style: props.dropdownStyle,
+        //               },
+        //               ...optionItems.map((item) => {
+        //                   return CreateElement(
+        //                       "div",
+        //                       {
+        //                           className: Classes_.OPTION_ITEM,
+        //                           style: props.optionItemStyle,
+        //                           onclick: (event: Event) => {
+        //                               event.stopPropagation();
+        //                               component.setOption(item);
+        //                           },
+        //                       },
+        //                       item.content || item.text || "Option"
+        //                   );
+        //               })
+        //           )
+        // );
+        return (
+            <div
+                className={""}
+                onclick={(event: Event) => {
                     event.stopPropagation();
                     component.toggle();
-                },
-                ...RemoveFields_(props, ["className"]),
-            },
-            selection?.text || "Select",
-            state.open !== true
-                ? ""
-                : CreateElement(
-                      "div",
-                      {
-                          className: Classes_.SELECTION_VIEW_DROPDOWN,
-                          style: props.dropdownStyle,
-                      },
-                      ...optionItems.map((item) => {
-                          return CreateElement(
-                              "div",
-                              {
-                                  className: Classes_.OPTION_ITEM,
-                                  style: props.optionItemStyle,
-                                  onclick: (event: Event) => {
-                                      event.stopPropagation();
-                                      component.setOption(item);
-                                  },
-                              },
-                              item.content || item.text || "Option"
-                          );
-                      })
-                  )
+                }}
+            >
+                {selection?.text || "Select"}
+                {state.open !== true ? null : (
+                    <div
+                        className={Classes_.SELECTION_VIEW_DROPDOWN}
+                        style={props.dropdownStyle}
+                    >
+                        {optionItems.map((item) => {
+                            <div
+                                className={Classes_.OPTION_ITEM}
+                                style={props.optionItemStyle}
+                                style={(event: Event) => {
+                                    event.stopPropagation();
+                                    component.setOption(item);
+                                }}
+                            ></div>;
+                        })}
+                    </div>
+                )}
+            </div>
         );
     },
 });

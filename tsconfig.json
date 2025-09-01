@@ -1,17 +1,17 @@
 {
     "compilerOptions": {
-        "target": "ES2017",
-        "module": "ESNext",
-        "lib": ["DOM", "ESNext"],
-        "jsx": "react-jsx",
-        "jsxImportSource": "curlui/dist",
-        "declaration": true,
         "outDir": "./dist",
+        "target": "ES2017",
+        "module": "NodeNext",
+        "lib": ["DOM", "ESNext"],
         "strict": true,
         "esModuleInterop": true,
-        "moduleResolution": "node",
         "skipLibCheck": true,
-        "sourceMap": false
+        "forceConsistentCasingInFileNames": true,
+        "sourceMap": true,
+        "moduleResolution": "nodenext",
+        "jsx": "react-jsx",
+        "jsxImportSource": "curlui"
     },
     "include": ["src"]
 }

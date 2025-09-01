@@ -37,8 +37,10 @@
         "./icons/tfi": "./dist/icons/tfi/index.js",
         "./icons/ti": "./dist/icons/ti/index.js",
         "./icons/vsc": "./dist/icons/vsc/index.js",
-        "./icons/wi": "./dist/icons/wi/index.js"
+        "./icons/wi": "./dist/icons/wi/index.js",
+        "./styles": "./dist/styles.css"
     },
+    "sideEffects": false,
     "files": [
         "dist"
     ],

@@ -3,7 +3,7 @@ import {
     CurlUIElementProps,
     CurlUIRenderElement,
     CurlUISvgTag,
-} from "curlui/dist/types";
+} from "curlui/types";
 
 type SVGAttr = {
     [key: string]: any;
