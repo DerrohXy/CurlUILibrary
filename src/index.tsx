@@ -19,6 +19,10 @@ import {
 
 import "./styles.css";
 
+/**
+ * Gets the dimension of the current window object.
+ * @returns
+ */
 function GetWindowDimensions_() {
     return {
         innerHeight: window.innerHeight,
@@ -28,6 +32,11 @@ function GetWindowDimensions_() {
     };
 }
 
+/**
+ * Gets domensions of an HTML element.
+ * @param element The element itself.
+ * @returns
+ */
 function GetElementDimensions_(element: HTMLElement) {
     return {
         clientWidth: element.clientWidth,
@@ -39,14 +48,28 @@ function GetElementDimensions_(element: HTMLElement) {
     };
 }
 
+/**
+ * Checks if a value is null/undefined, or an empty string.
+ * @param item The value to check
+ * @returns
+ */
 function IsNull_(item: any): boolean {
     return item === null || item === undefined || item === "";
 }
 
+/**
+ * Negation of IsNull_
+ * @param item
+ * @returns
+ */
 function NotNull_(item: any): boolean {
     return !IsNull_(item);
 }
 
+/**
+ * Suposedly generates a unique string
+ * @returns The unique string.
+ */
 function GetUniqueId_(): string {
     let x = 0;
 
@@ -57,10 +80,21 @@ function GetUniqueId_(): string {
     return x.toString().replace(".", "");
 }
 
+/**
+ * Asserts values are provied as an array
+ * @param content
+ * @returns
+ */
 function LoadContent_(content: Array<any> | any): Array<any> {
     return IsNull_(content) ? [] : Array.isArray(content) ? content : [content];
 }
 
+/**
+ * Removes specified field names from an object
+ * @param object
+ * @param fields
+ * @returns
+ */
 function RemoveFields_(object: { [key: string]: any }, fields: Array<string>) {
     let newObject: { [key: string]: any } = {};
 
@@ -75,6 +109,9 @@ function RemoveFields_(object: { [key: string]: any }, fields: Array<string>) {
     return newObject;
 }
 
+/**
+ * CSS classes for animantion(type)
+ */
 type AnimationClasses = {
     PULSATING: string;
     SPINNING: string;
@@ -104,6 +141,9 @@ type AnimationClasses = {
     SLIDE_OUT_BOTTOM_FAST: string;
 };
 
+/**
+ * Predefined custom component class names(type)
+ */
 type ComponentClasses = {
     HIDDEN: string;
     BUTTON: string;
@@ -205,134 +245,144 @@ type ComponentClasses = {
     [key: string]: string;
 };
 
+/**
+ * CSS animation class names
+ */
 const AnimationClasses_: AnimationClasses = {
-        PULSATING: "",
-        SPINNING: "",
-        SLIDE_IN_LEFT: "",
-        SLIDE_IN_LEFT_SLOW: "",
-        SLIDE_IN_LEFT_FAST: "",
-        SLIDE_OUT_LEFT: "",
-        SLIDE_OUT_LEFT_SLOW: "",
-        SLIDE_OUT_LEFT_FAST: "",
-        SLIDE_IN_RIGHT: "",
-        SLIDE_IN_RIGHT_SLOW: "",
-        SLIDE_IN_RIGHT_FAST: "",
-        SLIDE_OUT_RIGHT: "",
-        SLIDE_OUT_RIGHT_SLOW: "",
-        SLIDE_OUT_RIGHT_FAST: "",
-        SLIDE_IN_TOP: "",
-        SLIDE_IN_TOP_SLOW: "",
-        SLIDE_IN_TOP_FAST: "",
-        SLIDE_OUT_TOP: "",
-        SLIDE_OUT_TOP_FAST: "",
-        SLIDE_OUT_TOP_SLOW: "",
-        SLIDE_IN_BOTTOM: "",
-        SLIDE_IN_BOTTOM_SLOW: "",
-        SLIDE_IN_BOTTOM_FAST: "",
-        SLIDE_OUT_BOTTOM: "",
-        SLIDE_OUT_BOTTOM_SLOW: "",
-        SLIDE_OUT_BOTTOM_FAST: "",
-    },
-    Classes_: ComponentClasses = {
-        ...AnimationClasses_,
-        HIDDEN: "",
-        BUTTON: "",
-        ICON_BUTTON: "",
-        LABEL: "",
-        PARAGRAPH: "",
-        ICON: "",
-        HEADING: "",
-        LINK: "",
-        IMAGE_VIEW: "",
-        VIDEO_VIEW: "",
-        AUDIO_VIEW: "",
-        TEXT_INPUT: "",
-        NUMBER_INPUT: "",
-        WEEK_INPUT: "",
-        TIME_INPUT: "",
-        MONTH_INPUT: "",
-        DATETIME_INPUT: "",
-        DATE_INPUT: "",
-        TEXT_AREA: "",
-        PASSWORD_INPUT: "",
-        COLOR_INPUT: "",
-        FILE_INPUT: "",
-        SELECTION: "",
-        OPTION: "",
-        SELECTION_VIEW: "",
-        SELECTION_VIEW_ACTIVE: "",
-        SELECTION_VIEW_DROPDOWN: "",
-        OPTION_ITEM: "",
-        PROGRESS_BAR: "",
-        SLIDER: "",
-        PROGRESS_INDICATOR: "",
-        CHECK_BUTTON: "",
-        CHECK_BUTTON_CHECK_BOX: "",
-        CHECK_BUTTON_CHECK_BOX_CHECKED: "",
-        RADIO_GROUP: "",
-        VERTICAL_RADIO_GROUP: "",
-        RADIO_BUTTON: "",
-        RADIO_BUTTON_CHECK_BOX: "",
-        RADIO_BUTTON_CHECK_BOX_CHECKED: "",
-        SWITCH: "",
-        SWITCH_ACTIVE: "",
-        SWITCH_TOGGLE: "",
-        SWITCH_TOGGLE_ACTIVE: "",
-        MENU: "",
-        MENU_ACTIVE: "",
-        MENU_DROPDOWN: "",
-        MENU_ITEM: "",
-        MENU_BAR: "",
-        TABBED_WINDOW: "",
-        VERTICAL_TABBED_WINDOW: "",
-        TABBED_WINDOW_TITLE_BAR: "",
-        VERTICAL_TABBED_WINDOW_TITLE_BAR: "",
-        TABBED_WINDOW_TITLE: "",
-        TABBED_WINDOW_TITLE_ACTIVE: "",
-        TABBED_WINDOW_CONTENT: "",
-        TABBED_WINDOW_TITLE_BAR_CENTERED: "",
-        TABBED_WINDOW_TITLE_BAR_SPACED: "",
-        TABBED_WINDOW_TITLE_BAR_RIGHT: "",
-        CANVAS: "",
-        COLLAPSE_VIEW: "",
-        COLLAPSE_VIEW_TITLE_BAR: "",
-        COLLAPSE_VIEW_TITLE_BAR_ACTIVE: "",
-        COLLAPSE_VIEW_CONTENT: "",
-        ORDERED_LIST: "",
-        UNORDERED_LIST: "",
-        LIST_ITEM: "",
-        TABLE: "",
-        TABLE_HEADING: "",
-        TABLE_FOOTER: "",
-        TABLE_BODY: "",
-        TABLE_ROW: "",
-        TABLE_DATA: "",
-        TABLE_HEADER: "",
-        CAPTION: "",
-        EMBED: "",
-        IFRAME: "",
-        VERTICAL_LAYOUT: "",
-        HORIZONTAL_LAYOUT: "",
-        FLOW_LAYOUT: "",
-        GRID_LAYOUT: "",
-        RELATIVE_LAYOUT: "",
-        SCROLL_WINDOW: "",
-        VERTICAL_SCROLL_WINDOW: "",
-        HORIZONTAL_SCROLL_WINDOW: "",
-        NAVIGATION_BAR: "",
-        NAVIGATION_BAR_NAVIGATION_WINDOW: "",
-        NAVIGATION_BAR_DRAWER_WINDOW: "",
-        NAVIGATION_BAR_MENU_WINDOW: "",
-        FOOTER_BAR: "",
-        ACTIVITY: "",
-        DIALOG: "",
-        DIALOG_TITLE: "",
-        DIALOG_WINDOW: "",
-        DIALOG_TITLE_BAR: "",
-        NOTIFICATION: "",
-        TOAST: "",
-    };
+    PULSATING: "",
+    SPINNING: "",
+    SLIDE_IN_LEFT: "",
+    SLIDE_IN_LEFT_SLOW: "",
+    SLIDE_IN_LEFT_FAST: "",
+    SLIDE_OUT_LEFT: "",
+    SLIDE_OUT_LEFT_SLOW: "",
+    SLIDE_OUT_LEFT_FAST: "",
+    SLIDE_IN_RIGHT: "",
+    SLIDE_IN_RIGHT_SLOW: "",
+    SLIDE_IN_RIGHT_FAST: "",
+    SLIDE_OUT_RIGHT: "",
+    SLIDE_OUT_RIGHT_SLOW: "",
+    SLIDE_OUT_RIGHT_FAST: "",
+    SLIDE_IN_TOP: "",
+    SLIDE_IN_TOP_SLOW: "",
+    SLIDE_IN_TOP_FAST: "",
+    SLIDE_OUT_TOP: "",
+    SLIDE_OUT_TOP_FAST: "",
+    SLIDE_OUT_TOP_SLOW: "",
+    SLIDE_IN_BOTTOM: "",
+    SLIDE_IN_BOTTOM_SLOW: "",
+    SLIDE_IN_BOTTOM_FAST: "",
+    SLIDE_OUT_BOTTOM: "",
+    SLIDE_OUT_BOTTOM_SLOW: "",
+    SLIDE_OUT_BOTTOM_FAST: "",
+};
 
+/**
+ * Combined component and CSS animation class names
+ */
+const Classes_: ComponentClasses = {
+    ...AnimationClasses_,
+    HIDDEN: "",
+    BUTTON: "",
+    ICON_BUTTON: "",
+    LABEL: "",
+    PARAGRAPH: "",
+    ICON: "",
+    HEADING: "",
+    LINK: "",
+    IMAGE_VIEW: "",
+    VIDEO_VIEW: "",
+    AUDIO_VIEW: "",
+    TEXT_INPUT: "",
+    NUMBER_INPUT: "",
+    WEEK_INPUT: "",
+    TIME_INPUT: "",
+    MONTH_INPUT: "",
+    DATETIME_INPUT: "",
+    DATE_INPUT: "",
+    TEXT_AREA: "",
+    PASSWORD_INPUT: "",
+    COLOR_INPUT: "",
+    FILE_INPUT: "",
+    SELECTION: "",
+    OPTION: "",
+    SELECTION_VIEW: "",
+    SELECTION_VIEW_ACTIVE: "",
+    SELECTION_VIEW_DROPDOWN: "",
+    OPTION_ITEM: "",
+    PROGRESS_BAR: "",
+    SLIDER: "",
+    PROGRESS_INDICATOR: "",
+    CHECK_BUTTON: "",
+    CHECK_BUTTON_CHECK_BOX: "",
+    CHECK_BUTTON_CHECK_BOX_CHECKED: "",
+    RADIO_GROUP: "",
+    VERTICAL_RADIO_GROUP: "",
+    RADIO_BUTTON: "",
+    RADIO_BUTTON_CHECK_BOX: "",
+    RADIO_BUTTON_CHECK_BOX_CHECKED: "",
+    SWITCH: "",
+    SWITCH_ACTIVE: "",
+    SWITCH_TOGGLE: "",
+    SWITCH_TOGGLE_ACTIVE: "",
+    MENU: "",
+    MENU_ACTIVE: "",
+    MENU_DROPDOWN: "",
+    MENU_ITEM: "",
+    MENU_BAR: "",
+    TABBED_WINDOW: "",
+    VERTICAL_TABBED_WINDOW: "",
+    TABBED_WINDOW_TITLE_BAR: "",
+    VERTICAL_TABBED_WINDOW_TITLE_BAR: "",
+    TABBED_WINDOW_TITLE: "",
+    TABBED_WINDOW_TITLE_ACTIVE: "",
+    TABBED_WINDOW_CONTENT: "",
+    TABBED_WINDOW_TITLE_BAR_CENTERED: "",
+    TABBED_WINDOW_TITLE_BAR_SPACED: "",
+    TABBED_WINDOW_TITLE_BAR_RIGHT: "",
+    CANVAS: "",
+    COLLAPSE_VIEW: "",
+    COLLAPSE_VIEW_TITLE_BAR: "",
+    COLLAPSE_VIEW_TITLE_BAR_ACTIVE: "",
+    COLLAPSE_VIEW_CONTENT: "",
+    ORDERED_LIST: "",
+    UNORDERED_LIST: "",
+    LIST_ITEM: "",
+    TABLE: "",
+    TABLE_HEADING: "",
+    TABLE_FOOTER: "",
+    TABLE_BODY: "",
+    TABLE_ROW: "",
+    TABLE_DATA: "",
+    TABLE_HEADER: "",
+    CAPTION: "",
+    EMBED: "",
+    IFRAME: "",
+    VERTICAL_LAYOUT: "",
+    HORIZONTAL_LAYOUT: "",
+    FLOW_LAYOUT: "",
+    GRID_LAYOUT: "",
+    RELATIVE_LAYOUT: "",
+    SCROLL_WINDOW: "",
+    VERTICAL_SCROLL_WINDOW: "",
+    HORIZONTAL_SCROLL_WINDOW: "",
+    NAVIGATION_BAR: "",
+    NAVIGATION_BAR_NAVIGATION_WINDOW: "",
+    NAVIGATION_BAR_DRAWER_WINDOW: "",
+    NAVIGATION_BAR_MENU_WINDOW: "",
+    FOOTER_BAR: "",
+    ACTIVITY: "",
+    DIALOG: "",
+    DIALOG_TITLE: "",
+    DIALOG_WINDOW: "",
+    DIALOG_TITLE_BAR: "",
+    NOTIFICATION: "",
+    TOAST: "",
+};
+
+/**
+ * Initializes class names for the custom components.
+ */
 function InitializeClasses_() {
     Object.keys(Classes_).map((_class_) => {
         let value = "" + _class_;
@@ -345,6 +395,9 @@ function InitializeClasses_() {
     });
 }
 
+/**
+ * Base colors definition
+ */
 const Colors_ = {
     ALICE_BLUE: "#F0F8FF",
     ANTIQUE_WHITE: "#FAEBD7",
