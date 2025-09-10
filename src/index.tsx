@@ -14,7 +14,7 @@ import {
     CurlUIChildComponent,
     CurlUIRenderElement,
     CurlUIElementState,
-    CurlUIElementStyleProps,
+    CurlUICSSProps,
 } from "curlui/types";
 
 import "./styles.css";
@@ -49,24 +49,6 @@ function GetElementDimensions_(element: HTMLElement) {
 }
 
 /**
- * Checks if a value is null/undefined, or an empty string.
- * @param item The value to check
- * @returns
- */
-function IsNull_(item: any): boolean {
-    return item === null || item === undefined || item === "";
-}
-
-/**
- * Negation of IsNull_
- * @param item
- * @returns
- */
-function NotNull_(item: any): boolean {
-    return !IsNull_(item);
-}
-
-/**
  * Suposedly generates a unique string
  * @returns The unique string.
  */
@@ -86,7 +68,7 @@ function GetUniqueId_(): string {
  * @returns
  */
 function LoadContent_(content: Array<any> | any): Array<any> {
-    return IsNull_(content) ? [] : Array.isArray(content) ? content : [content];
+    return !content ? [] : Array.isArray(content) ? content : [content];
 }
 
 /**
@@ -633,9 +615,9 @@ type SelectionViewOptionItem = {
 
 type SelectionViewProps = CurlUIElementProps & {
     optionItems: Array<SelectionViewOptionItem>;
-    onInput?: Function;
-    dropdownStyle?: CurlUIElementStyleProps;
-    optionItemStyle?: CurlUIElementStyleProps;
+    onSelection: Function;
+    dropdownStyle?: CurlUICSSProps;
+    optionItemStyle?: CurlUICSSProps;
 };
 
 type SelectionViewState = CurlUIElementState & {
@@ -685,7 +667,7 @@ const SelectionView_ = CreateComponent({
             open: false,
         });
 
-        props.onInput?.(item);
+        props.onSelection(item);
     },
     mounted() {
         window.addEventListener(CustomEvents_.WINDOW_CLICK, () => {
@@ -727,10 +709,17 @@ const SelectionView_ = CreateComponent({
                     event.stopPropagation();
                     component.toggle();
                 }}
-                {...RemoveFields_(props, ["className", "class"])}
+                {...RemoveFields_(props, [
+                    "className",
+                    "class",
+                    "optionItems",
+                    "onSelection",
+                    "dropdownStyle",
+                    "optionItemStyle",
+                ])}
             >
                 {selection?.text || "Select"}
-                {state.open !== true ? null : (
+                {!state.open ? null : (
                     <div
                         className={Classes_.SELECTION_VIEW_DROPDOWN}
                         style={props.dropdownStyle}
@@ -761,7 +750,8 @@ type SwitchState = CurlUIElementState & {
 };
 
 type SwitchProps = CurlUIElementProps & {
-    onActiveChange?: Function;
+    onActiveChange: Function;
+    active?: boolean;
 };
 
 const Switch_ = CreateComponent({
@@ -784,7 +774,7 @@ const Switch_ = CreateComponent({
             active: !active,
         });
 
-        props.onActiveChange?.(!active);
+        props.onActiveChange(!active);
     },
     render() {
         let state: SwitchState = this.getState(),
@@ -803,7 +793,12 @@ const Switch_ = CreateComponent({
                     event?.stopPropagation();
                     component.toggle();
                 }}
-                {...RemoveFields_(props, ["className", "class"])}
+                {...RemoveFields_(props, [
+                    "className",
+                    "class",
+                    "onActiveChange",
+                    "active",
+                ])}
             >
                 <div
                     className={
@@ -818,8 +813,9 @@ const Switch_ = CreateComponent({
 });
 
 type CheckButtonProps = CurlUIElementProps & {
-    onCheckedChange?: Function;
+    onCheckedChange: Function;
     text: string;
+    checked?: boolean;
 };
 
 type CheckButtonState = CurlUIElementState & {
@@ -847,7 +843,7 @@ const CheckButton_ = CreateComponent({
             checked: !checked,
         });
 
-        props.onCheckedChange?.(!checked);
+        props.onCheckedChange(!checked);
     },
     render() {
         let state: CheckButtonState = this.getState(),
@@ -866,7 +862,13 @@ const CheckButton_ = CreateComponent({
                     event.stopPropagation();
                     component.toggle();
                 }}
-                {...RemoveFields_(props, ["className", "class"])}
+                {...RemoveFields_(props, [
+                    "className",
+                    "class",
+                    "onCheckedChange",
+                    "text",
+                    "checked",
+                ])}
             >
                 <div
                     className={
@@ -889,8 +891,8 @@ type RadioGroupItem = {
 type RadioGroupProps = CurlUIElementProps & {
     radioItems: Array<RadioGroupItem>;
     vertical?: boolean;
-    onCheckedChange?: Function;
-    radioButtonStyle?: CurlUIElementStyleProps;
+    onCheckedChange: Function;
+    radioButtonStyle?: CurlUICSSProps;
 };
 
 type RadioGroupState = CurlUIElementState & {
@@ -939,7 +941,14 @@ const RadioGroup_ = CreateComponent({
                         ? Classes_.VERTICAL_RADIO_GROUP
                         : Classes_.RADIO_GROUP)
                 }
-                {...RemoveFields_(props, ["className", "class"])}
+                {...RemoveFields_(props, [
+                    "className",
+                    "class",
+                    "radioItems",
+                    "vertical",
+                    "onCheckedChange",
+                    "radioButtonStyle",
+                ])}
             >
                 {...radioItems.map((item) => {
                     return (
@@ -953,7 +962,7 @@ const RadioGroup_ = CreateComponent({
                         >
                             <div
                                 className={
-                                    checked
+                                    item.value == checked?.value
                                         ? Classes_.RADIO_BUTTON_CHECK_BOX_CHECKED
                                         : Classes_.RADIO_BUTTON_CHECK_BOX
                                 }
@@ -970,7 +979,8 @@ const RadioGroup_ = CreateComponent({
 type MenuProps = CurlUIElementProps & {
     menuItems?: Array<CurlUIRenderElement>;
     title: CurlUIChildComponent;
-    dropdownStyle?: CurlUIElementStyleProps;
+    dropdownStyle?: CurlUICSSProps;
+    open?: boolean;
 };
 
 type MenuState = CurlUIElementState & {
@@ -1084,7 +1094,13 @@ const Menu_ = CreateComponent({
                     event.stopPropagation();
                     component.toggle();
                 }}
-                {...RemoveFields_(props, ["className", "class"])}
+                {...RemoveFields_(props, [
+                    "className",
+                    "class",
+                    "menuItems",
+                    "title",
+                    "dropdownStyle",
+                ])}
             >
                 {props.title}
                 {!state.open ? null : (
@@ -1103,10 +1119,12 @@ const Menu_ = CreateComponent({
 type CollapseViewProps = CurlUIElementProps & {
     content?: Array<CurlUIChildComponent> | CurlUIChildComponent;
     title: CurlUIChildComponent;
-    titleBarStyle?: CurlUIElementStyleProps;
-    contentStyle?: CurlUIElementStyleProps;
+    titleBarStyle?: CurlUICSSProps;
+    contentStyle?: CurlUICSSProps;
     onCollapse?: Function;
     open: boolean;
+    closeIcon?: CurlUIRenderElement;
+    openIcon?: CurlUIRenderElement;
 };
 
 type CollabpseViewState = CurlUIElementState & {
@@ -1171,7 +1189,18 @@ const CollapseView_ = CreateComponent({
                     " " +
                     Classes_.COLLAPSE_VIEW
                 }
-                {...RemoveFields_(props, ["className", "class"])}
+                {...RemoveFields_(props, [
+                    "className",
+                    "class",
+                    "content",
+                    "title",
+                    "titleBarStyle",
+                    "contentStyle",
+                    "onCollapse",
+                    "open",
+                    "closeIcon",
+                    "openIcon",
+                ])}
             >
                 <div
                     className={
@@ -1212,9 +1241,9 @@ type TabLocation = "left" | "right" | "center";
 type TabbedWindowProps = CurlUIElementProps & {
     tabs: Array<TabbedWindowTab>;
     vertical?: boolean;
-    titleBarStyle?: CurlUIElementStyleProps;
-    titleStyle?: CurlUIElementStyleProps;
-    contentStyle?: CurlUIElementStyleProps;
+    titleBarStyle?: CurlUICSSProps;
+    titleStyle?: CurlUICSSProps;
+    contentStyle?: CurlUICSSProps;
     tabsLocation?: TabLocation;
     onTabSelection?: Function;
     currentTabIndex?: number;
@@ -1280,7 +1309,18 @@ const TabbedWindow_ = CreateComponent({
                         ? Classes_.VERTICAL_TABBED_WINDOW
                         : Classes_.TABBED_WINDOW)
                 }
-                {...RemoveFields_(props, ["className", "class"])}
+                {...RemoveFields_(props, [
+                    "className",
+                    "class",
+                    "tabs",
+                    "vertical",
+                    "titleBarStyle",
+                    "titleStyle",
+                    "contentStyle",
+                    "tabsLocation",
+                    "onTabSelection",
+                    "currentTabIndex",
+                ])}
             >
                 <div
                     className={
@@ -1331,9 +1371,9 @@ type NavigationBarProps = CurlUIElementProps & {
     content?: Array<CurlUIRenderElement> | CurlUIRenderElement;
     drawerButton?: CurlUIRenderElement;
     menuButton?: CurlUIRenderElement;
-    navigationWindowStyle?: CurlUIElementStyleProps;
-    drawerWindowStyle?: CurlUIElementStyleProps;
-    menuWindowStyle?: CurlUIElementStyleProps;
+    navigationWindowStyle?: CurlUICSSProps;
+    drawerWindowStyle?: CurlUICSSProps;
+    menuWindowStyle?: CurlUICSSProps;
 };
 
 const NavigationBar_ = CreateComponent({
@@ -1431,7 +1471,18 @@ const NavigationBar_ = CreateComponent({
                     " " +
                     Classes_.NAVIGATION_BAR
                 }
-                {...RemoveFields_(props, ["className", "class"])}
+                {...RemoveFields_(props, [
+                    "className",
+                    "class",
+                    "drawerContent",
+                    "menuContent",
+                    "content",
+                    "drawerButton",
+                    "menuButton",
+                    "navigationWindowStyle",
+                    "drawerWindowStyle",
+                    "menuWindowStyle",
+                ])}
             >
                 {drawerContent.length < 1 ? null : (
                     <div
@@ -1510,7 +1561,7 @@ function CustomElement_(
     properties: CurlUIElementProps,
     ...children: Array<CurlUIChildComponent>
 ): CurlUIRenderElement {
-    let className = NotNull_(properties.className)
+    let className = properties.className
             ? [customClass, properties.className].join(" ")
             : customClass,
         style = {
@@ -2232,6 +2283,11 @@ type Application = {
     openActivity: (title: string) => void;
 };
 
+/**
+ * Creates an application instance (v1)
+ * @param properties
+ * @returns
+ */
 export function Application(properties: ApplicationProps): Application {
     let application: Application = {
         baseElement: properties.baseElement || document.body,
@@ -2280,6 +2336,11 @@ type ApplicationV2 = {
     openActivity: (title: string) => void;
 };
 
+/**
+ * Creates an application instance (v2)
+ * @param properties
+ * @returns
+ */
 export function ApplicationV2(properties: ApplicationProps): ApplicationV2 {
     let application: ApplicationV2 = {
         baseElement: properties.baseElement || document.body,
@@ -2322,12 +2383,17 @@ type ShowDialogProps = {
     splash?: boolean;
     title?: string;
     closeOnClickOutside?: boolean;
-    style?: CurlUIElementStyleProps;
-    titleBarStyle?: CurlUIElementStyleProps;
+    style?: CurlUICSSProps;
+    titleBarStyle?: CurlUICSSProps;
     closeButton?: CurlUIRenderElement;
     icon?: CurlUIRenderElement;
 };
 
+/**
+ * Displays a popup dialog box
+ * @param properties
+ * @returns
+ */
 export function showDialog(properties: ShowDialogProps) {
     closeDialogs();
 
@@ -2346,7 +2412,7 @@ export function showDialog(properties: ShowDialogProps) {
             style={properties.style || {}}
         >
             {properties.splash ? null : (
-                <div>
+                <div className={Classes_.DIALOG_TITLE_BAR}>
                     {properties.icon || (
                         <BiInfoSquare style={iconStyle}></BiInfoSquare>
                     )}
@@ -2381,10 +2447,7 @@ export function showDialog(properties: ShowDialogProps) {
 
     Render(element, baseElement);
 
-    if (
-        NotNull_(properties.duration) &&
-        typeof properties.duration === "number"
-    ) {
+    if (properties.duration && typeof properties.duration === "number") {
         setTimeout(() => {
             closeDialog(dialogId);
         }, properties.duration);
@@ -2393,6 +2456,10 @@ export function showDialog(properties: ShowDialogProps) {
     return dialogId;
 }
 
+/**
+ * Closes a dialog given its ID
+ * @param dialogId
+ */
 export function closeDialog(dialogId: string) {
     let element = document.querySelector(`[dialog-id="${dialogId}"]`);
     element?.parentNode?.removeChild(element);
@@ -2403,6 +2470,11 @@ type ShowNotificationProps = {
     content: Array<CurlUIRenderElement> | CurlUIRenderElement;
 };
 
+/**
+ * Displays a notification message
+ * @param properties
+ * @returns
+ */
 export function showNotification(properties: ShowNotificationProps) {
     closeNotifications();
 
@@ -2434,6 +2506,10 @@ export function showNotification(properties: ShowNotificationProps) {
     return notificationId;
 }
 
+/**
+ * Closes a notification given its ID
+ * @param notificationId
+ */
 export function closeNotification(notificationId: string) {
     let element = document.querySelector(
         `[notification-id="${notificationId}"]`
@@ -2445,13 +2521,18 @@ export function closeNotification(notificationId: string) {
 type ShowToastProps = {
     text: string;
     duration?: number;
-    style?: CurlUIElementStyleProps;
+    style?: CurlUICSSProps;
 };
 
+/**
+ * Displays a toast message
+ * @param properties
+ * @returns
+ */
 export function showToast(properties: ShowToastProps) {
     closeToasts();
 
-    if (IsNull_(properties.text)) {
+    if (!properties.text) {
         return;
     }
 
@@ -2471,51 +2552,64 @@ export function showToast(properties: ShowToastProps) {
     return toastId;
 }
 
+/**
+ * Closes a toast given its ID
+ * @param toastId ID of the toast
+ */
 export function closeToast(toastId: string) {
     let element = document.querySelector(`[toast-id="${toastId}"]`);
     element?.parentNode?.removeChild(element);
 }
 
+/**
+ * Closes both navigation and menu drawers, if open
+ */
 export function closeDrawers() {
     window.dispatchEvent(
         new CustomEvent(CustomEvents_.CLOSE_DRAWERS_REQUEST, { detail: {} })
     );
 }
 
+/**
+ * Closes all current dialogs
+ */
 export function closeDialogs() {
     document.querySelectorAll("[dialog-id]").forEach((element) => {
         element?.parentNode?.removeChild(element);
     });
 }
 
+/**
+ * Closes all current notifications
+ */
 export function closeNotifications() {
     document.querySelectorAll("[notification-id]").forEach((element) => {
         element?.parentNode?.removeChild(element);
     });
 }
 
+/**
+ * Closes all current toasts
+ */
 export function closeToasts() {
     document.querySelectorAll("[toast-id]").forEach((element) => {
         element?.parentNode?.removeChild(element);
     });
 }
 
-export function isNull(item: any) {
-    return IsNull_(item);
-}
-
-export function notNull(item: any) {
-    return NotNull_(item);
-}
-
-export function getUniqueId() {
-    return GetUniqueId_();
-}
-
+/**
+ * Gets the dimension of the current window object.
+ * @returns
+ */
 export function getWindowDimensions() {
     return GetWindowDimensions_();
 }
 
+/**
+ * Gets domensions of an HTML element.
+ * @param element The element itself.
+ * @returns
+ */
 export function getElementDimensions(element: HTMLElement) {
     return GetElementDimensions_(element);
 }

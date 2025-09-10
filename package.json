@@ -1,6 +1,6 @@
 {
     "name": "curlui-library",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "",
     "main": "dist/index.js",
     "module": "dist/index.js",
@@ -51,7 +51,7 @@
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "curlui": "^0.0.4"
+        "curlui": "^0.0.5"
     },
     "devDependencies": {
         "typescript": "^5.9.2"
