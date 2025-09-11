@@ -1,11 +1,7 @@
 #!/bin/bash
 
-rm -rf dist
-
-# Compile TypeScript
-tsc
-
 # Copy styles
+cp src/styles.css dist/index.css
 cp src/styles.css dist
 
 # Copy package.json files

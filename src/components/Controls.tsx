@@ -1,0 +1,252 @@
+import { Classes, RemoveFields, LoadContent } from "../core";
+import { CreateComponent } from "curlui";
+import {
+    CurlUIChildComponent,
+    CurlUIRenderElement,
+    CurlUIElementProps,
+    CurlUIElementState,
+    CurlUICSSProps,
+} from "curlui/types";
+
+type SwitchState = CurlUIElementState & {
+    active: boolean;
+};
+
+type SwitchProps = CurlUIElementProps & {
+    onActiveChange: Function;
+    active?: boolean;
+};
+
+const Switch_ = CreateComponent({
+    getInitialState() {
+        return {
+            active: this.getProps().active === true ? true : false,
+        };
+    },
+    getDefaultProps() {
+        return {
+            onActiveChange: () => {},
+        };
+    },
+    toggle() {
+        let state: SwitchState = this.getState(),
+            props: SwitchProps = this.getProps(),
+            active = state.active;
+
+        this.setState({
+            active: !active,
+        });
+
+        props.onActiveChange(!active);
+    },
+    render() {
+        let state: SwitchState = this.getState(),
+            props: SwitchProps = this.getProps(),
+            active: boolean = state.active,
+            component = this;
+
+        return (
+            <div
+                className={
+                    (props.className || props.class || "") +
+                    " " +
+                    (active ? Classes.SWITCH_ACTIVE : Classes.SWITCH)
+                }
+                onclick={(event: Event) => {
+                    event?.stopPropagation();
+                    component.toggle();
+                }}
+                {...RemoveFields(props, [
+                    "className",
+                    "class",
+                    "onActiveChange",
+                    "active",
+                ])}
+            >
+                <div
+                    className={
+                        active
+                            ? Classes.SWITCH_TOGGLE_ACTIVE
+                            : Classes.SWITCH_TOGGLE
+                    }
+                ></div>
+            </div>
+        );
+    },
+});
+
+export function Switch(properties: SwitchProps): CurlUIRenderElement {
+    return <Switch_ {...properties} />;
+}
+
+type CheckButtonProps = CurlUIElementProps & {
+    onCheckedChange: Function;
+    text: string;
+    checked?: boolean;
+};
+
+type CheckButtonState = CurlUIElementState & {
+    checked: boolean;
+};
+
+const CheckButton_ = CreateComponent({
+    getInitialState() {
+        return {
+            checked: this.getProps().checked === true ? true : false,
+        };
+    },
+    getDefaultProps() {
+        return {
+            text: "Ckeck",
+            onCheckedChange: () => {},
+        };
+    },
+    toggle() {
+        let state: CheckButtonState = this.getState(),
+            props: CheckButtonProps = this.getProps(),
+            checked: boolean = state.checked;
+
+        this.setState({
+            checked: !checked,
+        });
+
+        props.onCheckedChange(!checked);
+    },
+    render() {
+        let state: CheckButtonState = this.getState(),
+            props: CheckButtonProps = this.getProps(),
+            checked: boolean = state.checked,
+            component = this;
+
+        return (
+            <div
+                className={
+                    (props.className || props.class || "") +
+                    " " +
+                    Classes.CHECK_BUTTON
+                }
+                onclick={(event: Event) => {
+                    event.stopPropagation();
+                    component.toggle();
+                }}
+                {...RemoveFields(props, [
+                    "className",
+                    "class",
+                    "onCheckedChange",
+                    "text",
+                    "checked",
+                ])}
+            >
+                <div
+                    className={
+                        checked
+                            ? Classes.CHECK_BUTTON_CHECK_BOX_CHECKED
+                            : Classes.CHECK_BUTTON_CHECK_BOX
+                    }
+                ></div>
+                {props.text}
+            </div>
+        );
+    },
+});
+
+export function CheckButton(properties: CheckButtonProps): CurlUIRenderElement {
+    return <CheckButton_ {...properties} />;
+}
+
+type RadioGroupItem = {
+    value: any;
+    text: CurlUIChildComponent;
+};
+
+type RadioGroupProps = CurlUIElementProps & {
+    radioItems: Array<RadioGroupItem>;
+    vertical?: boolean;
+    onCheckedChange: Function;
+    radioButtonStyle?: CurlUICSSProps;
+};
+
+type RadioGroupState = CurlUIElementState & {
+    checked?: RadioGroupItem;
+};
+
+const RadioGroup_ = CreateComponent({
+    getInitialState() {
+        return {
+            checked: {
+                text: "",
+                value: "",
+            },
+        };
+    },
+    getDefaultProps() {
+        return {
+            radioItems: [],
+            vertical: false,
+            onCheckedChange: () => {},
+            radioButtonStyle: {},
+        };
+    },
+    setChecked(item: RadioGroupItem) {
+        let props: RadioGroupProps = this.getProps();
+
+        this.setState({
+            checked: item,
+        });
+
+        props.onCheckedChange?.(item.value);
+    },
+    render() {
+        let state: RadioGroupState = this.getState(),
+            props: RadioGroupProps = this.getProps(),
+            checked: RadioGroupItem | undefined = state.checked,
+            radioItems: Array<RadioGroupItem> = LoadContent(props.radioItems),
+            component = this;
+
+        return (
+            <div
+                className={
+                    (props.className || props.class || "") +
+                    " " +
+                    (props.vertical
+                        ? Classes.VERTICAL_RADIO_GROUP
+                        : Classes.RADIO_GROUP)
+                }
+                {...RemoveFields(props, [
+                    "className",
+                    "class",
+                    "radioItems",
+                    "vertical",
+                    "onCheckedChange",
+                    "radioButtonStyle",
+                ])}
+            >
+                {...radioItems.map((item) => {
+                    return (
+                        <div
+                            className={Classes.RADIO_BUTTON}
+                            onclick={(event: Event) => {
+                                event.stopPropagation();
+                                component.setChecked(item);
+                            }}
+                            style={props.radioButtonStyle}
+                        >
+                            <div
+                                className={
+                                    item.value == checked?.value
+                                        ? Classes.RADIO_BUTTON_CHECK_BOX_CHECKED
+                                        : Classes.RADIO_BUTTON_CHECK_BOX
+                                }
+                            ></div>
+                            {item.text}
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    },
+});
+
+export function RadioGroup(properties: RadioGroupProps): CurlUIRenderElement {
+    return <RadioGroup_ {...properties} />;
+}
