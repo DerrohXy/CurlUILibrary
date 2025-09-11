@@ -212,7 +212,6 @@
         "dist"
     ],
     "keywords": [],
-    "author": "",
     "license": "MIT",
     "peerDependencies": {
         "curlui": "^0.0.5"
