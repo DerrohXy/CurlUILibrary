@@ -1,7 +1,12 @@
 {
     "name": "curlui-library",
-    "version": "0.0.8",
-    "description": "",
+    "version": "0.0.9",
+    "author":{
+      "name":"Derrick Wafula",
+      "email":"derrickwafula1500@gmail.com",
+      "url":"https://github.com/DerrohXy"
+    },
+    "description": "Custom library for common UI components. Build for CurlUI.",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
