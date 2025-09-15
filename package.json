@@ -1,10 +1,10 @@
 {
     "name": "curlui-library",
-    "version": "0.0.9",
-    "author":{
-      "name":"Derrick Wafula",
-      "email":"derrickwafula1500@gmail.com",
-      "url":"https://github.com/DerrohXy"
+    "version": "0.0.10",
+    "author": {
+        "name": "Derrick Wafula",
+        "email": "derrickwafula1500@gmail.com",
+        "url": "https://github.com/DerrohXy"
     },
     "description": "Custom library for common UI components. Build for CurlUI.",
     "main": "dist/index.js",
@@ -214,7 +214,7 @@
     "keywords": [],
     "license": "MIT",
     "peerDependencies": {
-        "curlui": "^0.0.5"
+        "curlui": "^0.0.7"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "^28.0.1",

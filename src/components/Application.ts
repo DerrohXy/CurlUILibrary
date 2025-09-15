@@ -25,7 +25,7 @@ export function Application(properties: ApplicationProps): Application {
             function () {
                 return null;
             },
-        showActivity(activity: any, title: string | null) {
+        showActivity(activity: CurlUIRenderElement, title: string | null) {
             Render(activity, this.baseElement);
             if (title) {
                 this.hashUpdateActive = false;
@@ -73,7 +73,7 @@ export function ApplicationV2(properties: ApplicationV2) {
             function () {
                 return null;
             },
-        showActivity(activity: any, path: string | null) {
+        showActivity(activity: CurlUIRenderElement, path: string | null) {
             Render(activity, this.baseElement);
 
             if (path) {
