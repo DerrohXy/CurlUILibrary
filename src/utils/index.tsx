@@ -1,13 +1,9 @@
 import { Classes, GetUniqueId, LoadContent, CustomEvents } from "../core";
-import {
-    CurlUIChildComponent,
-    CurlUIRenderElement,
-    CurlUICSSProps,
-} from "curlui/types";
+import { CurlUIRenderElement, CurlUICSSProps } from "curlui/types";
 import { BiInfoSquare, BiXCircle } from "../icons/bi";
 import { Render } from "curlui";
 
-type ShowDialogProps = {
+export type ShowDialogProps = {
     duration?: number;
     content: Array<CurlUIRenderElement> | CurlUIRenderElement;
     splash?: boolean;
@@ -95,7 +91,7 @@ export function closeDialog(dialogId: string) {
     element?.parentNode?.removeChild(element);
 }
 
-type ShowNotificationProps = {
+export type ShowNotificationProps = {
     duration?: number;
     content: Array<CurlUIRenderElement> | CurlUIRenderElement;
 };
@@ -148,7 +144,7 @@ export function closeNotification(notificationId: string) {
     element?.parentNode?.removeChild(element);
 }
 
-type ShowToastProps = {
+export type ShowToastProps = {
     text: string;
     duration?: number;
     style?: CurlUICSSProps;

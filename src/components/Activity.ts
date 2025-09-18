@@ -6,7 +6,7 @@ import {
     CurlUIElementProps,
 } from "curlui/types";
 
-type ActivityProps = CurlUIElementProps & {
+export type ActivityProps = CurlUIElementProps<HTMLDivElement> & {
     content?: CurlUIChildComponent | Array<CurlUIChildComponent>;
     footerBar?: CurlUIRenderElement;
     navigationBar?: CurlUIRenderElement;

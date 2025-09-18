@@ -3,6 +3,7 @@ import {
     CurlUIElementProps,
     CurlUIRenderElement,
     CurlUISvgTag,
+    CurlUINativeElement,
 } from "curlui/types";
 
 type SVGAttr = {
@@ -16,10 +17,10 @@ type SVGProps = {
     child?: Array<SVGProps>;
 };
 
-type CustomSVGProps = SVGProps & CurlUIElementProps;
+type CustomSVGProps = SVGProps & CurlUIElementProps<CurlUINativeElement>;
 
-function parseAttributes(attributes: CurlUIElementProps) {
-    let parsed: CurlUIElementProps = {};
+function parseAttributes(attributes: CurlUIElementProps<CurlUINativeElement>) {
+    let parsed: CurlUIElementProps<CurlUINativeElement> = {};
     Object.keys(attributes).map((k) => {
         if (["tag", "attr"].includes(k)) {
             return;
@@ -71,7 +72,7 @@ function createSvg(properties: CustomSVGProps): CurlUIRenderElement {
 
 export function GenIcon(
     properties: SVGProps
-): (props: CurlUIElementProps) => CurlUIRenderElement {
+): (props: CurlUIElementProps<CurlUINativeElement>) => CurlUIRenderElement {
     return CreateComponent({
         render() {
             let props: CustomSVGProps = this.getProps();

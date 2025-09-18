@@ -2,7 +2,11 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { CurlUIElementProps } from "curlui/types";
 
-export function Heading1(properties: CurlUIElementProps & { text: string }) {
+export type HeadingProps = CurlUIElementProps<HTMLHeadingElement> & {
+    text: string;
+};
+
+export function Heading1(properties: HeadingProps) {
     return CustomElement(
         "h1",
         Classes.HEADING,
@@ -12,7 +16,7 @@ export function Heading1(properties: CurlUIElementProps & { text: string }) {
     );
 }
 
-export function Heading2(properties: CurlUIElementProps & { text: string }) {
+export function Heading2(properties: HeadingProps) {
     return CustomElement(
         "h2",
         Classes.HEADING,
@@ -22,7 +26,7 @@ export function Heading2(properties: CurlUIElementProps & { text: string }) {
     );
 }
 
-export function Heading3(properties: CurlUIElementProps & { text: string }) {
+export function Heading3(properties: HeadingProps) {
     return CustomElement(
         "h3",
         Classes.HEADING,
@@ -32,7 +36,7 @@ export function Heading3(properties: CurlUIElementProps & { text: string }) {
     );
 }
 
-export function Heading4(properties: CurlUIElementProps & { text: string }) {
+export function Heading4(properties: HeadingProps) {
     return CustomElement(
         "h4",
         Classes.HEADING,
@@ -42,7 +46,7 @@ export function Heading4(properties: CurlUIElementProps & { text: string }) {
     );
 }
 
-export function Heading5(properties: CurlUIElementProps & { text: string }) {
+export function Heading5(properties: HeadingProps) {
     return CustomElement(
         "h5",
         Classes.HEADING,
@@ -52,7 +56,7 @@ export function Heading5(properties: CurlUIElementProps & { text: string }) {
     );
 }
 
-export function Heading6(properties: CurlUIElementProps & { text: string }) {
+export function Heading6(properties: HeadingProps) {
     return CustomElement(
         "h6",
         Classes.HEADING,

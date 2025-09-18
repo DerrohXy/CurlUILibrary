@@ -8,11 +8,11 @@ import {
     CurlUICSSProps,
 } from "curlui/types";
 
-type SwitchState = CurlUIElementState & {
+export type SwitchState = CurlUIElementState & {
     active: boolean;
 };
 
-type SwitchProps = CurlUIElementProps & {
+export type SwitchProps = CurlUIElementProps<HTMLDivElement> & {
     onActiveChange: Function;
     active?: boolean;
 };
@@ -79,13 +79,13 @@ export function Switch(properties: SwitchProps): CurlUIRenderElement {
     return <Switch_ {...properties} />;
 }
 
-type CheckButtonProps = CurlUIElementProps & {
+export type CheckButtonProps = CurlUIElementProps<HTMLDivElement> & {
     onCheckedChange: Function;
     text: string;
     checked?: boolean;
 };
 
-type CheckButtonState = CurlUIElementState & {
+export type CheckButtonState = CurlUIElementState & {
     checked: boolean;
 };
 
@@ -154,19 +154,19 @@ export function CheckButton(properties: CheckButtonProps): CurlUIRenderElement {
     return <CheckButton_ {...properties} />;
 }
 
-type RadioGroupItem = {
+export type RadioGroupItem = {
     value: any;
     text: CurlUIChildComponent;
 };
 
-type RadioGroupProps = CurlUIElementProps & {
+export type RadioGroupProps = CurlUIElementProps<HTMLDivElement> & {
     radioItems: Array<RadioGroupItem>;
     vertical?: boolean;
     onCheckedChange: Function;
     radioButtonStyle?: CurlUICSSProps;
 };
 
-type RadioGroupState = CurlUIElementState & {
+export type RadioGroupState = CurlUIElementState & {
     checked?: RadioGroupItem;
 };
 

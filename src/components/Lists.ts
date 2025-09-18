@@ -2,8 +2,10 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { CurlUIElementProps } from "curlui/types";
 
+export type UnorderedListProps = CurlUIElementProps<HTMLUListElement>;
+
 export function UnorderedList(
-    properties: CurlUIElementProps,
+    properties: UnorderedListProps,
     ...listItems: Array<any>
 ) {
     return CustomElement(
@@ -15,8 +17,10 @@ export function UnorderedList(
     );
 }
 
+export type OrderedListProps = CurlUIElementProps<HTMLOListElement>;
+
 export function OrderedList(
-    properties: CurlUIElementProps,
+    properties: OrderedListProps,
     ...listItems: Array<any>
 ) {
     return CustomElement(
@@ -28,9 +32,8 @@ export function OrderedList(
     );
 }
 
-export function ListItem(
-    properties: CurlUIElementProps,
-    ...children: Array<any>
-) {
+export type ListItemProps = CurlUIElementProps<HTMLLIElement>;
+
+export function ListItem(properties: ListItemProps, ...children: Array<any>) {
     return CustomElement("li", Classes.LIST_ITEM, {}, properties, ...children);
 }

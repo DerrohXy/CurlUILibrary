@@ -2,7 +2,9 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { CurlUIElementProps } from "curlui/types";
 
-export function Button(properties: CurlUIElementProps & { text: string }) {
+export type ButtonProps = CurlUIElementProps<HTMLDivElement> & { text: string };
+
+export function Button(properties: ButtonProps) {
     return CustomElement(
         "div",
         Classes.BUTTON as any,

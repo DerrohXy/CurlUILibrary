@@ -2,8 +2,10 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { CurlUIElementProps } from "curlui/types";
 
+export type LayoutProps = CurlUIElementProps<HTMLDivElement>;
+
 export function VerticalLayout(
-    properties: CurlUIElementProps,
+    properties: LayoutProps,
     ...children: Array<any>
 ) {
     return CustomElement(
@@ -16,7 +18,7 @@ export function VerticalLayout(
 }
 
 export function HorizontalLayout(
-    properties: CurlUIElementProps,
+    properties: LayoutProps,
     ...children: Array<any>
 ) {
     return CustomElement(
@@ -28,10 +30,7 @@ export function HorizontalLayout(
     );
 }
 
-export function FlowLayout(
-    properties: CurlUIElementProps,
-    ...children: Array<any>
-) {
+export function FlowLayout(properties: LayoutProps, ...children: Array<any>) {
     return CustomElement(
         "div",
         Classes.FLOW_LAYOUT,
@@ -41,10 +40,7 @@ export function FlowLayout(
     );
 }
 
-export function GridLayout(
-    properties: CurlUIElementProps,
-    ...children: Array<any>
-) {
+export function GridLayout(properties: LayoutProps, ...children: Array<any>) {
     return CustomElement(
         "div",
         Classes.GRID_LAYOUT,
@@ -55,7 +51,7 @@ export function GridLayout(
 }
 
 export function RelativeLayout(
-    properties: CurlUIElementProps,
+    properties: LayoutProps,
     ...children: Array<any>
 ) {
     return CustomElement(

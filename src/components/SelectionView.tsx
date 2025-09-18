@@ -8,19 +8,19 @@ import {
     CurlUICSSProps,
 } from "curlui/types";
 
-type SelectionViewOptionItem = {
+export type SelectionViewOptionItem = {
     text?: string;
     content?: CurlUIChildComponent;
 };
 
-type SelectionViewProps = CurlUIElementProps & {
+export type SelectionViewProps = CurlUIElementProps<HTMLDivElement> & {
     optionItems: Array<SelectionViewOptionItem>;
     onSelection: Function;
     dropdownStyle?: CurlUICSSProps;
     optionItemStyle?: CurlUICSSProps;
 };
 
-type SelectionViewState = CurlUIElementState & {
+export type SelectionViewState = CurlUIElementState & {
     selection: SelectionViewOptionItem | null;
     open: boolean;
 };

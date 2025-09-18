@@ -3,7 +3,6 @@ export { Button } from "./Button";
 export { IconButton } from "./IconButton";
 export { Label } from "./Label";
 export { Paragraph } from "./Paragraph";
-export { Icon } from "./Icon";
 export {
     Heading1,
     Heading2,
@@ -31,7 +30,7 @@ export {
 } from "./Inputs";
 export { Select as Selection, Option } from "./Selection";
 export { SelectionView } from "./SelectionView";
-export { ProgressBar, Slider, ProgressIndicator } from "./Progress";
+export { ProgressBar, Slider, SpinningLoader as ProgressIndicator } from "./Progress";
 export { CheckButton, RadioGroup, Switch } from "./Controls";
 export { Menu, MenuBar, MenuItem } from "./Menu";
 export { TabbedWindow } from "./TabbedWindow";
@@ -47,7 +46,7 @@ export {
     TableRow,
     TableData,
     TableHeader,
-    Caption,
+    TableCaption as Caption,
 } from "./Table";
 export { Embed, Iframe } from "./Media";
 export {

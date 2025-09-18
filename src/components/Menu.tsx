@@ -14,14 +14,14 @@ import {
     CurlUICSSProps,
 } from "curlui/types";
 
-type MenuProps = CurlUIElementProps & {
+export type MenuProps = CurlUIElementProps<HTMLDivElement> & {
     menuItems?: Array<CurlUIRenderElement>;
     title: CurlUIChildComponent;
     dropdownStyle?: CurlUICSSProps;
     open?: boolean;
 };
 
-type MenuState = CurlUIElementState & {
+export type MenuState = CurlUIElementState & {
     open: boolean;
 };
 
@@ -158,13 +158,14 @@ export function Menu(properties: MenuProps): CurlUIRenderElement {
     return <Menu_ {...properties} />;
 }
 
-export function MenuBar(properties: CurlUIElementProps, ...menus: Array<any>) {
+export type MenuBarProps = CurlUIElementProps<HTMLDivElement>;
+
+export function MenuBar(properties: MenuBarProps, ...menus: Array<any>) {
     return CustomElement("div", Classes.MENU_BAR, {}, properties, ...menus);
 }
 
-export function MenuItem(
-    properties: CurlUIElementProps,
-    ...children: Array<any>
-) {
+export type MenuItemProps = CurlUIElementProps<HTMLDivElement>;
+
+export function MenuItem(properties: MenuItemProps, ...children: Array<any>) {
     return CustomElement("div", Classes.MENU_ITEM, {}, properties, ...children);
 }

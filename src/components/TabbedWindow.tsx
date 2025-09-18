@@ -8,9 +8,9 @@ import {
     CurlUICSSProps,
 } from "curlui/types";
 
-type TabLocation = "left" | "right" | "center";
+export type TabLocation = "left" | "right" | "center";
 
-type TabbedWindowProps = CurlUIElementProps & {
+export type TabbedWindowProps = CurlUIElementProps<HTMLDivElement> & {
     tabs: Array<TabbedWindowTab>;
     vertical?: boolean;
     titleBarStyle?: CurlUICSSProps;
@@ -21,11 +21,11 @@ type TabbedWindowProps = CurlUIElementProps & {
     currentTabIndex?: number;
 };
 
-type TabbedWindowState = CurlUIElementState & {
+export type TabbedWindowState = CurlUIElementState & {
     currentTabIndex: number;
 };
 
-type TabbedWindowTab = {
+export type TabbedWindowTab = {
     title: CurlUIChildComponent;
     content: CurlUIChildComponent;
 };

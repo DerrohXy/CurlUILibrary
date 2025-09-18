@@ -2,8 +2,10 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { CurlUIElementProps } from "curlui/types";
 
+export type ScrollWindowProps = CurlUIElementProps<HTMLDivElement>;
+
 export function ScrollWindow(
-    properties: CurlUIElementProps,
+    properties: ScrollWindowProps,
     ...children: Array<any>
 ) {
     return CustomElement(
@@ -16,7 +18,7 @@ export function ScrollWindow(
 }
 
 export function VerticalScrollWindow(
-    properties: CurlUIElementProps,
+    properties: ScrollWindowProps,
     ...children: Array<any>
 ) {
     return CustomElement(
@@ -29,7 +31,7 @@ export function VerticalScrollWindow(
 }
 
 export function HorizontalScrollWindow(
-    properties: CurlUIElementProps,
+    properties: ScrollWindowProps,
     ...children: Array<any>
 ) {
     return CustomElement(

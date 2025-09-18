@@ -5,6 +5,7 @@ import {
     CurlUIElementProps,
     CurlUIChildComponent,
     CurlUIRenderElement,
+    CurlUINativeElement,
 } from "curlui/types";
 
 /**
@@ -76,8 +77,8 @@ export function LoadDefaultProperties(
 export function CustomElement(
     tag: CurlUITag,
     customClass: string,
-    customProperties: CurlUIElementProps,
-    properties: CurlUIElementProps,
+    customProperties: CurlUIElementProps<CurlUINativeElement>,
+    properties: CurlUIElementProps<CurlUINativeElement>,
     ...children: Array<CurlUIChildComponent>
 ): CurlUIRenderElement {
     let className = properties.className
@@ -394,7 +395,7 @@ type ComponentClasses = {
     OPTION_ITEM: string;
     PROGRESS_BAR: string;
     SLIDER: string;
-    PROGRESS_INDICATOR: string;
+    SPINNING_LOADER: string;
     CHECK_BUTTON: string;
     CHECK_BUTTON_CHECK_BOX: string;
     CHECK_BUTTON_CHECK_BOX_CHECKED: string;
@@ -531,7 +532,7 @@ export const Classes: ComponentClasses = {
     OPTION_ITEM: "option-item",
     PROGRESS_BAR: "progress-bar",
     SLIDER: "slider",
-    PROGRESS_INDICATOR: "progress-indicator",
+    SPINNING_LOADER: "spinning-loader",
     CHECK_BUTTON: "check-button",
     CHECK_BUTTON_CHECK_BOX: "check-button-check-box",
     CHECK_BUTTON_CHECK_BOX_CHECKED: "check-button-check-box-checked",

@@ -8,12 +8,12 @@ import {
 } from "curlui/types";
 import { BiMenu } from "../icons/bi";
 
-type NavigationBarState = CurlUIElementState & {
+export type NavigationBarState = CurlUIElementState & {
     drawerOpen: boolean;
     menuOpen: boolean;
 };
 
-type NavigationBarProps = CurlUIElementProps & {
+export type NavigationBarProps = CurlUIElementProps<HTMLDivElement> & {
     drawerContent?: CurlUIRenderElement;
     menuContent?: CurlUIRenderElement;
     content?: Array<CurlUIRenderElement> | CurlUIRenderElement;

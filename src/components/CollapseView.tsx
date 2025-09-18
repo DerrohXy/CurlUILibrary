@@ -9,7 +9,7 @@ import {
 } from "curlui/types";
 import { BiCaretDown, BiCaretUp } from "../icons/bi";
 
-type CollapseViewProps = CurlUIElementProps & {
+export type CollapseViewProps = CurlUIElementProps<HTMLDivElement> & {
     content?: Array<CurlUIChildComponent> | CurlUIChildComponent;
     title: CurlUIChildComponent;
     titleBarStyle?: CurlUICSSProps;
@@ -20,7 +20,7 @@ type CollapseViewProps = CurlUIElementProps & {
     openIcon?: CurlUIRenderElement;
 };
 
-type CollabpseViewState = CurlUIElementState & {
+export type CollabpseViewState = CurlUIElementState & {
     open: boolean;
 };
 

@@ -2,7 +2,9 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { CurlUIElementProps } from "curlui/types";
 
-export function TextInput(properties: CurlUIElementProps) {
+export type InputProps = CurlUIElementProps<HTMLInputElement>;
+
+export function TextInput(properties: InputProps) {
     return CustomElement(
         "input",
         Classes.TEXT_INPUT,
@@ -13,7 +15,7 @@ export function TextInput(properties: CurlUIElementProps) {
     );
 }
 
-export function NumberInput(properties: CurlUIElementProps) {
+export function NumberInput(properties: InputProps) {
     return CustomElement(
         "input",
         Classes.NUMBER_INPUT,
@@ -24,7 +26,7 @@ export function NumberInput(properties: CurlUIElementProps) {
     );
 }
 
-export function WeekInput(properties: CurlUIElementProps) {
+export function WeekInput(properties: InputProps) {
     return CustomElement(
         "input",
         Classes.WEEK_INPUT,
@@ -35,7 +37,7 @@ export function WeekInput(properties: CurlUIElementProps) {
     );
 }
 
-export function TimeInput(properties: CurlUIElementProps) {
+export function TimeInput(properties: InputProps) {
     return CustomElement(
         "input",
         Classes.TIME_INPUT,
@@ -46,7 +48,7 @@ export function TimeInput(properties: CurlUIElementProps) {
     );
 }
 
-export function MonthInput(properties: CurlUIElementProps) {
+export function MonthInput(properties: InputProps) {
     return CustomElement(
         "input",
         Classes.MONTH_INPUT,
@@ -57,7 +59,7 @@ export function MonthInput(properties: CurlUIElementProps) {
     );
 }
 
-export function DatetimeInput(properties: CurlUIElementProps) {
+export function DatetimeInput(properties: InputProps) {
     return CustomElement(
         "input",
         Classes.DATETIME_INPUT,
@@ -68,7 +70,7 @@ export function DatetimeInput(properties: CurlUIElementProps) {
     );
 }
 
-export function DateInput(properties: CurlUIElementProps) {
+export function DateInput(properties: InputProps) {
     return CustomElement(
         "input",
         Classes.DATE_INPUT,
@@ -79,7 +81,9 @@ export function DateInput(properties: CurlUIElementProps) {
     );
 }
 
-export function TextArea(properties: CurlUIElementProps) {
+export type TextAreaProps = CurlUIElementProps<HTMLTextAreaElement>;
+
+export function TextArea(properties: TextAreaProps) {
     return CustomElement(
         "textarea",
         Classes.TEXT_AREA,
@@ -90,7 +94,7 @@ export function TextArea(properties: CurlUIElementProps) {
     );
 }
 
-export function PasswordInput(properties: CurlUIElementProps) {
+export function PasswordInput(properties: InputProps) {
     return CustomElement(
         "input",
         Classes.PASSWORD_INPUT,
@@ -101,7 +105,7 @@ export function PasswordInput(properties: CurlUIElementProps) {
     );
 }
 
-export function ColorInput(properties: CurlUIElementProps) {
+export function ColorInput(properties: InputProps) {
     return CustomElement(
         "input",
         Classes.COLOR_INPUT,
@@ -112,7 +116,7 @@ export function ColorInput(properties: CurlUIElementProps) {
     );
 }
 
-export function FileInput(properties: CurlUIElementProps) {
+export function FileInput(properties: InputProps) {
     return CustomElement(
         "input",
         Classes.FILE_INPUT,

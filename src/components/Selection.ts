@@ -2,7 +2,9 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { CurlUIElementProps } from "curlui/types";
 
-export function Select(properties: CurlUIElementProps, ...options: Array<any>) {
+export type SelectProps = CurlUIElementProps<HTMLSelectElement>;
+
+export function Select(properties: SelectProps, ...options: Array<any>) {
     return CustomElement(
         "select",
         Classes.SELECTION,
@@ -12,7 +14,9 @@ export function Select(properties: CurlUIElementProps, ...options: Array<any>) {
     );
 }
 
-export function Option(properties: CurlUIElementProps & { text?: string }) {
+export type OptionProps = CurlUIElementProps<HTMLOptionElement>;
+
+export function Option(properties: OptionProps & { text?: string }) {
     return CustomElement(
         "option",
         Classes.OPTION,

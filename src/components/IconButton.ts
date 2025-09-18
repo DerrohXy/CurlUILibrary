@@ -2,12 +2,12 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { CurlUIElementProps } from "curlui/types";
 
-export function IconButton(
-    properties: CurlUIElementProps & {
-        text: string;
-        icon: any;
-    }
-) {
+export type IconButtonProps = CurlUIElementProps<HTMLDivElement> & {
+    text: string;
+    icon: any;
+};
+
+export function IconButton(properties: IconButtonProps) {
     return CustomElement(
         "div",
         Classes.ICON_BUTTON,
