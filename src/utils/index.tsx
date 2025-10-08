@@ -14,7 +14,7 @@ export type ShowDialogProps = {
     icon?: CurlUIRenderElement;
 };
 
-function infoButton_(): CurlUIRenderElement {
+function infoIcon_(): CurlUIRenderElement {
     return (
         <div
             style={{
@@ -27,15 +27,16 @@ function infoButton_(): CurlUIRenderElement {
     );
 }
 
-function caretButton_(): CurlUIRenderElement {
+function closeButton_(onClick: Function): CurlUIRenderElement {
     return (
         <div
             style={{
                 padding: "10px",
                 margin: "5px",
             }}
+            onclick={onClick}
         >
-            {">"}
+            {"<"}
         </div>
     );
 }
@@ -64,11 +65,15 @@ export function showDialog(properties: ShowDialogProps) {
         >
             {properties.splash ? null : (
                 <div className={Classes.DIALOG_TITLE_BAR}>
-                    {properties.icon || infoButton_()}
+                    {properties.icon || infoIcon_()}
                     <span className={Classes.DIALOG_TITLE}>
                         {properties.title || "..."}
                     </span>
-                    {properties.closeButton || caretButton_()}
+                    {properties.closeButton ||
+                        closeButton_((event: Event) => {
+                            event.stopPropagation();
+                            closeDialog(dialogId);
+                        })}
                 </div>
             )}
             {...content}

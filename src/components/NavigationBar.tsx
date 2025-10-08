@@ -23,7 +23,7 @@ export type NavigationBarProps = CurlUIElementProps<HTMLDivElement> & {
     menuWindowStyle?: CurlUICSSProps;
 };
 
-function menuButton_(): CurlUIRenderElement {
+function menuIcon_(): CurlUIRenderElement {
     return (
         <div
             style={{
@@ -31,7 +31,7 @@ function menuButton_(): CurlUIRenderElement {
                 margin: "5px",
             }}
         >
-            {":"}
+            {">"}
         </div>
     );
 }
@@ -151,7 +151,7 @@ const NavigationBar_ = CreateComponent({
                             component.toggleDrawer();
                         }}
                     >
-                        {!drawerButton ? menuButton_() : drawerButton}
+                        {!drawerButton ? menuIcon_() : drawerButton}
                     </div>
                 )}
                 {...content}
@@ -162,7 +162,7 @@ const NavigationBar_ = CreateComponent({
                             component.toggleMenu();
                         }}
                     >
-                        {!menuButton ? menuButton_() : menuButton}
+                        {!menuButton ? menuIcon_() : menuButton}
                     </div>
                 )}
                 {(drawerContent.length < 1 && menuContent.length < 1) ||

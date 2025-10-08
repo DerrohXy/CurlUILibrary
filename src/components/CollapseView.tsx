@@ -23,7 +23,7 @@ export type CollabpseViewState = CurlUIElementState & {
     open: boolean;
 };
 
-function closeButton_(): CurlUIRenderElement {
+function closeIcon_(): CurlUIRenderElement {
     return (
         <div
             style={{
@@ -36,7 +36,7 @@ function closeButton_(): CurlUIRenderElement {
     );
 }
 
-function openButton_(): CurlUIRenderElement {
+function openIcon_(): CurlUIRenderElement {
     return (
         <div
             style={{
@@ -134,8 +134,8 @@ const CollapseView_ = CreateComponent({
                 >
                     {props.title}
                     {state.open
-                        ? props.closeIcon || closeButton_()
-                        : props.openIcon || openButton_()}
+                        ? props.closeIcon || closeIcon_()
+                        : props.openIcon || openIcon_()}
                 </div>
                 {!state.open ? null : (
                     <div
