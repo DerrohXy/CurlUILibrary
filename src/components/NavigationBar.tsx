@@ -6,7 +6,6 @@ import {
     CurlUIElementState,
     CurlUICSSProps,
 } from "curlui/types";
-import { BiMenu } from "../icons/bi";
 
 export type NavigationBarState = CurlUIElementState & {
     drawerOpen: boolean;
@@ -23,6 +22,19 @@ export type NavigationBarProps = CurlUIElementProps<HTMLDivElement> & {
     drawerWindowStyle?: CurlUICSSProps;
     menuWindowStyle?: CurlUICSSProps;
 };
+
+function menuButton_(): CurlUIRenderElement {
+    return (
+        <div
+            style={{
+                padding: "15px",
+                margin: "5px",
+            }}
+        >
+            {":"}
+        </div>
+    );
+}
 
 const NavigationBar_ = CreateComponent({
     getInitialState() {
@@ -139,11 +151,7 @@ const NavigationBar_ = CreateComponent({
                             component.toggleDrawer();
                         }}
                     >
-                        {!drawerButton ? (
-                            <BiMenu style={iconStyle}></BiMenu>
-                        ) : (
-                            drawerButton
-                        )}
+                        {!drawerButton ? menuButton_() : drawerButton}
                     </div>
                 )}
                 {...content}
@@ -154,11 +162,7 @@ const NavigationBar_ = CreateComponent({
                             component.toggleMenu();
                         }}
                     >
-                        {!menuButton ? (
-                            <BiMenu style={iconStyle}></BiMenu>
-                        ) : (
-                            menuButton
-                        )}
+                        {!menuButton ? menuButton_() : menuButton}
                     </div>
                 )}
                 {(drawerContent.length < 1 && menuContent.length < 1) ||

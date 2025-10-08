@@ -1,6 +1,5 @@
 import { Classes, GetUniqueId, LoadContent, CustomEvents } from "../core";
 import { CurlUIRenderElement, CurlUICSSProps } from "curlui/types";
-import { BiInfoSquare, BiXCircle } from "../icons/bi";
 import { Render } from "curlui";
 
 export type ShowDialogProps = {
@@ -14,6 +13,32 @@ export type ShowDialogProps = {
     closeButton?: CurlUIRenderElement;
     icon?: CurlUIRenderElement;
 };
+
+function infoButton_(): CurlUIRenderElement {
+    return (
+        <div
+            style={{
+                padding: "10px",
+                margin: "5px",
+            }}
+        >
+            {">"}
+        </div>
+    );
+}
+
+function caretButton_(): CurlUIRenderElement {
+    return (
+        <div
+            style={{
+                padding: "10px",
+                margin: "5px",
+            }}
+        >
+            {">"}
+        </div>
+    );
+}
 
 /**
  * Displays a popup dialog box
@@ -39,21 +64,11 @@ export function showDialog(properties: ShowDialogProps) {
         >
             {properties.splash ? null : (
                 <div className={Classes.DIALOG_TITLE_BAR}>
-                    {properties.icon || (
-                        <BiInfoSquare style={iconStyle}></BiInfoSquare>
-                    )}
+                    {properties.icon || infoButton_()}
                     <span className={Classes.DIALOG_TITLE}>
                         {properties.title || "..."}
                     </span>
-                    {properties.closeButton || (
-                        <BiXCircle
-                            style={iconStyle}
-                            onclick={(event: Event) => {
-                                event.stopPropagation();
-                                closeDialog(dialogId);
-                            }}
-                        ></BiXCircle>
-                    )}
+                    {properties.closeButton || caretButton_()}
                 </div>
             )}
             {...content}

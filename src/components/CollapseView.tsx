@@ -7,7 +7,6 @@ import {
     CurlUIElementState,
     CurlUICSSProps,
 } from "curlui/types";
-import { BiCaretDown, BiCaretUp } from "../icons/bi";
 
 export type CollapseViewProps = CurlUIElementProps<HTMLDivElement> & {
     content?: Array<CurlUIChildComponent> | CurlUIChildComponent;
@@ -23,6 +22,32 @@ export type CollapseViewProps = CurlUIElementProps<HTMLDivElement> & {
 export type CollabpseViewState = CurlUIElementState & {
     open: boolean;
 };
+
+function closeButton_(): CurlUIRenderElement {
+    return (
+        <div
+            style={{
+                padding: "10px",
+                margin: "5px",
+            }}
+        >
+            {"<"}
+        </div>
+    );
+}
+
+function openButton_(): CurlUIRenderElement {
+    return (
+        <div
+            style={{
+                padding: "10px",
+                margin: "5px",
+            }}
+        >
+            {">"}
+        </div>
+    );
+}
 
 const CollapseView_ = CreateComponent({
     getInitialState() {
@@ -109,12 +134,8 @@ const CollapseView_ = CreateComponent({
                 >
                     {props.title}
                     {state.open
-                        ? props.closeIcon || (
-                              <BiCaretUp style={iconStyle}></BiCaretUp>
-                          )
-                        : props.openIcon || (
-                              <BiCaretDown style={iconStyle}></BiCaretDown>
-                          )}
+                        ? props.closeIcon || closeButton_()
+                        : props.openIcon || openButton_()}
                 </div>
                 {!state.open ? null : (
                     <div
