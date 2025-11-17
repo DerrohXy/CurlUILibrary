@@ -1,7 +1,16 @@
 import { Render } from "curlui";
 import { CurlUIRenderElement } from "curlui/types";
 
-export type ApplicationRouter = (title: string) => CurlUIRenderElement | null;
+export type PageParams = { [key: string]: string };
+
+export type PageDetails = {
+    path: string;
+    params?: PageParams;
+};
+
+export type ApplicationRouter = (
+    params: PageDetails
+) => CurlUIRenderElement | null;
 
 export type ApplicationProps = {
     router?: ApplicationRouter;
@@ -10,91 +19,57 @@ export type ApplicationProps = {
 
 export type Application = {
     baseElement: HTMLElement;
-    hashUpdateActive: boolean;
     router: ApplicationRouter;
-    showActivity: (activity: any, title: string | null) => void;
-    openActivity: (title: string) => void;
+    openPage: (details: PageDetails, replace: boolean) => void;
+    getCurrentPageDetails: () => PageDetails;
+    start: () => void;
 };
 
 export function Application(properties: ApplicationProps): Application {
     let application: Application = {
         baseElement: properties.baseElement || document.body,
-        hashUpdateActive: true,
         router:
             properties.router ||
             function () {
                 return null;
             },
-        showActivity(activity: CurlUIRenderElement, title: string | null) {
-            Render(activity, this.baseElement);
-            if (title) {
-                this.hashUpdateActive = false;
-                window.location.hash = title;
-                setTimeout(() => {
-                    this.hashUpdateActive = true;
-                }, 1500);
+        openPage(details: PageDetails, replace: boolean = false) {
+            const queryString = new URLSearchParams(
+                details.params || {}
+            ).toString();
+            const newUrl = queryString
+                ? `${details.path}?${queryString}`
+                : details.path;
+
+            if (replace) {
+                history.replaceState(null, "", newUrl);
+            } else {
+                history.pushState(null, "", newUrl);
             }
+
+            this.start();
         },
-        openActivity(title: string) {
-            window.location.hash = title;
+        getCurrentPageDetails() {
+            return {
+                path: window.location.pathname,
+                params: Object.fromEntries(
+                    new URLSearchParams(window.location.search)
+                ),
+            };
         },
-    };
+        start() {
+            let display = application.router(
+                application.getCurrentPageDetails()
+            );
 
-    window.addEventListener("hashchange", () => {
-        if (application.hashUpdateActive !== true) {
-            return;
-        }
-
-        let title = window.location.hash.slice(1),
-            activity = application.router(title);
-
-        if (activity) {
-            application.showActivity(activity, null);
-        }
-    });
-
-    return application;
-}
-
-export type ApplicationV2 = {
-    baseElement: HTMLElement;
-    pathUpdateActive: boolean;
-    router: ApplicationRouter;
-    showActivity: (activity: any, path: string | null) => void;
-    openActivity: (title: string) => void;
-};
-
-export function ApplicationV2(properties: ApplicationProps) {
-    let application: ApplicationV2 = {
-        baseElement: properties.baseElement || document.body,
-        pathUpdateActive: true,
-        router:
-            properties.router ||
-            function () {
-                return null;
-            },
-        showActivity(activity: CurlUIRenderElement, path: string | null) {
-            Render(activity, this.baseElement);
-
-            if (path) {
-                history.pushState({}, "", path);
-            }
-        },
-        openActivity(path: string) {
-            let activity = this.router(path);
-
-            if (activity) {
-                this.showActivity(activity, path);
+            if (display) {
+                Render(display, application.baseElement);
             }
         },
     };
 
     window.addEventListener("popstate", () => {
-        application.openActivity(document.location.pathname);
-    });
-
-    window.addEventListener("DOMContentLoaded", () => {
-        application.openActivity(document.location.pathname);
+        application.start();
     });
 
     return application;
