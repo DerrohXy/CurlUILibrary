@@ -7,11 +7,8 @@
         "url": "https://github.com/DerrohXy"
     },
     "description": "Custom library for common UI components. Build for CurlUI.",
-    "main": "dist/index.js",
-    "module": "dist/index.esm.js",
-    "types": "dist/index.d.ts",
     "exports": {
-        "./styles": "./dist/styles.css",
+        "./styles": "./dist/index.css",
         "./core": {
             "import": "./dist/core.esm.js",
             "require": "./dist/core.js",
@@ -162,9 +159,9 @@
     "scripts": {
         "rollup": "rollup --config --bundleConfigAsCjs",
         "rollup-watch": "rollup -w --config --bundleConfigAsCjs",
-        "build": "tsc && npm run rollup && ./post-build.sh",
-        "build:watch": "tsc && npm run rollup-watch && ./post-build.sh",
-        "build:analyze": "tsc && npm run rollup && ./post-build.sh && npx rollup-plugin-visualizer dist/stats.html",
+        "build": "tsc && npm run rollup",
+        "build:watch": "tsc && npm run rollup-watch",
+        "build:analyze": "tsc && npm run rollup && npx rollup-plugin-visualizer dist/stats.html",
         "size": "npm run build && npx size-limit"
     },
     "files": [
@@ -180,8 +177,6 @@
         "@rollup/plugin-node-resolve": "^15.3.0",
         "@rollup/plugin-terser": "^0.4.4",
         "@rollup/plugin-typescript": "^12.1.0",
-        "@types/react": "^19.1.12",
-        "@types/react-dom": "^19.1.9",
         "rollup": "^4.28.1",
         "rollup-plugin-dts": "^6.1.1",
         "rollup-plugin-postcss": "^4.0.2",

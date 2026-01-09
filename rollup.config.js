@@ -87,7 +87,7 @@ export default [
                 brotliSize: true,
             }),
         ],
-        external: ["curlui", "curlui/types", "curlui/jsx-runtime"],
+        // external: ["curlui", "curlui/types", "curlui/jsx-runtime"],
         treeshake: {
             moduleSideEffects: false,
             propertyReadSideEffects: false,
