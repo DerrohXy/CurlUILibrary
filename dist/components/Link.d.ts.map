@@ -1,0 +1,1 @@
+{"version":3,"file":"Link.d.ts","sourceRoot":"","sources":["../../src/components/Link.tsx"],"names":[],"mappings":"AAEA,OAAO,EAAE,kBAAkB,EAAE,MAAM,cAAc,CAAC;AAElD,MAAM,MAAM,SAAS,GAAG,kBAAkB,CAAC,iBAAiB,CAAC,CAAC;AAE9D,wBAAgB,IAAI,CAAC,UAAU,EAAE,SAAS,EAAE,GAAG,QAAQ,EAAE,KAAK,CAAC,GAAG,CAAC,8CAElE"}
