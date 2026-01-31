@@ -1,8 +1,8 @@
 import { CustomElement } from "../core";
 import { Classes } from "../core";
-import { CurlUIElementProps } from "curlui/types";
+import { ElementProps } from "curlui/types";
 
-export type InputProps = CurlUIElementProps<HTMLInputElement>;
+export type InputProps = ElementProps<HTMLInputElement>;
 
 export function TextInput(properties: InputProps) {
     return CustomElement(
@@ -11,7 +11,7 @@ export function TextInput(properties: InputProps) {
         {
             type: "text",
         },
-        properties
+        properties,
     );
 }
 
@@ -22,7 +22,7 @@ export function NumberInput(properties: InputProps) {
         {
             type: "number",
         },
-        properties
+        properties,
     );
 }
 
@@ -33,7 +33,7 @@ export function WeekInput(properties: InputProps) {
         {
             type: "week",
         },
-        properties
+        properties,
     );
 }
 
@@ -44,7 +44,7 @@ export function TimeInput(properties: InputProps) {
         {
             type: "time",
         },
-        properties
+        properties,
     );
 }
 
@@ -55,7 +55,7 @@ export function MonthInput(properties: InputProps) {
         {
             type: "month",
         },
-        properties
+        properties,
     );
 }
 
@@ -66,7 +66,7 @@ export function DatetimeInput(properties: InputProps) {
         {
             type: "datetime-local",
         },
-        properties
+        properties,
     );
 }
 
@@ -77,11 +77,11 @@ export function DateInput(properties: InputProps) {
         {
             type: "date",
         },
-        properties
+        properties,
     );
 }
 
-export type TextAreaProps = CurlUIElementProps<HTMLTextAreaElement>;
+export type TextAreaProps = ElementProps<HTMLTextAreaElement>;
 
 export function TextArea(properties: TextAreaProps) {
     return CustomElement(
@@ -90,7 +90,7 @@ export function TextArea(properties: TextAreaProps) {
         {
             rows: 5,
         },
-        properties
+        properties,
     );
 }
 
@@ -101,7 +101,7 @@ export function PasswordInput(properties: InputProps) {
         {
             type: "password",
         },
-        properties
+        properties,
     );
 }
 
@@ -112,7 +112,7 @@ export function ColorInput(properties: InputProps) {
         {
             type: "color",
         },
-        properties
+        properties,
     );
 }
 
@@ -123,6 +123,6 @@ export function FileInput(properties: InputProps) {
         {
             type: "file",
         },
-        properties
+        properties,
     );
 }

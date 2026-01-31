@@ -1,20 +1,20 @@
 import { Classes, GetUniqueId, LoadContent, CustomEvents } from "../core";
-import { CurlUIRenderElement, CurlUICSSProps } from "curlui/types";
+import { RenderElement, CSSProps } from "curlui/types";
 import { Render } from "curlui";
 
 export type ShowDialogProps = {
     duration?: number;
-    content: Array<CurlUIRenderElement> | CurlUIRenderElement;
+    content: Array<RenderElement> | RenderElement;
     splash?: boolean;
     title?: string;
     closeOnClickOutside?: boolean;
-    style?: CurlUICSSProps;
-    titleBarStyle?: CurlUICSSProps;
-    closeButton?: CurlUIRenderElement;
-    icon?: CurlUIRenderElement;
+    style?: CSSProps;
+    titleBarStyle?: CSSProps;
+    closeButton?: RenderElement;
+    icon?: RenderElement;
 };
 
-function infoIcon_(): CurlUIRenderElement {
+function infoIcon_(content?: RenderElement): RenderElement {
     return (
         <div
             style={{
@@ -22,12 +22,15 @@ function infoIcon_(): CurlUIRenderElement {
                 margin: "5px",
             }}
         >
-            {">"}
+            {content || ">"}
         </div>
     );
 }
 
-function closeButton_(onClick: Function): CurlUIRenderElement {
+function closeButton_(
+    onClick: Function,
+    content?: RenderElement,
+): RenderElement {
     return (
         <div
             style={{
@@ -36,7 +39,7 @@ function closeButton_(onClick: Function): CurlUIRenderElement {
             }}
             onclick={onClick}
         >
-            {"<"}
+            {content || "<"}
         </div>
     );
 }
@@ -65,15 +68,14 @@ export function showDialog(properties: ShowDialogProps) {
         >
             {properties.splash ? null : (
                 <div className={Classes.DIALOG_TITLE_BAR}>
-                    {properties.icon || infoIcon_()}
+                    {infoIcon_(properties.icon)}
                     <span className={Classes.DIALOG_TITLE}>
                         {properties.title || "..."}
                     </span>
-                    {properties.closeButton ||
-                        closeButton_((event: Event) => {
-                            event.stopPropagation();
-                            closeDialog(dialogId);
-                        })}
+                    {closeButton_((event: Event) => {
+                        event.stopPropagation();
+                        closeDialog(dialogId);
+                    }, properties.closeButton)}
                 </div>
             )}
             {...content}
@@ -113,7 +115,7 @@ export function closeDialog(dialogId: string) {
 
 export type ShowNotificationProps = {
     duration?: number;
-    content: Array<CurlUIRenderElement> | CurlUIRenderElement;
+    content: Array<RenderElement> | RenderElement;
 };
 
 /**
@@ -158,7 +160,7 @@ export function showNotification(properties: ShowNotificationProps) {
  */
 export function closeNotification(notificationId: string) {
     let element = document.querySelector(
-        `[notification-id="${notificationId}"]`
+        `[notification-id="${notificationId}"]`,
     );
 
     element?.parentNode?.removeChild(element);
@@ -167,7 +169,7 @@ export function closeNotification(notificationId: string) {
 export type ShowToastProps = {
     text: string;
     duration?: number;
-    style?: CurlUICSSProps;
+    style?: CSSProps;
 };
 
 /**
@@ -208,7 +210,7 @@ export function closeToast(toastId: string) {
  */
 export function closeDrawers() {
     window.dispatchEvent(
-        new CustomEvent(CustomEvents.CLOSE_DRAWERS_REQUEST, { detail: {} })
+        new CustomEvent(CustomEvents.CLOSE_DRAWERS_REQUEST, { detail: {} }),
     );
 }
 

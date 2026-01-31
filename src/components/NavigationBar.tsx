@@ -1,29 +1,29 @@
 import { Classes, RemoveFields, LoadContent, CustomEvents } from "../core";
 import { CreateComponent } from "curlui";
 import {
-    CurlUIRenderElement,
-    CurlUIElementProps,
-    CurlUIElementState,
-    CurlUICSSProps,
+    RenderElement,
+    ElementProps,
+    ElementState,
+    CSSProps,
 } from "curlui/types";
 
-export type NavigationBarState = CurlUIElementState & {
+export type NavigationBarState = ElementState & {
     drawerOpen: boolean;
     menuOpen: boolean;
 };
 
-export type NavigationBarProps = CurlUIElementProps<HTMLDivElement> & {
-    drawerContent?: CurlUIRenderElement;
-    menuContent?: CurlUIRenderElement;
-    content?: Array<CurlUIRenderElement> | CurlUIRenderElement;
-    drawerButton?: CurlUIRenderElement;
-    menuButton?: CurlUIRenderElement;
-    navigationWindowStyle?: CurlUICSSProps;
-    drawerWindowStyle?: CurlUICSSProps;
-    menuWindowStyle?: CurlUICSSProps;
+export type NavigationBarProps = ElementProps<HTMLDivElement> & {
+    drawerContent?: RenderElement;
+    menuContent?: RenderElement;
+    content?: Array<RenderElement> | RenderElement;
+    drawerButton?: RenderElement;
+    menuButton?: RenderElement;
+    navigationWindowStyle?: CSSProps;
+    drawerWindowStyle?: CSSProps;
+    menuWindowStyle?: CSSProps;
 };
 
-function menuIcon_(): CurlUIRenderElement {
+function menuIcon_(): RenderElement {
     return (
         <div
             style={{
@@ -36,7 +36,7 @@ function menuIcon_(): CurlUIRenderElement {
     );
 }
 
-const NavigationBar_ = CreateComponent({
+const NavigationBar_ = CreateComponent<NavigationBarProps>({
     getInitialState() {
         return {
             drawerOpen: false,
@@ -109,16 +109,14 @@ const NavigationBar_ = CreateComponent({
             drawerOpen: boolean = state.drawerOpen,
             menuOpen: boolean = state.menuOpen;
 
-        let drawerContent: Array<CurlUIRenderElement> = LoadContent(
-                props.drawerContent
+        let drawerContent: Array<RenderElement> = LoadContent(
+                props.drawerContent,
             ),
-            menuContent: Array<CurlUIRenderElement> = LoadContent(
-                props.menuContent
-            ),
-            drawerButton: CurlUIRenderElement | undefined = props.drawerButton,
-            menuButton: CurlUIRenderElement | undefined = props.menuButton,
-            content: Array<CurlUIRenderElement> = LoadContent(
-                props.content || props.children || []
+            menuContent: Array<RenderElement> = LoadContent(props.menuContent),
+            drawerButton: RenderElement | undefined = props.drawerButton,
+            menuButton: RenderElement | undefined = props.menuButton,
+            content: Array<RenderElement> = LoadContent(
+                props.content || props.children || [],
             ),
             component = this;
 
@@ -204,8 +202,6 @@ const NavigationBar_ = CreateComponent({
     },
 });
 
-export function NavigationBar(
-    properties: NavigationBarProps
-): CurlUIRenderElement {
+export function NavigationBar(properties: NavigationBarProps): RenderElement {
     return <NavigationBar_ {...properties} />;
 }

@@ -1,31 +1,31 @@
 import { Classes, RemoveFields, LoadContent, CustomEvents } from "../core";
 import { CreateComponent } from "curlui";
 import {
-    CurlUIChildComponent,
-    CurlUIRenderElement,
-    CurlUIElementProps,
-    CurlUIElementState,
-    CurlUICSSProps,
+    ChildComponent,
+    RenderElement,
+    ElementProps,
+    ElementState,
+    CSSProps,
 } from "curlui/types";
 
 export type SelectionViewOptionItem = {
     text?: string;
-    content?: CurlUIChildComponent;
+    content?: ChildComponent;
 };
 
-export type SelectionViewProps = CurlUIElementProps<HTMLDivElement> & {
+export type SelectionViewProps = ElementProps<HTMLDivElement> & {
     optionItems: Array<SelectionViewOptionItem>;
     onSelection: Function;
-    dropdownStyle?: CurlUICSSProps;
-    optionItemStyle?: CurlUICSSProps;
+    dropdownStyle?: CSSProps;
+    optionItemStyle?: CSSProps;
 };
 
-export type SelectionViewState = CurlUIElementState & {
+export type SelectionViewState = ElementState & {
     selection: SelectionViewOptionItem | null;
     open: boolean;
 };
 
-const SelectionView_ = CreateComponent({
+const SelectionView_ = CreateComponent<SelectionViewProps>({
     getInitialState() {
         return {
             selection: null,
@@ -92,7 +92,7 @@ const SelectionView_ = CreateComponent({
             props: SelectionViewProps = this.getProps(),
             selection: SelectionViewOptionItem | null = state.selection,
             optionItems: Array<SelectionViewOptionItem> = LoadContent(
-                props.optionItems
+                props.optionItems,
             ),
             component = this;
 
@@ -145,8 +145,6 @@ const SelectionView_ = CreateComponent({
     },
 });
 
-export function SelectionView(
-    properties: SelectionViewProps
-): CurlUIRenderElement {
+export function SelectionView(properties: SelectionViewProps): RenderElement {
     return <SelectionView_ {...properties} />;
 }

@@ -1,8 +1,8 @@
 import { CustomElement } from "../core";
 import { Classes } from "../core";
-import { CurlUIElementProps } from "curlui/types";
+import { ElementProps } from "curlui/types";
 
-export type LabelProps = CurlUIElementProps<HTMLSpanElement> & { text: string };
+export type LabelProps = ElementProps<HTMLSpanElement> & { text: string };
 
 export function Label(properties: LabelProps) {
     return CustomElement(
@@ -10,6 +10,6 @@ export function Label(properties: LabelProps) {
         Classes.LABEL,
         {},
         properties,
-        properties.text
+        properties.text,
     );
 }

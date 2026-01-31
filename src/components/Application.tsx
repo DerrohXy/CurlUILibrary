@@ -1,5 +1,5 @@
 import { Render } from "curlui";
-import { CurlUIRenderElement } from "curlui/types";
+import { RenderElement } from "curlui/types";
 
 export type PageParams = { [key: string]: string };
 
@@ -8,9 +8,7 @@ export type PageDetails = {
     params?: PageParams;
 };
 
-export type ApplicationRouter = (
-    params: PageDetails
-) => CurlUIRenderElement | null;
+export type ApplicationRouter = (params: PageDetails) => RenderElement | null;
 
 export type ApplicationProps = {
     router?: ApplicationRouter;
@@ -35,7 +33,7 @@ export function Application(properties: ApplicationProps): Application {
             },
         openPage(details: PageDetails, replace: boolean = false) {
             const queryString = new URLSearchParams(
-                details.params || {}
+                details.params || {},
             ).toString();
             const newUrl = queryString
                 ? `${details.path}?${queryString}`
@@ -53,13 +51,13 @@ export function Application(properties: ApplicationProps): Application {
             return {
                 path: window.location.pathname,
                 params: Object.fromEntries(
-                    new URLSearchParams(window.location.search)
+                    new URLSearchParams(window.location.search),
                 ),
             };
         },
         start() {
             let display = application.router(
-                application.getCurrentPageDetails()
+                application.getCurrentPageDetails(),
             );
 
             if (display) {

@@ -1,8 +1,8 @@
 import { CustomElement } from "../core";
 import { Classes } from "../core";
-import { CurlUIElementProps } from "curlui/types";
+import { ElementProps } from "curlui/types";
 
-export type HeadingProps = CurlUIElementProps<HTMLHeadingElement> & {
+export type HeadingProps = ElementProps<HTMLHeadingElement> & {
     text: string;
 };
 
@@ -12,7 +12,7 @@ export function Heading1(properties: HeadingProps) {
         Classes.HEADING,
         {},
         properties,
-        properties.text
+        properties.text,
     );
 }
 
@@ -22,7 +22,7 @@ export function Heading2(properties: HeadingProps) {
         Classes.HEADING,
         {},
         properties,
-        properties.text
+        properties.text,
     );
 }
 
@@ -32,7 +32,7 @@ export function Heading3(properties: HeadingProps) {
         Classes.HEADING,
         {},
         properties,
-        properties.text
+        properties.text,
     );
 }
 
@@ -42,7 +42,7 @@ export function Heading4(properties: HeadingProps) {
         Classes.HEADING,
         {},
         properties,
-        properties.text
+        properties.text,
     );
 }
 
@@ -52,7 +52,7 @@ export function Heading5(properties: HeadingProps) {
         Classes.HEADING,
         {},
         properties,
-        properties.text
+        properties.text,
     );
 }
 
@@ -62,6 +62,6 @@ export function Heading6(properties: HeadingProps) {
         Classes.HEADING,
         {},
         properties,
-        properties.text
+        properties.text,
     );
 }

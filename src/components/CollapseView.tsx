@@ -1,29 +1,29 @@
 import { Classes, RemoveFields, LoadContent } from "../core";
 import { CreateComponent } from "curlui";
 import {
-    CurlUIChildComponent,
-    CurlUIRenderElement,
-    CurlUIElementProps,
-    CurlUIElementState,
-    CurlUICSSProps,
+    ChildComponent,
+    RenderElement,
+    ElementProps,
+    ElementState,
+    CSSProps,
 } from "curlui/types";
 
-export type CollapseViewProps = CurlUIElementProps<HTMLDivElement> & {
-    content?: Array<CurlUIChildComponent> | CurlUIChildComponent;
-    title: CurlUIChildComponent;
-    titleBarStyle?: CurlUICSSProps;
-    contentStyle?: CurlUICSSProps;
+export type CollapseViewProps = ElementProps<HTMLDivElement> & {
+    content?: Array<ChildComponent> | ChildComponent;
+    title: ChildComponent;
+    titleBarStyle?: CSSProps;
+    contentStyle?: CSSProps;
     onCollapse?: Function;
     open: boolean;
-    closeIcon?: CurlUIRenderElement;
-    openIcon?: CurlUIRenderElement;
+    closeIcon?: RenderElement;
+    openIcon?: RenderElement;
 };
 
-export type CollabpseViewState = CurlUIElementState & {
+export type CollabpseViewState = ElementState & {
     open: boolean;
 };
 
-function closeIcon_(): CurlUIRenderElement {
+function closeIcon_(): RenderElement {
     return (
         <div
             style={{
@@ -36,7 +36,7 @@ function closeIcon_(): CurlUIRenderElement {
     );
 }
 
-function openIcon_(): CurlUIRenderElement {
+function openIcon_(): RenderElement {
     return (
         <div
             style={{
@@ -93,8 +93,8 @@ const CollapseView_ = CreateComponent({
     render() {
         let state: CollabpseViewState = this.getState(),
             props: CollapseViewProps = this.getProps(),
-            content: Array<CurlUIChildComponent> = LoadContent(
-                props.content || props.children || []
+            content: Array<ChildComponent> = LoadContent(
+                props.content || props.children || [],
             ),
             component = this;
 
@@ -150,8 +150,6 @@ const CollapseView_ = CreateComponent({
     },
 });
 
-export function CollapseView(
-    properties: CollapseViewProps
-): CurlUIRenderElement {
+export function CollapseView(properties: CollapseViewProps): RenderElement {
     return <CollapseView_ {...properties} />;
 }

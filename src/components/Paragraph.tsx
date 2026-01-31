@@ -1,8 +1,8 @@
 import { CustomElement } from "../core";
 import { Classes } from "../core";
-import { CurlUIElementProps } from "curlui/types";
+import { ElementProps } from "curlui/types";
 
-export type ParagraphProps = CurlUIElementProps<HTMLParagraphElement>;
+export type ParagraphProps = ElementProps<HTMLParagraphElement>;
 
 export function Paragraph(properties: ParagraphProps & { text: string }) {
     return CustomElement(
@@ -10,6 +10,6 @@ export function Paragraph(properties: ParagraphProps & { text: string }) {
         Classes.PARAGRAPH,
         {},
         properties,
-        properties.text
+        properties.text,
     );
 }
