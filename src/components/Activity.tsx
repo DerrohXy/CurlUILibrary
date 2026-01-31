@@ -1,15 +1,11 @@
 import { CustomElement, LoadContent } from "../core";
 import { Classes } from "../core";
-import {
-    CurlUIChildComponent,
-    CurlUIRenderElement,
-    CurlUIElementProps,
-} from "curlui/types";
+import { ChildComponent, RenderElement, ElementProps } from "curlui/types";
 
-export type ActivityProps = CurlUIElementProps<HTMLDivElement> & {
-    content?: CurlUIChildComponent | Array<CurlUIChildComponent>;
-    footerBar?: CurlUIRenderElement;
-    navigationBar?: CurlUIRenderElement;
+export type ActivityProps = ElementProps<HTMLDivElement> & {
+    content?: ChildComponent | Array<ChildComponent>;
+    footerBar?: RenderElement;
+    navigationBar?: RenderElement;
 };
 
 export function Activity(properties: ActivityProps) {
@@ -25,6 +21,6 @@ export function Activity(properties: ActivityProps) {
         properties,
         ...LoadContent(properties.content),
         properties.footerBar || null,
-        properties.navigationBar || null
+        properties.navigationBar || null,
     );
 }

@@ -1,8 +1,8 @@
 import { CustomElement } from "../core";
 import { Classes } from "../core";
-import { CurlUIElementProps } from "curlui/types";
+import { ElementProps } from "curlui/types";
 
-export type LayoutProps = CurlUIElementProps<HTMLDivElement>;
+export type LayoutProps = ElementProps<HTMLDivElement>;
 
 export function VerticalLayout(
     properties: LayoutProps,
@@ -13,7 +13,7 @@ export function VerticalLayout(
         Classes.VERTICAL_LAYOUT,
         {},
         properties,
-        ...children
+        ...children,
     );
 }
 
@@ -26,7 +26,7 @@ export function HorizontalLayout(
         Classes.HORIZONTAL_LAYOUT,
         {},
         properties,
-        ...children
+        ...children,
     );
 }
 
@@ -36,7 +36,7 @@ export function FlowLayout(properties: LayoutProps, ...children: Array<any>) {
         Classes.FLOW_LAYOUT,
         {},
         properties,
-        ...children
+        ...children,
     );
 }
 
@@ -46,7 +46,7 @@ export function GridLayout(properties: LayoutProps, ...children: Array<any>) {
         Classes.GRID_LAYOUT,
         {},
         properties,
-        ...children
+        ...children,
     );
 }
 
@@ -59,6 +59,6 @@ export function RelativeLayout(
         Classes.RELATIVE_LAYOUT,
         {},
         properties,
-        ...children
+        ...children,
     );
 }

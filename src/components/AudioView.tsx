@@ -1,8 +1,8 @@
 import { CustomElement } from "../core";
 import { Classes } from "../core";
-import { CurlUIElementProps } from "curlui/types";
+import { ElementProps } from "curlui/types";
 
-export type AudioViewProps = CurlUIElementProps<HTMLAudioElement>;
+export type AudioViewProps = ElementProps<HTMLAudioElement>;
 
 export function AudioView(properties: AudioViewProps, ...children: Array<any>) {
     return CustomElement(
@@ -12,6 +12,6 @@ export function AudioView(properties: AudioViewProps, ...children: Array<any>) {
             controls: true,
         },
         properties,
-        ...children
+        ...children,
     );
 }

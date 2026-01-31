@@ -1,14 +1,14 @@
 import { CustomElement } from "../core";
 import { Classes } from "../core";
-import { CurlUIElementProps } from "curlui/types";
+import { ElementProps } from "curlui/types";
 
-export type TableProps = CurlUIElementProps<HTMLTableElement>;
+export type TableProps = ElementProps<HTMLTableElement>;
 
 export function Table(properties: TableProps, ...children: Array<any>) {
     return CustomElement("table", Classes.TABLE, {}, properties, ...children);
 }
 
-export type TableCellProps = CurlUIElementProps<HTMLTableCellElement>;
+export type TableCellProps = ElementProps<HTMLTableCellElement>;
 
 export function TableHeading(
     properties: TableCellProps,
@@ -19,7 +19,7 @@ export function TableHeading(
         Classes.TABLE_HEADING,
         {},
         properties,
-        ...children
+        ...children,
     );
 }
 
@@ -32,7 +32,7 @@ export function TableFooter(
         Classes.TABLE_FOOTER,
         {},
         properties,
-        ...children
+        ...children,
     );
 }
 
@@ -42,11 +42,11 @@ export function TableBody(properties: TableCellProps, ...children: Array<any>) {
         Classes.TABLE_BODY,
         {},
         properties,
-        ...children
+        ...children,
     );
 }
 
-export type TableRowProps = CurlUIElementProps<HTMLTableRowElement>;
+export type TableRowProps = ElementProps<HTMLTableRowElement>;
 
 export function TableRow(properties: TableRowProps, ...children: Array<any>) {
     return CustomElement("tr", Classes.TABLE_ROW, {}, properties, ...children);
@@ -65,11 +65,11 @@ export function TableHeader(
         Classes.TABLE_HEADER,
         {},
         properties,
-        ...children
+        ...children,
     );
 }
 
-export type TableCaptionProps = CurlUIElementProps<HTMLTableCaptionElement>;
+export type TableCaptionProps = ElementProps<HTMLTableCaptionElement>;
 
 export function TableCaption(
     properties: TableCaptionProps,
@@ -80,6 +80,6 @@ export function TableCaption(
         Classes.CAPTION,
         {},
         properties,
-        ...children
+        ...children,
     );
 }

@@ -1,36 +1,36 @@
 import { Classes, RemoveFields, LoadContent } from "../core";
 import { CreateComponent } from "curlui";
 import {
-    CurlUIChildComponent,
-    CurlUIRenderElement,
-    CurlUIElementProps,
-    CurlUIElementState,
-    CurlUICSSProps,
+    ChildComponent,
+    RenderElement,
+    ElementProps,
+    ElementState,
+    CSSProps,
 } from "curlui/types";
 
 export type TabLocation = "left" | "right" | "center";
 
-export type TabbedWindowProps = CurlUIElementProps<HTMLDivElement> & {
+export type TabbedWindowProps = ElementProps<HTMLDivElement> & {
     tabs: Array<TabbedWindowTab>;
     vertical?: boolean;
-    titleBarStyle?: CurlUICSSProps;
-    titleStyle?: CurlUICSSProps;
-    contentStyle?: CurlUICSSProps;
+    titleBarStyle?: CSSProps;
+    titleStyle?: CSSProps;
+    contentStyle?: CSSProps;
     tabsLocation?: TabLocation;
     onTabSelection?: Function;
     currentTabIndex?: number;
 };
 
-export type TabbedWindowState = CurlUIElementState & {
+export type TabbedWindowState = ElementState & {
     currentTabIndex: number;
 };
 
 export type TabbedWindowTab = {
-    title: CurlUIChildComponent;
-    content: CurlUIChildComponent;
+    title: ChildComponent;
+    content: ChildComponent;
 };
 
-const TabbedWindow_ = CreateComponent({
+const TabbedWindow_ = CreateComponent<TabbedWindowProps>({
     getInitialState() {
         return {
             currentTabIndex: this.getProps().currentTabIndex || 0,
@@ -132,8 +132,6 @@ const TabbedWindow_ = CreateComponent({
     },
 });
 
-export function TabbedWindow(
-    properties: TabbedWindowProps
-): CurlUIRenderElement {
+export function TabbedWindow(properties: TabbedWindowProps): RenderElement {
     return <TabbedWindow_ {...properties} />;
 }

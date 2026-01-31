@@ -1,8 +1,8 @@
 import { CustomElement } from "../core";
 import { Classes } from "../core";
-import { CurlUIElementProps } from "curlui/types";
+import { ElementProps } from "curlui/types";
 
-export type UnorderedListProps = CurlUIElementProps<HTMLUListElement>;
+export type UnorderedListProps = ElementProps<HTMLUListElement>;
 
 export function UnorderedList(
     properties: UnorderedListProps,
@@ -13,11 +13,11 @@ export function UnorderedList(
         Classes.UNORDERED_LIST,
         {},
         properties,
-        ...listItems
+        ...listItems,
     );
 }
 
-export type OrderedListProps = CurlUIElementProps<HTMLOListElement>;
+export type OrderedListProps = ElementProps<HTMLOListElement>;
 
 export function OrderedList(
     properties: OrderedListProps,
@@ -28,11 +28,11 @@ export function OrderedList(
         Classes.ORDERED_LIST,
         {},
         properties,
-        ...listItems
+        ...listItems,
     );
 }
 
-export type ListItemProps = CurlUIElementProps<HTMLLIElement>;
+export type ListItemProps = ElementProps<HTMLLIElement>;
 
 export function ListItem(properties: ListItemProps, ...children: Array<any>) {
     return CustomElement("li", Classes.LIST_ITEM, {}, properties, ...children);

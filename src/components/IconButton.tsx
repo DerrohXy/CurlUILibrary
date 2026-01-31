@@ -1,8 +1,8 @@
 import { CustomElement } from "../core";
 import { Classes } from "../core";
-import { CurlUIElementProps } from "curlui/types";
+import { ElementProps } from "curlui/types";
 
-export type IconButtonProps = CurlUIElementProps<HTMLDivElement> & {
+export type IconButtonProps = ElementProps<HTMLDivElement> & {
     text: string;
     icon: any;
 };
@@ -14,6 +14,6 @@ export function IconButton(properties: IconButtonProps) {
         {},
         properties,
         properties.icon || null,
-        properties.text
+        properties.text,
     );
 }

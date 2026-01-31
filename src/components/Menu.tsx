@@ -7,25 +7,25 @@ import {
 } from "../core";
 import { CreateComponent } from "curlui";
 import {
-    CurlUIChildComponent,
-    CurlUIRenderElement,
-    CurlUIElementProps,
-    CurlUIElementState,
-    CurlUICSSProps,
+    ChildComponent,
+    RenderElement,
+    ElementProps,
+    ElementState,
+    CSSProps,
 } from "curlui/types";
 
-export type MenuProps = CurlUIElementProps<HTMLDivElement> & {
-    menuItems?: Array<CurlUIRenderElement>;
-    title: CurlUIChildComponent;
-    dropdownStyle?: CurlUICSSProps;
+export type MenuProps = ElementProps<HTMLDivElement> & {
+    menuItems?: Array<RenderElement>;
+    title: ChildComponent;
+    dropdownStyle?: CSSProps;
     open?: boolean;
 };
 
-export type MenuState = CurlUIElementState & {
+export type MenuState = ElementState & {
     open: boolean;
 };
 
-const Menu_ = CreateComponent({
+const Menu_ = CreateComponent<MenuProps>({
     getInitialState() {
         return {
             open: this.getProps().open === true ? true : false,
@@ -45,7 +45,7 @@ const Menu_ = CreateComponent({
             window.dispatchEvent(
                 new CustomEvent(CustomEvents.CLOSE_MENU_REQUEST, {
                     detail: this.elementId,
-                })
+                }),
             );
         }
 
@@ -69,7 +69,7 @@ const Menu_ = CreateComponent({
             window.dispatchEvent(
                 new CustomEvent(CustomEvents.CLOSE_MENU_REQUEST, {
                     detail: this.elementId,
-                })
+                }),
             );
 
             this.setState({
@@ -92,7 +92,7 @@ const Menu_ = CreateComponent({
                 if (event.detail.elementId !== this.elementId) {
                     this.close();
                 }
-            }
+            },
         );
     },
     unmounting() {
@@ -110,14 +110,14 @@ const Menu_ = CreateComponent({
                 if (event.detail.elementId !== this.elementId) {
                     this.close();
                 }
-            }
+            },
         );
     },
     render() {
         let state: MenuState = this.getState(),
             props: MenuProps = this.getProps(),
-            menuItems: Array<CurlUIRenderElement> = LoadContent(
-                props.menuItems || props.children || []
+            menuItems: Array<RenderElement> = LoadContent(
+                props.menuItems || props.children || [],
             ),
             component = this;
 
@@ -154,17 +154,17 @@ const Menu_ = CreateComponent({
     },
 });
 
-export function Menu(properties: MenuProps): CurlUIRenderElement {
+export function Menu(properties: MenuProps): RenderElement {
     return <Menu_ {...properties} />;
 }
 
-export type MenuBarProps = CurlUIElementProps<HTMLDivElement>;
+export type MenuBarProps = ElementProps<HTMLDivElement>;
 
 export function MenuBar(properties: MenuBarProps, ...menus: Array<any>) {
     return CustomElement("div", Classes.MENU_BAR, {}, properties, ...menus);
 }
 
-export type MenuItemProps = CurlUIElementProps<HTMLDivElement>;
+export type MenuItemProps = ElementProps<HTMLDivElement>;
 
 export function MenuItem(properties: MenuItemProps, ...children: Array<any>) {
     return CustomElement("div", Classes.MENU_ITEM, {}, properties, ...children);

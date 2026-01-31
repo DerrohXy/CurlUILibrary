@@ -2,10 +2,10 @@ import { CreateElement } from "curlui";
 
 import {
     CurlUITag,
-    CurlUIElementProps,
-    CurlUIChildComponent,
-    CurlUIRenderElement,
-    CurlUINativeElement,
+    ElementProps,
+    ChildComponent,
+    RenderElement,
+    NativeElement,
 } from "curlui/types";
 
 /**
@@ -30,7 +30,7 @@ export function GetUniqueId(): string {
  */
 export function RemoveFields(
     object: { [key: string]: any },
-    fields: Array<string>
+    fields: Array<string>,
 ) {
     let newObject: { [key: string]: any } = {};
 
@@ -69,7 +69,7 @@ export function LoadContent(content: Array<any> | any): Array<any> {
 
 export function LoadDefaultProperties(
     defaultProperties: { [key: string]: any },
-    properties: { [key: string]: any }
+    properties: { [key: string]: any },
 ) {
     return Object.assign(defaultProperties, properties);
 }
@@ -77,10 +77,10 @@ export function LoadDefaultProperties(
 export function CustomElement(
     tag: CurlUITag,
     customClass: string,
-    customProperties: CurlUIElementProps<CurlUINativeElement>,
-    properties: CurlUIElementProps<CurlUINativeElement>,
-    ...children: Array<CurlUIChildComponent>
-): CurlUIRenderElement {
+    customProperties: ElementProps<NativeElement>,
+    properties: ElementProps<NativeElement>,
+    ...children: Array<ChildComponent>
+): RenderElement {
     let className = properties.className
             ? [customClass, properties.className].join(" ")
             : customClass,
@@ -97,7 +97,7 @@ export function CustomElement(
             className: className,
             style: style,
         },
-        ...children
+        ...children,
     );
 }
 

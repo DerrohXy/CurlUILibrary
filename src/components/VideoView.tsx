@@ -1,8 +1,8 @@
 import { CustomElement } from "../core";
 import { Classes } from "../core";
-import { CurlUIElementProps } from "curlui/types";
+import { ElementProps } from "curlui/types";
 
-export type VideoViewProps = CurlUIElementProps<HTMLVideoElement>;
+export type VideoViewProps = ElementProps<HTMLVideoElement>;
 
 export function VideoView(properties: VideoViewProps, ...children: Array<any>) {
     return CustomElement(
@@ -12,6 +12,6 @@ export function VideoView(properties: VideoViewProps, ...children: Array<any>) {
             controls: true,
         },
         properties,
-        ...children
+        ...children,
     );
 }
