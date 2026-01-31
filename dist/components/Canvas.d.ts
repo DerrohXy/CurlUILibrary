@@ -1,4 +1,4 @@
-import { CurlUIElementProps } from "curlui/types";
-export type CanvasProps = CurlUIElementProps<HTMLCanvasElement>;
-export declare function Canvas(properties: CanvasProps): import("curlui/types").CurlUIRenderElement;
+import { ElementProps } from "curlui/types";
+export type CanvasProps = ElementProps<HTMLCanvasElement>;
+export declare function Canvas(properties: CanvasProps): import("curlui/types").RenderElement;
 //# sourceMappingURL=Canvas.d.ts.map

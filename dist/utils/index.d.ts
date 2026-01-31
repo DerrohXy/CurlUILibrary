@@ -1,14 +1,14 @@
-import { CurlUIRenderElement, CurlUICSSProps } from "curlui/types";
+import { RenderElement, CSSProps } from "curlui/types";
 export type ShowDialogProps = {
     duration?: number;
-    content: Array<CurlUIRenderElement> | CurlUIRenderElement;
+    content: Array<RenderElement> | RenderElement;
     splash?: boolean;
     title?: string;
     closeOnClickOutside?: boolean;
-    style?: CurlUICSSProps;
-    titleBarStyle?: CurlUICSSProps;
-    closeButton?: CurlUIRenderElement;
-    icon?: CurlUIRenderElement;
+    style?: CSSProps;
+    titleBarStyle?: CSSProps;
+    closeButton?: RenderElement;
+    icon?: RenderElement;
 };
 /**
  * Displays a popup dialog box
@@ -23,7 +23,7 @@ export declare function showDialog(properties: ShowDialogProps): string;
 export declare function closeDialog(dialogId: string): void;
 export type ShowNotificationProps = {
     duration?: number;
-    content: Array<CurlUIRenderElement> | CurlUIRenderElement;
+    content: Array<RenderElement> | RenderElement;
 };
 /**
  * Displays a notification message
@@ -39,7 +39,7 @@ export declare function closeNotification(notificationId: string): void;
 export type ShowToastProps = {
     text: string;
     duration?: number;
-    style?: CurlUICSSProps;
+    style?: CSSProps;
 };
 /**
  * Displays a toast message

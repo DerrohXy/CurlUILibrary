@@ -1,16 +1,16 @@
-import { CurlUIChildComponent, CurlUIRenderElement, CurlUIElementProps, CurlUIElementState, CurlUICSSProps } from "curlui/types";
-export type CollapseViewProps = CurlUIElementProps<HTMLDivElement> & {
-    content?: Array<CurlUIChildComponent> | CurlUIChildComponent;
-    title: CurlUIChildComponent;
-    titleBarStyle?: CurlUICSSProps;
-    contentStyle?: CurlUICSSProps;
+import { ChildComponent, RenderElement, ElementProps, ElementState, CSSProps } from "curlui/types";
+export type CollapseViewProps = ElementProps<HTMLDivElement> & {
+    content?: Array<ChildComponent> | ChildComponent;
+    title: ChildComponent;
+    titleBarStyle?: CSSProps;
+    contentStyle?: CSSProps;
     onCollapse?: Function;
     open: boolean;
-    closeIcon?: CurlUIRenderElement;
-    openIcon?: CurlUIRenderElement;
+    closeIcon?: RenderElement;
+    openIcon?: RenderElement;
 };
-export type CollabpseViewState = CurlUIElementState & {
+export type CollabpseViewState = ElementState & {
     open: boolean;
 };
-export declare function CollapseView(properties: CollapseViewProps): CurlUIRenderElement;
+export declare function CollapseView(properties: CollapseViewProps): RenderElement;
 //# sourceMappingURL=CollapseView.d.ts.map

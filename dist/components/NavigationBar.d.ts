@@ -1,17 +1,17 @@
-import { CurlUIRenderElement, CurlUIElementProps, CurlUIElementState, CurlUICSSProps } from "curlui/types";
-export type NavigationBarState = CurlUIElementState & {
+import { RenderElement, ElementProps, ElementState, CSSProps } from "curlui/types";
+export type NavigationBarState = ElementState & {
     drawerOpen: boolean;
     menuOpen: boolean;
 };
-export type NavigationBarProps = CurlUIElementProps<HTMLDivElement> & {
-    drawerContent?: CurlUIRenderElement;
-    menuContent?: CurlUIRenderElement;
-    content?: Array<CurlUIRenderElement> | CurlUIRenderElement;
-    drawerButton?: CurlUIRenderElement;
-    menuButton?: CurlUIRenderElement;
-    navigationWindowStyle?: CurlUICSSProps;
-    drawerWindowStyle?: CurlUICSSProps;
-    menuWindowStyle?: CurlUICSSProps;
+export type NavigationBarProps = ElementProps<HTMLDivElement> & {
+    drawerContent?: RenderElement;
+    menuContent?: RenderElement;
+    content?: Array<RenderElement> | RenderElement;
+    drawerButton?: RenderElement;
+    menuButton?: RenderElement;
+    navigationWindowStyle?: CSSProps;
+    drawerWindowStyle?: CSSProps;
+    menuWindowStyle?: CSSProps;
 };
-export declare function NavigationBar(properties: NavigationBarProps): CurlUIRenderElement;
+export declare function NavigationBar(properties: NavigationBarProps): RenderElement;
 //# sourceMappingURL=NavigationBar.d.ts.map

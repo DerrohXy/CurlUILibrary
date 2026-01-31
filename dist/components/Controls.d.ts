@@ -1,33 +1,33 @@
-import { CurlUIChildComponent, CurlUIRenderElement, CurlUIElementProps, CurlUIElementState, CurlUICSSProps } from "curlui/types";
-export type SwitchState = CurlUIElementState & {
+import { ChildComponent, RenderElement, ElementProps, ElementState, CSSProps } from "curlui/types";
+export type SwitchState = ElementState & {
     active: boolean;
 };
-export type SwitchProps = CurlUIElementProps<HTMLDivElement> & {
+export type SwitchProps = ElementProps<HTMLDivElement> & {
     onActiveChange: Function;
     active?: boolean;
 };
-export declare function Switch(properties: SwitchProps): CurlUIRenderElement;
-export type CheckButtonProps = CurlUIElementProps<HTMLDivElement> & {
+export declare function Switch(properties: SwitchProps): RenderElement;
+export type CheckButtonProps = ElementProps<HTMLDivElement> & {
     onCheckedChange: Function;
     text: string;
     checked?: boolean;
 };
-export type CheckButtonState = CurlUIElementState & {
+export type CheckButtonState = ElementState & {
     checked: boolean;
 };
-export declare function CheckButton(properties: CheckButtonProps): CurlUIRenderElement;
+export declare function CheckButton(properties: CheckButtonProps): RenderElement;
 export type RadioGroupItem = {
     value: any;
-    text: CurlUIChildComponent;
+    text: ChildComponent;
 };
-export type RadioGroupProps = CurlUIElementProps<HTMLDivElement> & {
+export type RadioGroupProps = ElementProps<HTMLDivElement> & {
     radioItems: Array<RadioGroupItem>;
     vertical?: boolean;
     onCheckedChange: Function;
-    radioButtonStyle?: CurlUICSSProps;
+    radioButtonStyle?: CSSProps;
 };
-export type RadioGroupState = CurlUIElementState & {
+export type RadioGroupState = ElementState & {
     checked?: RadioGroupItem;
 };
-export declare function RadioGroup(properties: RadioGroupProps): CurlUIRenderElement;
+export declare function RadioGroup(properties: RadioGroupProps): RenderElement;
 //# sourceMappingURL=Controls.d.ts.map

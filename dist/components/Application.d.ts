@@ -1,4 +1,4 @@
-import { CurlUIRenderElement } from "curlui/types";
+import { RenderElement } from "curlui/types";
 export type PageParams = {
     [key: string]: string;
 };
@@ -6,7 +6,7 @@ export type PageDetails = {
     path: string;
     params?: PageParams;
 };
-export type ApplicationRouter = (params: PageDetails) => CurlUIRenderElement | null;
+export type ApplicationRouter = (params: PageDetails) => RenderElement | null;
 export type ApplicationProps = {
     router?: ApplicationRouter;
     baseElement?: HTMLElement;

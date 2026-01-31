@@ -1,17 +1,17 @@
-import { CurlUIChildComponent, CurlUIRenderElement, CurlUIElementProps, CurlUIElementState, CurlUICSSProps } from "curlui/types";
+import { ChildComponent, RenderElement, ElementProps, ElementState, CSSProps } from "curlui/types";
 export type SelectionViewOptionItem = {
     text?: string;
-    content?: CurlUIChildComponent;
+    content?: ChildComponent;
 };
-export type SelectionViewProps = CurlUIElementProps<HTMLDivElement> & {
+export type SelectionViewProps = ElementProps<HTMLDivElement> & {
     optionItems: Array<SelectionViewOptionItem>;
     onSelection: Function;
-    dropdownStyle?: CurlUICSSProps;
-    optionItemStyle?: CurlUICSSProps;
+    dropdownStyle?: CSSProps;
+    optionItemStyle?: CSSProps;
 };
-export type SelectionViewState = CurlUIElementState & {
+export type SelectionViewState = ElementState & {
     selection: SelectionViewOptionItem | null;
     open: boolean;
 };
-export declare function SelectionView(properties: SelectionViewProps): CurlUIRenderElement;
+export declare function SelectionView(properties: SelectionViewProps): RenderElement;
 //# sourceMappingURL=SelectionView.d.ts.map

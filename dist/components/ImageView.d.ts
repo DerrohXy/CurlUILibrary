@@ -1,4 +1,4 @@
-import { CurlUIElementProps } from "curlui/types";
-export type ImageViewProps = CurlUIElementProps<HTMLImageElement>;
-export declare function ImageView(properties: ImageViewProps): import("curlui/types").CurlUIRenderElement;
+import { ElementProps } from "curlui/types";
+export type ImageViewProps = ElementProps<HTMLImageElement>;
+export declare function ImageView(properties: ImageViewProps): import("curlui/types").RenderElement;
 //# sourceMappingURL=ImageView.d.ts.map
