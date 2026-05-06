@@ -144,7 +144,7 @@ function getTotalOuterHeightByClass(className: string): number {
  * @returns
  */
 export function showNotification(properties: ShowNotificationProps) {
-    closeNotifications();
+    // closeNotifications();
 
     let content = LoadContent(properties.content),
         notificationId = GetUniqueId();
