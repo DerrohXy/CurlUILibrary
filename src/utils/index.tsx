@@ -118,6 +118,26 @@ export type ShowNotificationProps = {
     content: Array<RenderElement> | RenderElement;
 };
 
+function getTotalOuterHeightByClass(className: string): number {
+    const elements = document.getElementsByClassName(className);
+    let totalHeight = 0;
+
+    for (let i = 0; i < elements.length; i++) {
+        const element = elements[i] as HTMLElement;
+
+        const style = window.getComputedStyle(element);
+
+        const marginTop = parseFloat(style.marginTop) || 0;
+        const marginBottom = parseFloat(style.marginBottom) || 0;
+
+        const outerHeight = element.offsetHeight + marginTop + marginBottom;
+
+        totalHeight += outerHeight;
+    }
+
+    return totalHeight;
+}
+
 /**
  * Displays a notification message
  * @param properties
@@ -129,6 +149,8 @@ export function showNotification(properties: ShowNotificationProps) {
     let content = LoadContent(properties.content),
         notificationId = GetUniqueId();
 
+    let existingDisplacement = getTotalOuterHeightByClass(Classes.NOTIFICATION);
+
     let baseElement = document.createElement("div");
 
     let element = (
@@ -137,6 +159,13 @@ export function showNotification(properties: ShowNotificationProps) {
             onclick={(event: Event) => {
                 event.stopPropagation();
             }}
+            style={
+                existingDisplacement > 0
+                    ? {
+                          top: `${existingDisplacement + 10}px`,
+                      }
+                    : {}
+            }
         >
             {...content}
         </div>
