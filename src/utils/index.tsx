@@ -86,8 +86,10 @@ export function showDialog(properties: ShowDialogProps) {
     baseElement.setAttribute("dialog-id", dialogId);
 
     if (properties.closeOnClickOutside === true) {
-        baseElement.addEventListener("click", () => {
-            closeDialog(dialogId);
+        baseElement.addEventListener("click", (event: Event) => {
+            if (event.target === baseElement) {
+                closeDialog(dialogId);
+            }
         });
     }
 
@@ -144,12 +146,13 @@ function getTotalOuterHeightByClass(className: string): number {
  * @returns
  */
 export function showNotification(properties: ShowNotificationProps) {
-    // closeNotifications();
-
     let content = LoadContent(properties.content),
         notificationId = GetUniqueId();
 
     let existingDisplacement = getTotalOuterHeightByClass(Classes.NOTIFICATION);
+    if (existingDisplacement >= window.innerHeight) {
+        closeNotifications();
+    }
 
     let baseElement = document.createElement("div");
 
@@ -160,7 +163,8 @@ export function showNotification(properties: ShowNotificationProps) {
                 event.stopPropagation();
             }}
             style={
-                existingDisplacement > 0
+                existingDisplacement > 0 &&
+                existingDisplacement < window.innerHeight
                     ? {
                           top: `${existingDisplacement + 10}px`,
                       }
