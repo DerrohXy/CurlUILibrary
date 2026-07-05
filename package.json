@@ -1,6 +1,6 @@
 {
     "name": "curlui-library",
-    "version": "0.0.35",
+    "version": "0.0.40",
     "author": {
         "name": "Derrick Wafula",
         "email": "derrickwafula1500@gmail.com",
@@ -170,7 +170,7 @@
     "keywords": [],
     "license": "MIT",
     "peerDependencies": {
-        "curlui": "^0.0.20"
+        "curlui": "^0.0.21"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "^28.0.1",
