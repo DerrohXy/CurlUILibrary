@@ -1,18 +1,18 @@
-import { ChildComponent, RenderElement, ElementProps, ElementState, CSSProps } from "curlui/types";
-export type SwitchState = ElementState & {
+import { ChildComponent, RenderElement, ElementProps, CSSProps } from "curlui/types";
+export type SwitchState = {
     active: boolean;
 };
-export type SwitchProps = ElementProps<HTMLDivElement> & {
+export type SwitchProps = ElementProps & {
     onActiveChange: Function;
     active?: boolean;
 };
 export declare function Switch(properties: SwitchProps): RenderElement;
-export type CheckButtonProps = ElementProps<HTMLDivElement> & {
+export type CheckButtonProps = ElementProps & {
     onCheckedChange: Function;
     text: string;
     checked?: boolean;
 };
-export type CheckButtonState = ElementState & {
+export type CheckButtonState = {
     checked: boolean;
 };
 export declare function CheckButton(properties: CheckButtonProps): RenderElement;
@@ -20,13 +20,13 @@ export type RadioGroupItem = {
     value: any;
     text: ChildComponent;
 };
-export type RadioGroupProps = ElementProps<HTMLDivElement> & {
+export type RadioGroupProps = ElementProps & {
     radioItems: Array<RadioGroupItem>;
     vertical?: boolean;
     onCheckedChange: Function;
     radioButtonStyle?: CSSProps;
 };
-export type RadioGroupState = ElementState & {
+export type RadioGroupState = {
     checked?: RadioGroupItem;
 };
 export declare function RadioGroup(properties: RadioGroupProps): RenderElement;

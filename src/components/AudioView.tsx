@@ -2,7 +2,7 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { ElementProps } from "curlui/types";
 
-export type AudioViewProps = ElementProps<HTMLAudioElement>;
+export type AudioViewProps = ElementProps;
 
 export function AudioView(properties: AudioViewProps, ...children: Array<any>) {
     return CustomElement(

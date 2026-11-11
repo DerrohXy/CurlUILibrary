@@ -4,11 +4,10 @@ import {
     ChildComponent,
     RenderElement,
     ElementProps,
-    ElementState,
     CSSProps,
 } from "curlui/types";
 
-export type CollapseViewProps = ElementProps<HTMLDivElement> & {
+export type CollapseViewProps = ElementProps & {
     content?: Array<ChildComponent> | ChildComponent;
     title: ChildComponent;
     titleBarStyle?: CSSProps;
@@ -19,7 +18,7 @@ export type CollapseViewProps = ElementProps<HTMLDivElement> & {
     openIcon?: RenderElement;
 };
 
-export type CollabpseViewState = ElementState & {
+export type CollapseViewState = {
     open: boolean;
 };
 
@@ -49,7 +48,7 @@ function openIcon_(): RenderElement {
     );
 }
 
-const CollapseView_ = CreateComponent({
+const CollapseView_ = CreateComponent<CollapseViewProps, CollapseViewState>({
     getInitialState() {
         return {
             open: this.getProps().open === true ? true : false,
@@ -66,7 +65,7 @@ const CollapseView_ = CreateComponent({
     },
     toggle() {
         let props: CollapseViewProps = this.getProps(),
-            state: CollabpseViewState = this.getState();
+            state: CollapseViewState = this.getState();
 
         props.onCollapse?.(!state.open);
 
@@ -91,7 +90,7 @@ const CollapseView_ = CreateComponent({
         });
     },
     render() {
-        let state: CollabpseViewState = this.getState(),
+        let state: CollapseViewState = this.getState(),
             props: CollapseViewProps = this.getProps(),
             content: Array<ChildComponent> = LoadContent(
                 props.content || props.children || [],

@@ -37,6 +37,7 @@ function closeButton_(
                 padding: "10px",
                 margin: "5px",
             }}
+            // @ts-ignore
             onclick={onClick}
         >
             {content || "<"}

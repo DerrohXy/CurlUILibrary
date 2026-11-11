@@ -2,7 +2,7 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { ElementProps } from "curlui/types";
 
-export type LayoutProps = ElementProps<HTMLDivElement>;
+export type LayoutProps = ElementProps;
 
 export function VerticalLayout(
     properties: LayoutProps,

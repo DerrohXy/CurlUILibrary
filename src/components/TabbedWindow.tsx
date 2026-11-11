@@ -4,13 +4,12 @@ import {
     ChildComponent,
     RenderElement,
     ElementProps,
-    ElementState,
     CSSProps,
 } from "curlui/types";
 
 export type TabLocation = "left" | "right" | "center";
 
-export type TabbedWindowProps = ElementProps<HTMLDivElement> & {
+export type TabbedWindowProps = ElementProps & {
     tabs: Array<TabbedWindowTab>;
     vertical?: boolean;
     titleBarStyle?: CSSProps;
@@ -21,7 +20,7 @@ export type TabbedWindowProps = ElementProps<HTMLDivElement> & {
     currentTabIndex?: number;
 };
 
-export type TabbedWindowState = ElementState & {
+export type TabbedWindowState = {
     currentTabIndex: number;
 };
 
@@ -30,7 +29,7 @@ export type TabbedWindowTab = {
     content: ChildComponent;
 };
 
-const TabbedWindow_ = CreateComponent<TabbedWindowProps>({
+const TabbedWindow_ = CreateComponent<TabbedWindowProps, TabbedWindowState>({
     getInitialState() {
         return {
             currentTabIndex: this.getProps().currentTabIndex || 0,

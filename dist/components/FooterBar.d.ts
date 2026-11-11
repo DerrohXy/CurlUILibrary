@@ -1,4 +1,4 @@
 import { ElementProps } from "curlui/types";
-export type FooterBarProps = ElementProps<HTMLDivElement>;
-export declare function FooterBar(properties: FooterBarProps, ...children: Array<any>): import("curlui/types").RenderElement;
+export type FooterBarProps = ElementProps;
+export declare function FooterBar(properties: FooterBarProps, ...children: Array<any>): import("curlui").CurlUIElement;
 //# sourceMappingURL=FooterBar.d.ts.map

@@ -1,15 +1,15 @@
-import { ChildComponent, RenderElement, ElementProps, ElementState, CSSProps } from "curlui/types";
+import { ChildComponent, RenderElement, ElementProps, CSSProps } from "curlui/types";
 export type SelectionViewOptionItem = {
     text?: string;
     content?: ChildComponent;
 };
-export type SelectionViewProps = ElementProps<HTMLDivElement> & {
+export type SelectionViewProps = ElementProps & {
     optionItems: Array<SelectionViewOptionItem>;
     onSelection: Function;
     dropdownStyle?: CSSProps;
     optionItemStyle?: CSSProps;
 };
-export type SelectionViewState = ElementState & {
+export type SelectionViewState = {
     selection: SelectionViewOptionItem | null;
     open: boolean;
 };

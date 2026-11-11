@@ -4,20 +4,19 @@ import {
     ChildComponent,
     RenderElement,
     ElementProps,
-    ElementState,
     CSSProps,
 } from "curlui/types";
 
-export type SwitchState = ElementState & {
+export type SwitchState = {
     active: boolean;
 };
 
-export type SwitchProps = ElementProps<HTMLDivElement> & {
+export type SwitchProps = ElementProps & {
     onActiveChange: Function;
     active?: boolean;
 };
 
-const Switch_ = CreateComponent({
+const Switch_ = CreateComponent<SwitchProps, SwitchState>({
     getInitialState() {
         return {
             active: this.getProps().active === true ? true : false,
@@ -79,17 +78,17 @@ export function Switch(properties: SwitchProps): RenderElement {
     return <Switch_ {...properties} />;
 }
 
-export type CheckButtonProps = ElementProps<HTMLDivElement> & {
+export type CheckButtonProps = ElementProps & {
     onCheckedChange: Function;
     text: string;
     checked?: boolean;
 };
 
-export type CheckButtonState = ElementState & {
+export type CheckButtonState = {
     checked: boolean;
 };
 
-const CheckButton_ = CreateComponent({
+const CheckButton_ = CreateComponent<CheckButtonProps, CheckButtonState>({
     getInitialState() {
         return {
             checked: this.getProps().checked === true ? true : false,
@@ -159,18 +158,18 @@ export type RadioGroupItem = {
     text: ChildComponent;
 };
 
-export type RadioGroupProps = ElementProps<HTMLDivElement> & {
+export type RadioGroupProps = ElementProps & {
     radioItems: Array<RadioGroupItem>;
     vertical?: boolean;
     onCheckedChange: Function;
     radioButtonStyle?: CSSProps;
 };
 
-export type RadioGroupState = ElementState & {
+export type RadioGroupState = {
     checked?: RadioGroupItem;
 };
 
-const RadioGroup_ = CreateComponent({
+const RadioGroup_ = CreateComponent<RadioGroupProps, RadioGroupState>({
     getInitialState() {
         return {
             checked: {

@@ -2,7 +2,7 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { ElementProps } from "curlui/types";
 
-export type HeadingProps = ElementProps<HTMLHeadingElement> & {
+export type HeadingProps = ElementProps & {
     text: string;
 };
 

@@ -1,5 +1,5 @@
-import { ChildComponent, RenderElement, ElementProps, ElementState, CSSProps } from "curlui/types";
-export type CollapseViewProps = ElementProps<HTMLDivElement> & {
+import { ChildComponent, RenderElement, ElementProps, CSSProps } from "curlui/types";
+export type CollapseViewProps = ElementProps & {
     content?: Array<ChildComponent> | ChildComponent;
     title: ChildComponent;
     titleBarStyle?: CSSProps;
@@ -9,7 +9,7 @@ export type CollapseViewProps = ElementProps<HTMLDivElement> & {
     closeIcon?: RenderElement;
     openIcon?: RenderElement;
 };
-export type CollabpseViewState = ElementState & {
+export type CollapseViewState = {
     open: boolean;
 };
 export declare function CollapseView(properties: CollapseViewProps): RenderElement;

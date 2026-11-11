@@ -10,22 +10,21 @@ import {
     ChildComponent,
     RenderElement,
     ElementProps,
-    ElementState,
     CSSProps,
 } from "curlui/types";
 
-export type MenuProps = ElementProps<HTMLDivElement> & {
+export type MenuProps = ElementProps & {
     menuItems?: Array<RenderElement>;
     title: ChildComponent;
     dropdownStyle?: CSSProps;
     open?: boolean;
 };
 
-export type MenuState = ElementState & {
+export type MenuState = {
     open: boolean;
 };
 
-const Menu_ = CreateComponent<MenuProps>({
+const Menu_ = CreateComponent<MenuProps, MenuState>({
     getInitialState() {
         return {
             open: this.getProps().open === true ? true : false,
@@ -158,13 +157,13 @@ export function Menu(properties: MenuProps): RenderElement {
     return <Menu_ {...properties} />;
 }
 
-export type MenuBarProps = ElementProps<HTMLDivElement>;
+export type MenuBarProps = ElementProps;
 
 export function MenuBar(properties: MenuBarProps, ...menus: Array<any>) {
     return CustomElement("div", Classes.MENU_BAR, {}, properties, ...menus);
 }
 
-export type MenuItemProps = ElementProps<HTMLDivElement>;
+export type MenuItemProps = ElementProps;
 
 export function MenuItem(properties: MenuItemProps, ...children: Array<any>) {
     return CustomElement("div", Classes.MENU_ITEM, {}, properties, ...children);

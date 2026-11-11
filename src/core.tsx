@@ -5,7 +5,7 @@ import {
     ElementProps,
     ChildComponent,
     RenderElement,
-    NativeElement,
+    CSSProps,
 } from "curlui/types";
 
 /**
@@ -77,17 +77,22 @@ export function LoadDefaultProperties(
 export function CustomElement(
     tag: CurlUITag,
     customClass: string,
-    customProperties: ElementProps<NativeElement>,
-    properties: ElementProps<NativeElement>,
+    customProperties: ElementProps,
+    properties: ElementProps,
     ...children: Array<ChildComponent>
 ): RenderElement {
     let className = properties.className
             ? [customClass, properties.className].join(" ")
             : customClass,
-        style = {
-            ...(customProperties.style || {}),
-            ...(properties.style || {}),
-        };
+        style: CSSProps = {};
+
+    if (customProperties.style && typeof customProperties.style === "object") {
+        style = Object.assign(style, customProperties.style);
+    }
+
+    if (properties.style && typeof properties.style === "object") {
+        style = Object.assign(style, properties.style);
+    }
 
     return CreateElement(
         tag,

@@ -1,4 +1,4 @@
-import { CurlUITag, ElementProps, ChildComponent, RenderElement, NativeElement } from "curlui/types";
+import { CurlUITag, ElementProps, ChildComponent, RenderElement } from "curlui/types";
 /**
  * Suposedly generates a unique string
  * @returns The unique string.
@@ -31,7 +31,7 @@ export declare function LoadDefaultProperties(defaultProperties: {
 } & {
     [key: string]: any;
 };
-export declare function CustomElement(tag: CurlUITag, customClass: string, customProperties: ElementProps<NativeElement>, properties: ElementProps<NativeElement>, ...children: Array<ChildComponent>): RenderElement;
+export declare function CustomElement(tag: CurlUITag, customClass: string, customProperties: ElementProps, properties: ElementProps, ...children: Array<ChildComponent>): RenderElement;
 export declare const Colors: {
     ALICE_BLUE: string;
     ANTIQUE_WHITE: string;

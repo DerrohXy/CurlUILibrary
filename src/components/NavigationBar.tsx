@@ -1,23 +1,18 @@
 import { Classes, RemoveFields, LoadContent, CustomEvents } from "../core";
 import { CreateComponent } from "curlui";
-import {
-    RenderElement,
-    ElementProps,
-    ElementState,
-    CSSProps,
-} from "curlui/types";
+import { RenderElement, ElementProps, CSSProps } from "curlui/types";
 
-export type NavigationBarState = ElementState & {
+export type NavigationBarState = {
     drawerOpen: boolean;
     menuOpen: boolean;
 };
 
-export type NavigationBarProps = ElementProps<HTMLDivElement> & {
-    drawerContent?: RenderElement;
-    menuContent?: RenderElement;
-    content?: Array<RenderElement> | RenderElement;
-    drawerButton?: RenderElement;
-    menuButton?: RenderElement;
+export type NavigationBarProps = ElementProps & {
+    drawerContent?: RenderElement | null;
+    menuContent?: RenderElement | null;
+    content?: Array<RenderElement> | RenderElement | null;
+    drawerButton?: RenderElement | null;
+    menuButton?: RenderElement | null;
     navigationWindowStyle?: CSSProps;
     drawerWindowStyle?: CSSProps;
     menuWindowStyle?: CSSProps;
@@ -36,7 +31,7 @@ function menuIcon_(): RenderElement {
     );
 }
 
-const NavigationBar_ = CreateComponent<NavigationBarProps>({
+const NavigationBar_ = CreateComponent<NavigationBarProps, NavigationBarState>({
     getInitialState() {
         return {
             drawerOpen: false,
@@ -113,8 +108,8 @@ const NavigationBar_ = CreateComponent<NavigationBarProps>({
                 props.drawerContent,
             ),
             menuContent: Array<RenderElement> = LoadContent(props.menuContent),
-            drawerButton: RenderElement | undefined = props.drawerButton,
-            menuButton: RenderElement | undefined = props.menuButton,
+            drawerButton = props.drawerButton,
+            menuButton = props.menuButton,
             content: Array<RenderElement> = LoadContent(
                 props.content || props.children || [],
             ),

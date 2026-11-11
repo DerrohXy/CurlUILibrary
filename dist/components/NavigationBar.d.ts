@@ -1,14 +1,14 @@
-import { RenderElement, ElementProps, ElementState, CSSProps } from "curlui/types";
-export type NavigationBarState = ElementState & {
+import { RenderElement, ElementProps, CSSProps } from "curlui/types";
+export type NavigationBarState = {
     drawerOpen: boolean;
     menuOpen: boolean;
 };
-export type NavigationBarProps = ElementProps<HTMLDivElement> & {
-    drawerContent?: RenderElement;
-    menuContent?: RenderElement;
-    content?: Array<RenderElement> | RenderElement;
-    drawerButton?: RenderElement;
-    menuButton?: RenderElement;
+export type NavigationBarProps = ElementProps & {
+    drawerContent?: RenderElement | null;
+    menuContent?: RenderElement | null;
+    content?: Array<RenderElement> | RenderElement | null;
+    drawerButton?: RenderElement | null;
+    menuButton?: RenderElement | null;
     navigationWindowStyle?: CSSProps;
     drawerWindowStyle?: CSSProps;
     menuWindowStyle?: CSSProps;

@@ -2,13 +2,13 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { ElementProps } from "curlui/types";
 
-export type TableProps = ElementProps<HTMLTableElement>;
+export type TableProps = ElementProps;
 
 export function Table(properties: TableProps, ...children: Array<any>) {
     return CustomElement("table", Classes.TABLE, {}, properties, ...children);
 }
 
-export type TableCellProps = ElementProps<HTMLTableCellElement>;
+export type TableCellProps = ElementProps;
 
 export function TableHeading(
     properties: TableCellProps,
@@ -46,7 +46,7 @@ export function TableBody(properties: TableCellProps, ...children: Array<any>) {
     );
 }
 
-export type TableRowProps = ElementProps<HTMLTableRowElement>;
+export type TableRowProps = ElementProps;
 
 export function TableRow(properties: TableRowProps, ...children: Array<any>) {
     return CustomElement("tr", Classes.TABLE_ROW, {}, properties, ...children);
@@ -69,7 +69,7 @@ export function TableHeader(
     );
 }
 
-export type TableCaptionProps = ElementProps<HTMLTableCaptionElement>;
+export type TableCaptionProps = ElementProps;
 
 export function TableCaption(
     properties: TableCaptionProps,

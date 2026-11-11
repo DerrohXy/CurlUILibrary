@@ -2,7 +2,7 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { ElementProps } from "curlui/types";
 
-export type InputProps = ElementProps<HTMLInputElement>;
+export type InputProps = ElementProps;
 
 export function TextInput(properties: InputProps) {
     return CustomElement(
@@ -81,7 +81,7 @@ export function DateInput(properties: InputProps) {
     );
 }
 
-export type TextAreaProps = ElementProps<HTMLTextAreaElement>;
+export type TextAreaProps = ElementProps;
 
 export function TextArea(properties: TextAreaProps) {
     return CustomElement(
