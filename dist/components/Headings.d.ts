@@ -1,5 +1,5 @@
 import { ElementProps } from "curlui/types";
-export type HeadingProps = ElementProps & {
+export type HeadingProps = ElementProps<"h1" | "h2" | "h3" | "h4" | "h5" | "h6"> & {
     text: string;
 };
 export declare function Heading1(properties: HeadingProps): import("curlui").CurlUIElement;

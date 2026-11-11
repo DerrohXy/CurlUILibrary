@@ -3,7 +3,7 @@ export type NavigationBarState = {
     drawerOpen: boolean;
     menuOpen: boolean;
 };
-export type NavigationBarProps = ElementProps & {
+export type NavigationBarProps = ElementProps<"div"> & {
     drawerContent?: RenderElement | null;
     menuContent?: RenderElement | null;
     content?: Array<RenderElement> | RenderElement | null;

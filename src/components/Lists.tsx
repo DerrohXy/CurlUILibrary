@@ -2,7 +2,7 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { ElementProps } from "curlui/types";
 
-export type UnorderedListProps = ElementProps;
+export type UnorderedListProps = ElementProps<"ul">;
 
 export function UnorderedList(
     properties: UnorderedListProps,
@@ -17,7 +17,7 @@ export function UnorderedList(
     );
 }
 
-export type OrderedListProps = ElementProps;
+export type OrderedListProps = ElementProps<"ol">;
 
 export function OrderedList(
     properties: OrderedListProps,
@@ -32,7 +32,7 @@ export function OrderedList(
     );
 }
 
-export type ListItemProps = ElementProps;
+export type ListItemProps = ElementProps<"li">;
 
 export function ListItem(properties: ListItemProps, ...children: Array<any>) {
     return CustomElement("li", Classes.LIST_ITEM, {}, properties, ...children);

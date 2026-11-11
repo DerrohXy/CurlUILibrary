@@ -1,5 +1,5 @@
 import { ElementProps } from "curlui/types";
-export type ParagraphProps = ElementProps;
+export type ParagraphProps = ElementProps<"p">;
 export declare function Paragraph(properties: ParagraphProps & {
     text: string;
 }): import("curlui").CurlUIElement;

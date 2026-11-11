@@ -3,7 +3,7 @@ export type SelectionViewOptionItem = {
     text?: string;
     content?: ChildComponent;
 };
-export type SelectionViewProps = ElementProps & {
+export type SelectionViewProps = ElementProps<"div"> & {
     optionItems: Array<SelectionViewOptionItem>;
     onSelection: Function;
     dropdownStyle?: CSSProps;

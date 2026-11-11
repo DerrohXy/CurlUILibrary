@@ -2,7 +2,7 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { ElementProps } from "curlui/types";
 
-export type ParagraphProps = ElementProps;
+export type ParagraphProps = ElementProps<"p">;
 
 export function Paragraph(properties: ParagraphProps & { text: string }) {
     return CustomElement(

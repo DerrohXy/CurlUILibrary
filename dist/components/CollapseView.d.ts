@@ -1,5 +1,5 @@
 import { ChildComponent, RenderElement, ElementProps, CSSProps } from "curlui/types";
-export type CollapseViewProps = ElementProps & {
+export type CollapseViewProps = ElementProps<"div"> & {
     content?: Array<ChildComponent> | ChildComponent;
     title: ChildComponent;
     titleBarStyle?: CSSProps;

@@ -2,7 +2,7 @@ import { CustomElement, LoadContent } from "../core";
 import { Classes } from "../core";
 import { ChildComponent, RenderElement, ElementProps } from "curlui/types";
 
-export type ActivityProps = ElementProps & {
+export type ActivityProps = ElementProps<"div"> & {
     content?: ChildComponent | Array<ChildComponent>;
     footerBar?: RenderElement;
     navigationBar?: RenderElement;

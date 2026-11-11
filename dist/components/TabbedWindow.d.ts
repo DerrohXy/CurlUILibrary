@@ -1,6 +1,6 @@
 import { ChildComponent, RenderElement, ElementProps, CSSProps } from "curlui/types";
 export type TabLocation = "left" | "right" | "center";
-export type TabbedWindowProps = ElementProps & {
+export type TabbedWindowProps = ElementProps<"div"> & {
     tabs: Array<TabbedWindowTab>;
     vertical?: boolean;
     titleBarStyle?: CSSProps;

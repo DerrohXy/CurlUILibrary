@@ -2,7 +2,7 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { ElementProps } from "curlui/types";
 
-export type ScrollWindowProps = ElementProps;
+export type ScrollWindowProps = ElementProps<"div">;
 
 export function ScrollWindow(
     properties: ScrollWindowProps,

@@ -2,7 +2,7 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { ElementProps } from "curlui/types";
 
-export type SelectProps = ElementProps;
+export type SelectProps = ElementProps<"select">;
 
 export function Select(properties: SelectProps, ...options: Array<any>) {
     return CustomElement(
@@ -14,7 +14,7 @@ export function Select(properties: SelectProps, ...options: Array<any>) {
     );
 }
 
-export type OptionProps = ElementProps;
+export type OptionProps = ElementProps<"option">;
 
 export function Option(properties: OptionProps & { text?: string }) {
     return CustomElement(

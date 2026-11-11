@@ -13,7 +13,7 @@ import {
     CSSProps,
 } from "curlui/types";
 
-export type MenuProps = ElementProps & {
+export type MenuProps = ElementProps<"div"> & {
     menuItems?: Array<RenderElement>;
     title: ChildComponent;
     dropdownStyle?: CSSProps;

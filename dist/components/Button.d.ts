@@ -1,5 +1,5 @@
 import { ElementProps } from "curlui/types";
-export type ButtonProps = ElementProps & {
+export type ButtonProps = ElementProps<"button"> & {
     text: string;
 };
 export declare function Button(properties: ButtonProps): import("curlui").CurlUIElement;

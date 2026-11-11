@@ -2,7 +2,7 @@ import { CustomElement } from "../core";
 import { Classes } from "../core";
 import { ElementProps } from "curlui/types";
 
-export type IconButtonProps = ElementProps & {
+export type IconButtonProps = ElementProps<"div"> & {
     text: string;
     icon: any;
 };

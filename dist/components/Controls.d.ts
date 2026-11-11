@@ -2,7 +2,7 @@ import { ChildComponent, RenderElement, ElementProps, CSSProps } from "curlui/ty
 export type SwitchState = {
     active: boolean;
 };
-export type SwitchProps = ElementProps & {
+export type SwitchProps = ElementProps<"div"> & {
     onActiveChange: Function;
     active?: boolean;
 };
